@@ -5,6 +5,7 @@ This repository contains all commits for our prototype.
 * Erwin Oudomvylay
 * Robin Schröder
 * Miles Bulut
+* Fabian Kemser
 
 ## Credits
 This prototype was created at the Visualization and Interaction in Digital Media (VIS) program of HS Ansbach. Supervised by Prof. Sebastian Stamm & Prof. Florian Machill (Game Jam SS24).
