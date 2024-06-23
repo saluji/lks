@@ -154,14 +154,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: Steps_floor-001
-    clip: {fileID: 8300000, guid: 49e454100f776ce4fac02bbef7c11835, type: 3}
-    volume: 0.176
+    clip: {fileID: 8300000, guid: b2e4cdb451318b44b87e5b8db3c5b6e8, type: 3}
+    volume: 0
     pitch: 0.1
     loop: 0
     source: {fileID: 0}
   - name: Theme
     clip: {fileID: 8300000, guid: c8c5717cb4ca25a4c823cda5c23f0882, type: 3}
-    volume: 0.547
+    volume: 0.831
     pitch: 0.1
     loop: 1
     source: {fileID: 0}
