@@ -7,7 +7,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] Slider volumeSlider;
     void Start()
     {
-        volumeSlider.value = 1;
+        //volumeSlider.value = 1;
     }
     public void ChangeVolume()
     {
