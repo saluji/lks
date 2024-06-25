@@ -3,7 +3,6 @@ This repository contains all commits for our prototype.
 
 ## Authors
 * Erwin Oudomvylay
-* Robin Schröder
 * Miles Bulut
 * Fabian Kemser
 
