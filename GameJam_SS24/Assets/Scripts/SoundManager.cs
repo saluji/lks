@@ -1,12 +1,21 @@
-using UnityEngine.Audio;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
-public class AudioManager : MonoBehaviour
+public class SoundManager : MonoBehaviour
 {
-    public Sound[] sounds;
+    [SerializeField] Slider volumeSlider;
+    void Start()
+    {
+        volumeSlider.value = 1;
+    }
+    public void ChangeVolume()
+    {
+        AudioListener.volume = volumeSlider.value;
+    }
+    /*public Sound[] sounds;
 
-    public static AudioManager instance; 
+    public static SoundManager instance; 
     // Start is called before the first frame update
     void Awake()
     {
@@ -41,5 +50,5 @@ public class AudioManager : MonoBehaviour
         if (s == null)
             return; 
         s.source.Play();
-    }
+    }*/
 }
