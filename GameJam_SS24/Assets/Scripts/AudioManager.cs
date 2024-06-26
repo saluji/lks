@@ -1,17 +1,40 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using System;
 
-public class SoundManager : MonoBehaviour
+public class AudioManager : MonoBehaviour
 {
-    [SerializeField] Slider volumeSlider;
+    [Header("Audio Source")]
+    [SerializeField] AudioSource musicSource;
+    [SerializeField] AudioSource sFXSource;
+    [Header("Audio Clip")]
+    public AudioClip backgroundMusic;
+    public AudioClip walk;
+    public AudioClip run;
+    public AudioClip jump;
+    public AudioClip death;
+    private static AudioManager instance;
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     void Start()
     {
-        //volumeSlider.value = 1;
+        musicSource.clip = backgroundMusic;
+        musicSource.Play();
     }
-    public void ChangeVolume()
+    public void PlaySFX(AudioClip clip)
     {
-        AudioListener.volume = volumeSlider.value;
+        sFXSource.PlayOneShot(clip);
     }
     /*public Sound[] sounds;
 
