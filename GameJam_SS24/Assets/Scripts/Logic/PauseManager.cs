@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class PauseManager : MonoBehaviour
 {
-    private static bool isPaused = false;
     [SerializeField] UIManager UIManager;
+    [SerializeField] CursorManager CursorManager;
+    private static bool isPaused = false;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.R) && !isPaused)
@@ -16,10 +17,12 @@ public class PauseManager : MonoBehaviour
         isPaused = true;
         Time.timeScale = 0;
         UIManager.TogglePause(isPaused);
+        CursorManager.ShowCursor();
     }
     public void Resume()
     {
         isPaused = false;
+        CursorManager.HideCursor();
         UIManager.TogglePause(isPaused);
         Time.timeScale = 1;
     }
