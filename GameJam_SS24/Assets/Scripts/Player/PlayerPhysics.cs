@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerPhysics : MonoBehaviour
 {
     [SerializeField] float raycastDistance = 0.1f;
-    [SerializeField] float gravityMultiplier = 5f;
+    [SerializeField] float gravityMultiplier = 1f;
     [SerializeField] float forceStrength = 10f;
     private Animator animator;
     private CharacterController characterController;

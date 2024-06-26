@@ -1,25 +1,12 @@
 using UnityEngine;
 public class ThirdPersonController : MonoBehaviour
 {
-    // how fast the character can turn
     public float rotationSpeed;
-
-    // Damping for locomotion animator parameter
-    public float LocomotionParameterDamping = 0.1f;
-
-    // Animator playing animations
+    public float locomotionParameterDamping = 0.1f;
     private Animator animator;
-
-    // Hash speed parameter
     private int speedParameterHash;
-
-    // Hash speed parameter
     private int isWalkingParameterHash;
-
-    // Main camera
     private Transform cameraTransform;
-
-    // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -27,8 +14,6 @@ public class ThirdPersonController : MonoBehaviour
         isWalkingParameterHash = Animator.StringToHash("isWalking");
         cameraTransform = Camera.main.transform;
     }
-
-    // Update is called once per frame
     void Update()
     {
         // Stores inputs
@@ -52,7 +37,7 @@ public class ThirdPersonController : MonoBehaviour
         animator.SetBool(isWalkingParameterHash, inputMagnitude > 0);
 
         // Set animaotr speed parameter with damping (moves the character via root motion)
-        //animator.SetFloat(speedParameterHash, speed, LocomotionParameterDamping, Time.deltaTime);
+        animator.SetFloat(speedParameterHash, speed, locomotionParameterDamping, Time.deltaTime);
 
         if (movementDirection != Vector3.zero)
             RotatePlayer(movementDirection);
