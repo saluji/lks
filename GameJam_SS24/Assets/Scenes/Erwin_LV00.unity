@@ -303,12 +303,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e18f39cd8b9d19044929bf60ad697083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MusicSource: {fileID: 1431476621}
-  SFXSource: {fileID: 1265626954}
-  BackgroundMusic: {fileID: 0}
-  Walk: {fileID: 0}
-  Run: {fileID: 0}
-  Jump: {fileID: 0}
+  musicSource: {fileID: 1431476621}
+  sFXSource: {fileID: 1265626954}
+  backgroundMusic: {fileID: 8300000, guid: 925f3f6947dad624e9ab4816ba8a2bbd, type: 3}
+  walk: {fileID: 0}
+  run: {fileID: 0}
+  jump: {fileID: 0}
   death: {fileID: 0}
 --- !u!1 &203844586
 GameObject:
@@ -607,11 +607,11 @@ RectTransform:
   - {fileID: 136323975}
   m_Father: {fileID: 446175576}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 50}
   m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &288040461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1653,7 +1653,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 925f3f6947dad624e9ab4816ba8a2bbd, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

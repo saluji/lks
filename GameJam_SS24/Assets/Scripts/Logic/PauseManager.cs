@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class PauseManager : MonoBehaviour
 {
-    [SerializeField] UIManager UIManager;
-    [SerializeField] CursorManager CursorManager;
+    [SerializeField] CursorManager cursorManager;
+    [SerializeField] UIManager uIManager;
     private static bool isPaused = false;
     void Update()
     {
@@ -16,14 +16,14 @@ public class PauseManager : MonoBehaviour
     {
         isPaused = true;
         Time.timeScale = 0;
-        UIManager.TogglePause(isPaused);
-        CursorManager.ShowCursor();
+        uIManager.TogglePause(isPaused);
+        cursorManager.ShowCursor();
     }
     public void Resume()
     {
         isPaused = false;
-        CursorManager.HideCursor();
-        UIManager.TogglePause(isPaused);
+        cursorManager.HideCursor();
+        uIManager.TogglePause(isPaused);
         Time.timeScale = 1;
     }
 }

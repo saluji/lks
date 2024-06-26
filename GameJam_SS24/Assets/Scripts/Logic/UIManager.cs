@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] GameObject MenuPanel;
+    [SerializeField] GameObject menuPanel;
     public void TogglePause(bool isPaused)
     {
-        MenuPanel.SetActive(isPaused);
+        menuPanel.SetActive(isPaused);
     }
 }

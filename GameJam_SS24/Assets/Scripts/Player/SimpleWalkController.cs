@@ -3,8 +3,8 @@ using UnityEngine.UIElements;
 public class SimpleWalkController : MonoBehaviour
 {
     private Transform CameraTransform;
-    public float movementSpeed = 10;
-    public float turnSpeed = 90;
+    [SerializeField] float movementSpeed = 10;
+    [SerializeField] float turnSpeed = 90;
     void Start()
     {
         CameraTransform = Camera.main.transform;
@@ -14,13 +14,11 @@ public class SimpleWalkController : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         Vector3 movementDirection = new Vector3(horizontalInput, 0, verticalInput);
-        movementDirection = Quaternion.AngleAxis(CameraTransform.rotation.eulerAngles.y, Vector3.up) * movementDirection;
+        //movementDirection = Quaternion.AngleAxis(CameraTransform.rotation.eulerAngles.y, Vector3.up) * movementDirection;
+        MovePlayer(verticalInput);
         //float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
         if (movementDirection != Vector3.zero)
             RotatePlayer(movementDirection);
-
-        MovePlayer(verticalInput);
-
         /*if (verticalInput > 0)
         {
             RotatePlayer(horizontalInput);
