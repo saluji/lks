@@ -1,35 +1,31 @@
 using UnityEngine;
-
-/// <summary>
-/// Base for a third person character controller
-/// </summary>
 public class ThirdPersonController : MonoBehaviour
 {
     // how fast the character can turn
-    public float RotationSpeed;
+    public float rotationSpeed;
 
     // Damping for locomotion animator parameter
     public float LocomotionParameterDamping = 0.1f;
 
     // Animator playing animations
-    private Animator _animator;
+    private Animator animator;
 
     // Hash speed parameter
-    private int _speedParameterHash;
+    private int speedParameterHash;
 
     // Hash speed parameter
-    private int _isWalkingParameterHash;
+    private int isWalkingParameterHash;
 
     // Main camera
-    private Transform _cameraTransform;
+    private Transform cameraTransform;
 
     // Start is called before the first frame update
     void Start()
     {
-        _animator = GetComponent<Animator>();
-        _speedParameterHash = Animator.StringToHash("speed");
-        _isWalkingParameterHash = Animator.StringToHash("isWalking");
-        _cameraTransform = Camera.main.transform;
+        animator = GetComponent<Animator>();
+        speedParameterHash = Animator.StringToHash("speed");
+        isWalkingParameterHash = Animator.StringToHash("isWalking");
+        cameraTransform = Camera.main.transform;
     }
 
     // Update is called once per frame
@@ -43,7 +39,7 @@ public class ThirdPersonController : MonoBehaviour
         float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
 
         // Rotate input vector depending on camera y-Rotation
-        movementDirection = Quaternion.AngleAxis(_cameraTransform.rotation.eulerAngles.y, Vector3.up) * movementDirection;
+        movementDirection = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * movementDirection;
 
         // Should walk? (left or right shift held)
         bool shouldWalk = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
@@ -53,16 +49,18 @@ public class ThirdPersonController : MonoBehaviour
         float speed = shouldWalk ? inputMagnitude * 2 : inputMagnitude;
 
         // Set animator isWalking parameter depending on input
-        _animator.SetBool(_isWalkingParameterHash, inputMagnitude > 0);
+        animator.SetBool(isWalkingParameterHash, inputMagnitude > 0);
 
         // Set animaotr speed parameter with damping (moves the character via root motion)
-        _animator.SetFloat(_speedParameterHash, speed, LocomotionParameterDamping, Time.deltaTime);
+        //animator.SetFloat(speedParameterHash, speed, LocomotionParameterDamping, Time.deltaTime);
 
-        // Rotate character
         if (movementDirection != Vector3.zero)
-        {
-            Quaternion targetCharacterRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetCharacterRotation, RotationSpeed * Time.deltaTime);
-        }
+            RotatePlayer(movementDirection);
+    }
+    void RotatePlayer(Vector3 movementDirection)
+    {
+        Quaternion targetCharacterRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetCharacterRotation, rotationSpeed * Time.deltaTime);
+
     }
 }
