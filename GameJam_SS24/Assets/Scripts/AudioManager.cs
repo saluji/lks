@@ -3,21 +3,21 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     [Header("Audio Source")]
-    [SerializeField] AudioSource musicSource;
-    [SerializeField] AudioSource sFXSource;
+    [SerializeField] AudioSource MusicSource;
+    [SerializeField] AudioSource SFXSource;
     [Header("Audio Clip")]
-    public AudioClip backgroundMusic;
-    public AudioClip walk;
-    public AudioClip run;
-    public AudioClip jump;
+    public AudioClip BackgroundMusic;
+    public AudioClip Walk;
+    public AudioClip Run;
+    public AudioClip Jump;
     public AudioClip death;
     void Start()
     {
-        musicSource.clip = backgroundMusic;
-        musicSource.Play();
+        MusicSource.clip = BackgroundMusic;
+        MusicSource.Play();
     }
     public void PlaySFX(AudioClip clip)
     {
-        sFXSource.PlayOneShot(clip);
+        SFXSource.PlayOneShot(clip);
     }
 }

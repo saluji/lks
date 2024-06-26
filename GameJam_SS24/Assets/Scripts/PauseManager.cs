@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PauseManager : MonoBehaviour
 {
     private static bool isPaused = false;
-    [SerializeField] UIManager uIManager;
+    [SerializeField] UIManager UIManager;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.R) && !isPaused)
@@ -17,12 +15,12 @@ public class PauseManager : MonoBehaviour
     {
         isPaused = true;
         Time.timeScale = 0;
-        uIManager.TogglePause(isPaused);
+        UIManager.TogglePause(isPaused);
     }
     public void Resume()
     {
         isPaused = false;
-        uIManager.TogglePause(isPaused);
+        UIManager.TogglePause(isPaused);
         Time.timeScale = 1;
     }
 }
