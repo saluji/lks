@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class PlayerPhysics : MonoBehaviour
 {
-    [SerializeField] Transform groundCheck;
     [SerializeField] float raycastDistance = 0.1f;
-    [SerializeField] float groundRadius = 0.1f;
     [SerializeField] float gravityMultiplier = 1f;
     [SerializeField] float forceStrength = 10f;
     [SerializeField] float jumpStrength = 1f;
@@ -13,15 +11,12 @@ public class PlayerPhysics : MonoBehaviour
     private Animator animator;
     private CharacterController characterController;
     private Vector3 velocity;
-    private LayerMask groundLayer;
     private float ySpeed;
     private int isGroundedParameterHash;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
-        groundCheck = GetComponent<Transform>();
-        groundLayer = LayerMask.GetMask("Ground");
         isGroundedParameterHash = Animator.StringToHash("isGrounded");
         characterController = GetComponent<CharacterController>();
     }
