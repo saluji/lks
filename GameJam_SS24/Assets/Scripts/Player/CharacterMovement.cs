@@ -6,11 +6,11 @@ using UnityEngine.InputSystem;
 
 public class CharacterMovement : MonoBehaviour
 {
+    // player stats
     [Header("Player behaviour")]
     [SerializeField] float movementSpeed = 1f;
     [SerializeField] float runMultiplier = 1f;
     [SerializeField] float turnSpeed = 1.0f;
-
 
     // reference variables
     PlayerInput playerInput;
@@ -23,11 +23,18 @@ public class CharacterMovement : MonoBehaviour
     Vector3 currentRunMovement;
     bool isMovementPressed;
     bool isRunPressed;
+    int isWalkingHash;
+    int isRunningHash;
 
-    // gravity values
+    // gravity stats
+    [Header("Gravity values")]
+    [SerializeField] float fallMultiplier = 2.0f;
+    [SerializeField] float terminalVelocity = -20.0f;
     float gravity = -1f;
     float groundedGravity = -0.5f;
+    bool isFalling;
 
+    // jump stats
     [Header("Jump variables")]
     [SerializeField] float maxJumpHeight = 1.0f;
     [SerializeField] float maxJumpTime = 0.5f;
@@ -35,10 +42,9 @@ public class CharacterMovement : MonoBehaviour
     float timeToApex;
     bool isJumpPressed = false;
     bool isJumping = false;
+    int isJumpingHash;
+    bool isJumpAnimating = false;
 
-    // store hashes
-    int isWalkingHash;
-    int isRunningHash;
 
     void Awake()
     {
@@ -50,6 +56,7 @@ public class CharacterMovement : MonoBehaviour
         // set hash reference
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
+        isJumpingHash = Animator.StringToHash("isJumping");
 
         // set player input callbacks
         playerInput.CharacterControls.Move.started += OnMovementInput;
@@ -62,45 +69,7 @@ public class CharacterMovement : MonoBehaviour
 
         SetupJumpVariables();
     }
-    void Update()
-    {
-        HandleRotation();
-        HandleAnimation();
 
-        if (isRunPressed)
-        {
-            characterController.Move(currentRunMovement * movementSpeed * Time.deltaTime);
-        }
-        else
-        {
-            characterController.Move(currentMovement * movementSpeed * Time.deltaTime);
-        }
-        HandleGravity();
-        HandleJump();
-    }
-
-    void SetupJumpVariables()
-    {
-        maxJumpTime = (maxJumpTime == 0) ? 1 : maxJumpTime;
-        timeToApex = maxJumpTime / 2;
-        gravity = -2 * maxJumpHeight / Mathf.Pow(timeToApex, 2);
-        initialJumpVelocity = 2 * maxJumpHeight / timeToApex;
-    }
-
-    void HandleJump()
-    {
-        if (!isJumping && characterController.isGrounded && isJumpPressed)
-        {
-            isJumping = true;
-            currentMovement.y = initialJumpVelocity * 0.5f;
-            currentRunMovement.y = initialJumpVelocity * 0.5f;
-        }
-        else if (!isJumpPressed && isJumping && characterController.isGrounded)
-        {
-            isJumping = false;
-        }
-    }
-    // handler function to set player input values
     void OnMovementInput(InputAction.CallbackContext context)
     {
         currentMovementInput = context.ReadValue<Vector2>();
@@ -115,10 +84,36 @@ public class CharacterMovement : MonoBehaviour
     {
         isRunPressed = context.ReadValueAsButton();
     }
+
     void OnJump(InputAction.CallbackContext context)
     {
         isJumpPressed = context.ReadValueAsButton();
     }
+
+    void SetupJumpVariables()
+    {
+        // set initial jump variables with gravitational fall equation
+        maxJumpTime = (maxJumpTime == 0) ? 1 : maxJumpTime;
+        timeToApex = maxJumpTime / 2;
+        gravity = -2 * maxJumpHeight / Mathf.Pow(timeToApex, 2);
+        initialJumpVelocity = 2 * maxJumpHeight / timeToApex;
+    }
+
+    void Update()
+    {
+        HandleMovement();
+        HandleRotation();
+        HandleAnimation();
+        HandleGravity();
+        HandleJump();
+    }
+
+    void HandleMovement()
+    {
+        // move player and calculate speed if moving and / or running
+        characterController.Move((isRunPressed ? currentRunMovement : currentMovement) * movementSpeed * Time.deltaTime);
+    }
+
     void HandleRotation()
     {
         Vector3 positionToLookAt;
@@ -126,6 +121,7 @@ public class CharacterMovement : MonoBehaviour
         positionToLookAt.y = 0.0f;
         positionToLookAt.z = currentMovement.z;
 
+        // turn player depending on inputs
         Quaternion currentRotation = transform.rotation;
         if (isMovementPressed)
         {
@@ -134,28 +130,12 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    void HandleGravity()
-    {
-        if (characterController.isGrounded)
-        {
-            currentMovement.y = groundedGravity;
-            currentRunMovement.y = groundedGravity;
-        }
-        else
-        {
-            float previousYVelocit = currentMovement.y;
-            float newYVelocity = currentMovement.y + (gravity * Time.deltaTime);
-            float nextYVelocity = (previousYVelocit + newYVelocity) * 0.5f;
-            currentMovement.y = nextYVelocity;
-            currentRunMovement.y = nextYVelocity;
-        }
-    }
     void HandleAnimation()
     {
-        // get parameter hash from animator
         bool isWalking = animator.GetBool(isWalkingHash);
         bool isRunning = animator.GetBool(isRunningHash);
 
+        // locomotion animation logic
         if (isMovementPressed && !isWalking)
         {
             animator.SetBool(isWalkingHash, true);
@@ -172,6 +152,58 @@ public class CharacterMovement : MonoBehaviour
         else if ((!isMovementPressed || !isRunPressed) && isRunning)
         {
             animator.SetBool(isRunningHash, false);
+        }
+    }
+
+    void HandleGravity()
+    {
+        isFalling = currentMovement.y <= 0.0f || !isJumpPressed;
+
+        // apply proper gravity depending on grounded state
+        if (characterController.isGrounded)
+        {
+            animator.SetBool(isJumpingHash, false);
+            // if (isJumpAnimating)
+            // {
+            //     animator.SetBool(isJumpingHash, false);
+            //     isJumpAnimating = false;
+            // }
+            currentMovement.y = groundedGravity;
+            currentRunMovement.y = groundedGravity;
+        }
+        else if (isFalling)
+        {
+            // instantly fall if letting go of jump button and calculate terminal velocity
+            float previousYVelocity = currentMovement.y;
+            float newYVelocity = currentMovement.y + (gravity * fallMultiplier * Time.deltaTime);
+            float nextYVelocity = Mathf.Max((previousYVelocity + newYVelocity) * 0.5f, terminalVelocity);
+            currentMovement.y = nextYVelocity;
+            currentRunMovement.y = nextYVelocity;
+        }
+        else
+        {
+            float previousYVelocity = currentMovement.y;
+            float newYVelocity = currentMovement.y + (gravity * Time.deltaTime);
+            float nextYVelocity = (previousYVelocity + newYVelocity) * 0.5f;
+            currentMovement.y = nextYVelocity;
+            currentRunMovement.y = nextYVelocity;
+        }
+    }
+
+    void HandleJump()
+    {
+        // jump logic and animation
+        if (!isJumping && characterController.isGrounded && isJumpPressed)
+        {
+            animator.SetBool(isJumpingHash, true);
+            // isJumpAnimating = true;
+            isJumping = true;
+            currentMovement.y = initialJumpVelocity * 0.5f;
+            currentRunMovement.y = initialJumpVelocity * 0.5f;
+        }
+        else if (!isJumpPressed && isJumping && characterController.isGrounded)
+        {
+            isJumping = false;
         }
     }
 
