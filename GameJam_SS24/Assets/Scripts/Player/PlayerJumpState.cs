@@ -4,7 +4,8 @@ public class PlayerJumpState : PlayerBaseState
 {
     public PlayerJumpState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
     {
-
+        IsRootState = true;
+        InitializeSubState();
     }
 
     public override void EnterState()
@@ -20,55 +21,66 @@ public class PlayerJumpState : PlayerBaseState
 
     public override void ExitState()
     {
-        ctx.Animator.SetBool(ctx.IsJumpingHash, false);
-        
-        // replace GetKey with GetKeyDown on jump input
-        if (ctx.IsJumpPressed)
-        {
-            ctx.RequireNewJumpPress = true;
-        }
-    }
+        Ctx.Animator.SetBool(Ctx.IsJumpingHash, false);
 
-    public override void CheckSwitchStates()
-    {
-        if (ctx.CharacterController.isGrounded)
+        // replace GetKey with GetKeyDown on jump input
+        if (Ctx.IsJumpPressed)
         {
-            SwitchState(factory.Grounded());
+            Ctx.RequireNewJumpPress = true;
         }
     }
 
     public override void InitializeSubState()
     {
+        if (!Ctx.IsMovementPressed && !Ctx.IsRunPressed)
+        {
+            SetSubState(Factory.Idle());
+        }
+        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)
+        {
+            SetSubState(Factory.Walk());
+        }
+        else
+        {
+            SetSubState(Factory.Run());
+        }
+    }
 
+    public override void CheckSwitchStates()
+    {
+        if (Ctx.CharacterController.isGrounded)
+        {
+            SwitchState(Factory.Grounded());
+        }
     }
 
     void HandleJump()
     {
-        ctx.Animator.SetBool(ctx.IsJumpingHash, true);
-        ctx.IsJumping = true;
-        ctx.CurrentMovementY = ctx.InitialJumpVelocity;
-        ctx.AppliedMovementY = ctx.InitialJumpVelocity;
+        Ctx.Animator.SetBool(Ctx.IsJumpingHash, true);
+        Ctx.IsJumping = true;
+        Ctx.CurrentMovementY = Ctx.InitialJumpVelocity;
+        Ctx.AppliedMovementY = Ctx.InitialJumpVelocity;
     }
 
     void HandleGravity()
     {
         // instantly fall if letting go of jump button
-        ctx.IsFalling = ctx.CurrentMovementY <= 0.0f || !ctx.IsJumpPressed;
+        Ctx.IsFalling = Ctx.CurrentMovementY <= 0.0f || !Ctx.IsJumpPressed;
 
         // calculate gravity with velocity verlet integration
-        if (ctx.IsFalling)
+        if (Ctx.IsFalling)
         {
             // additional gravity applied after reaching the apex of jump
-            float previousYVelocity = ctx.CurrentMovementY;
-            ctx.CurrentMovementY += ctx.Gravity * ctx.FallMultiplier * Time.deltaTime;
-            ctx.AppliedMovementY = Mathf.Max((previousYVelocity + ctx.CurrentMovementY) * 0.5f, ctx.TerminalVelocity);
+            float previousYVelocity = Ctx.CurrentMovementY;
+            Ctx.CurrentMovementY += Ctx.Gravity * Ctx.FallMultiplier * Time.deltaTime;
+            Ctx.AppliedMovementY = Mathf.Max((previousYVelocity + Ctx.CurrentMovementY) * 0.5f, Ctx.TerminalVelocity);
         }
         else
         {
             // applied when character not grounded
-            float previousYVelocity = ctx.CurrentMovementY;
-            ctx.CurrentMovementY += ctx.Gravity * Time.deltaTime;
-            ctx.AppliedMovementY = (previousYVelocity + ctx.CurrentMovementY) * 0.5f;
+            float previousYVelocity = Ctx.CurrentMovementY;
+            Ctx.CurrentMovementY += Ctx.Gravity * Time.deltaTime;
+            Ctx.AppliedMovementY = (previousYVelocity + Ctx.CurrentMovementY) * 0.5f;
         }
     }
 }

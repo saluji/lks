@@ -51,13 +51,22 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerBaseState CurrentState { get { return currentState; } set { currentState = value; } }
     public CharacterController CharacterController { get { return characterController; } }
     public Animator Animator { get { return animator; } }
+    public Vector2 CurrentMovementInput { get { return currentMovementInput; } }
+    public int IsWalkingHash { get { return isWalkingHash; } }
+    public int IsRunningHash { get { return isRunningHash; } }
     public int IsJumpingHash { get { return isJumpingHash; } }
     public bool IsJumping { set { isJumping = value; } }
     public bool IsJumpPressed { get { return isJumpPressed; } }
     public bool IsFalling { get { return isFalling; } set { isFalling = value; } }
+    public bool IsMovementPressed { get { return isMovementPressed; } }
+    public bool IsRunPressed { get { return isRunPressed; } }
     public bool RequireNewJumpPress { get { return requireNewJumpPress; } set { requireNewJumpPress = value; } }
+    public float MovementSpeed { get { return movementSpeed; } }
+    public float RunMultiplier { get { return runMultiplier; } }
     public float CurrentMovementY { get { return currentMovement.y; } set { currentMovement.y = value; } }
     public float AppliedMovementY { get { return appliedMovement.y; } set { appliedMovement.y = value; } }
+    public float AppliedMovementX { get { return appliedMovement.x; } set { appliedMovement.x = value; } }
+    public float AppliedMovementZ { get { return appliedMovement.z; } set { appliedMovement.z = value; } }
     public float InitialJumpVelocity { get { return initialJumpVelocity; } }
     public float GroundedGravity { get { return groundedGravity; } }
     public float Gravity { get { return gravity; } }
@@ -131,7 +140,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         HandleMovement();
         HandleRotation();
-        currentState.UpdateState();
+        currentState.UpdateStates();
     }
 
     void HandleMovement()

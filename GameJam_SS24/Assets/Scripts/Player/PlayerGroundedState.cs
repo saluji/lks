@@ -4,14 +4,15 @@ public class PlayerGroundedState : PlayerBaseState
 {
     public PlayerGroundedState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
     {
-
+        IsRootState = true;
+        InitializeSubState();
     }
 
     public override void EnterState()
     {
         // low gravity to prevent clipping through ground
-        ctx.CurrentMovementY = ctx.GroundedGravity;
-        ctx.AppliedMovementY = ctx.GroundedGravity;
+        Ctx.CurrentMovementY = Ctx.GroundedGravity;
+        Ctx.AppliedMovementY = Ctx.GroundedGravity;
     }
 
     public override void UpdateState()
@@ -24,16 +25,27 @@ public class PlayerGroundedState : PlayerBaseState
 
     }
 
-    public override void CheckSwitchStates()
+    public override void InitializeSubState()
     {
-        if (ctx.IsJumpPressed && !ctx.RequireNewJumpPress)
+        if (!Ctx.IsMovementPressed && !Ctx.IsRunPressed)
         {
-            SwitchState(factory.Jump());
+            SetSubState(Factory.Idle());
+        }
+        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)
+        {
+            SetSubState(Factory.Walk());
+        }
+        else
+        {
+            SetSubState(Factory.Run());
         }
     }
 
-    public override void InitializeSubState()
+    public override void CheckSwitchStates()
     {
-
+        if (Ctx.IsJumpPressed && !Ctx.RequireNewJumpPress)
+        {
+            SwitchState(Factory.Jump());
+        }
     }
 }

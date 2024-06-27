@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerIdleState : PlayerBaseState
@@ -9,9 +10,12 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void EnterState()
     {
-
+        Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);
+        Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
+        Ctx.AppliedMovementX = 0;
+        Ctx.AppliedMovementZ = 0;
     }
-    
+
     public override void UpdateState()
     {
         CheckSwitchStates();
@@ -22,13 +26,20 @@ public class PlayerIdleState : PlayerBaseState
 
     }
 
-    public override void CheckSwitchStates()
+    public override void InitializeSubState()
     {
 
     }
 
-    public override void InitializeSubState()
+    public override void CheckSwitchStates()
     {
-
+        if (Ctx.IsMovementPressed && Ctx.IsRunPressed)
+        {
+            SwitchState(Factory.Run());
+        }
+        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)
+        {
+            SwitchState(Factory.Walk());
+        }
     }
 }
