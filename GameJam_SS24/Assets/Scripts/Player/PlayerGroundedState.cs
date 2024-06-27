@@ -9,9 +9,11 @@ public class PlayerGroundedState : PlayerBaseState
 
     public override void EnterState()
     {
-
+        // low gravity to prevent clipping through ground
+        ctx.CurrentMovementY = ctx.GroundedGravity;
+        ctx.AppliedMovementY = ctx.GroundedGravity;
     }
-    
+
     public override void UpdateState()
     {
         CheckSwitchStates();
@@ -24,8 +26,7 @@ public class PlayerGroundedState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        // if player is grounded and jump is pressed, switch to jump state
-        if (context.IsJumpPressed)
+        if (ctx.IsJumpPressed && !ctx.RequireNewJumpPress)
         {
             SwitchState(factory.Jump());
         }

@@ -7,16 +7,6 @@ public class PlayerStateMachine : MonoBehaviour
     PlayerBaseState currentState;
     PlayerStateFactory states;
 
-    // getter and setter
-    public PlayerBaseState CurrentState { get { return currentState; } set { currentState = value; } }
-    public Animator Animator { get { return animator; } }
-    public int IsJumpingHash { get { return isJumpingHash; } }
-    public bool IsJumping { set { isJumping = value; } }
-    public bool IsJumpPressed { get { return isJumpPressed; } }
-    public float CurrentMovementY { get { return currentMovement.y; } set { currentMovement.y = value; } }
-    public float AppliedMovementY { get { return appliedMovement.y; } set { appliedMovement.y = value; } }
-    public float InitialJumpVelocity { get { return initialJumpVelocity; } }
-
     // player stats
     [Header("Player behaviour")]
     [SerializeField] float movementSpeed = 1f;
@@ -54,7 +44,25 @@ public class PlayerStateMachine : MonoBehaviour
     float timeToApex;
     bool isJumpPressed = false;
     bool isJumping = false;
+    bool requireNewJumpPress = false;
     int isJumpingHash;
+
+    // getter and setter
+    public PlayerBaseState CurrentState { get { return currentState; } set { currentState = value; } }
+    public CharacterController CharacterController { get { return characterController; } }
+    public Animator Animator { get { return animator; } }
+    public int IsJumpingHash { get { return isJumpingHash; } }
+    public bool IsJumping { set { isJumping = value; } }
+    public bool IsJumpPressed { get { return isJumpPressed; } }
+    public bool IsFalling { get { return isFalling; } set { isFalling = value; } }
+    public bool RequireNewJumpPress { get { return requireNewJumpPress; } set { requireNewJumpPress = value; } }
+    public float CurrentMovementY { get { return currentMovement.y; } set { currentMovement.y = value; } }
+    public float AppliedMovementY { get { return appliedMovement.y; } set { appliedMovement.y = value; } }
+    public float InitialJumpVelocity { get { return initialJumpVelocity; } }
+    public float GroundedGravity { get { return groundedGravity; } }
+    public float Gravity { get { return gravity; } }
+    public float FallMultiplier { get { return fallMultiplier; } }
+    public float TerminalVelocity { get { return terminalVelocity; } }
 
     void Awake()
     {
@@ -107,6 +115,7 @@ public class PlayerStateMachine : MonoBehaviour
     void OnJump(InputAction.CallbackContext context)
     {
         isJumpPressed = context.ReadValueAsButton();
+        requireNewJumpPress = false;
     }
 
     void SetupJumpVariables()

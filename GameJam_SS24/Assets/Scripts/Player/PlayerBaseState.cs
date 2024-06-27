@@ -1,12 +1,12 @@
 public abstract class PlayerBaseState
 {
 
-    protected PlayerStateMachine context;
+    protected PlayerStateMachine ctx;
     protected PlayerStateFactory factory;
     
     public PlayerBaseState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
     {
-        context = currentContext;
+        ctx = currentContext;
         factory = playerStateFactory;
     }
 
@@ -30,7 +30,7 @@ public abstract class PlayerBaseState
         newState.EnterState();
 
         // switch current state of context
-        context.CurrentState = newState;
+        ctx.CurrentState = newState;
     }
 
     protected void SetSuperState()

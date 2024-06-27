@@ -165,17 +165,8 @@ public class CharacterMovement : MonoBehaviour
         // instantly fall if letting go of jump button
         isFalling = currentMovement.y <= 0.0f || !isJumpPressed;
 
-        // apply proper gravity depending on grounded state
-        if (characterController.isGrounded)
-        {
-            // low gravity if grounded to prevent clipping through ground
-            animator.SetBool(isJumpingHash, false);
-            currentMovement.y = groundedGravity;
-            appliedMovement.y = groundedGravity;
-        }
-
         // calculate gravity with velocity verlet integration
-        else if (isFalling)
+        if (isFalling)
         {
             // additional gravity applied after reaching the apex of jump
             float previousYVelocity = currentMovement.y;
