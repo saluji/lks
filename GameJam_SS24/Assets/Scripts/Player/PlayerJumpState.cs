@@ -1,18 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerJumpState : MonoBehaviour
+public class PlayerJumpState : PlayerBaseState
 {
-    // Start is called before the first frame update
-    void Start()
+    public PlayerJumpState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void EnterState()
     {
-        
+        HandleJump();
+    }
+    
+    public override void UpdateState()
+    {
+        CheckSwitchStates();
+    }
+
+    public override void ExitState()
+    {
+
+    }
+
+    public override void CheckSwitchStates()
+    {
+
+    }
+
+    public override void InitializeSubState()
+    {
+
+    }
+
+    void HandleJump()
+    {
+        context.Animator.SetBool(context.IsJumpingHash, true);
+        context.IsJumping = true;
+        context.CurrentMovementY = context.InitialJumpVelocity;
+        context.AppliedMovementY = context.InitialJumpVelocity;
     }
 }

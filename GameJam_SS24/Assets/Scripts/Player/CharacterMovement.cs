@@ -45,7 +45,6 @@ public class CharacterMovement : MonoBehaviour
     bool isJumping = false;
     int isJumpingHash;
 
-
     void Awake()
     {
         // set initial reference variables
@@ -210,11 +209,13 @@ public class CharacterMovement : MonoBehaviour
 
     void OnEnable()
     {
+        // enable the character controls action map
         playerInput.CharacterControls.Enable();
     }
 
     void OnDisable()
     {
+        // disable the character controls action map
         playerInput.CharacterControls.Disable();
     }
 }
