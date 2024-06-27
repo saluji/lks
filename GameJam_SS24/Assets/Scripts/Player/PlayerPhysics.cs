@@ -1,24 +1,39 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerPhysics : MonoBehaviour
 {
+    [SerializeField] Transform groundCheck;
     [SerializeField] float raycastDistance = 0.1f;
+    [SerializeField] float groundRadius = 0.1f;
     [SerializeField] float gravityMultiplier = 1f;
     [SerializeField] float forceStrength = 10f;
+    [SerializeField] float jumpStrength = 1f;
+    private Rigidbody rb;
     private Animator animator;
     private CharacterController characterController;
     private Vector3 velocity;
+    private LayerMask groundLayer;
     private float ySpeed;
-    private void Start()
+    private int isGroundedParameterHash;
+    void Start()
     {
+        rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        groundCheck = GetComponent<Transform>();
+        groundLayer = LayerMask.GetMask("Ground");
+        isGroundedParameterHash = Animator.StringToHash("isGrounded");
         characterController = GetComponent<CharacterController>();
     }
-    private void Update()
+    void Update()
     {
         ySpeed = isGrounded() ? 0 : ySpeed += Physics.gravity.y * gravityMultiplier * Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded())
+        {
+            Jump();
+        }
     }
-    private void OnControllerColliderHit(ControllerColliderHit hit)
+    void OnControllerColliderHit(ControllerColliderHit hit)
     {
         Rigidbody rigidbody = hit.collider.attachedRigidbody;
         if (rigidbody != null)
@@ -29,19 +44,27 @@ public class PlayerPhysics : MonoBehaviour
             rigidbody.AddForceAtPosition(direction * forceStrength * velocity.magnitude, transform.position, ForceMode.Impulse);
         }
     }
-    private void OnAnimatorMove()
+    // private void OnAnimatorMove()
+    // {
+    //     animator.ApplyBuiltinRootMotion();
+    //     velocity = animator.deltaPosition;
+    //     velocity.y = ySpeed;
+    //     characterController.Move(velocity * Time.deltaTime);
+    // }
+    bool isGrounded()
     {
-        animator.ApplyBuiltinRootMotion();
-        velocity = animator.deltaPosition;
-        velocity.y = ySpeed;
-        characterController.Move(velocity * Time.deltaTime);
-    }
-    private bool isGrounded()
-    {
+        // return characterController.isGrounded;
+        //return Physics.OverlapSphereNonAlloc(groundCheck.position, groundRadius, groundLayer);
         return Physics.Raycast(transform.position + new Vector3(0, raycastDistance * 0.5f, 0), Vector3.down, raycastDistance);
     }
-    private void OnDrawGizmos()
+    // void OnDrawGizmos()
+    // {
+    //     Debug.DrawRay(transform.position + new Vector3(0, raycastDistance * 0.5f, 0), Vector3.down * raycastDistance, isGrounded() ? Color.green : Color.red);
+    // }
+    void Jump()
     {
-        Debug.DrawRay(transform.position + new Vector3(0, raycastDistance * 0.5f, 0), Vector3.down * raycastDistance, isGrounded() ? Color.green : Color.red);
+        Debug.Log("JUMP");
+        rb.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
+        animator.SetBool(isGroundedParameterHash, isGrounded());
     }
 }
