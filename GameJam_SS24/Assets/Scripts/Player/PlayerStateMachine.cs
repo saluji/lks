@@ -25,8 +25,12 @@ public class PlayerStateMachine : MonoBehaviour
     Vector3 appliedMovement;
     bool isMovementPressed;
     bool isRunPressed;
+
+    // hash variables
     int isWalkingHash;
     int isRunningHash;
+    int isJumpingHash;
+    int isFallingHash;
 
     // gravity stats
     [Header("Gravity values")]
@@ -45,7 +49,6 @@ public class PlayerStateMachine : MonoBehaviour
     bool isJumpPressed = false;
     bool isJumping = false;
     bool requireNewJumpPress = false;
-    int isJumpingHash;
 
     // getter and setter
     public PlayerBaseState CurrentState { get { return currentState; } set { currentState = value; } }
@@ -55,6 +58,7 @@ public class PlayerStateMachine : MonoBehaviour
     public int IsWalkingHash { get { return isWalkingHash; } }
     public int IsRunningHash { get { return isRunningHash; } }
     public int IsJumpingHash { get { return isJumpingHash; } }
+    public int IsFallingHash { get { return isFallingHash; } }
     public bool IsJumping { set { isJumping = value; } }
     public bool IsJumpPressed { get { return isJumpPressed; } }
     public bool IsFalling { get { return isFalling; } set { isFalling = value; } }
@@ -80,7 +84,6 @@ public class PlayerStateMachine : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
 
-
         // setup state
         states = new PlayerStateFactory(this);
         currentState = states.Grounded();
@@ -90,6 +93,7 @@ public class PlayerStateMachine : MonoBehaviour
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
         isJumpingHash = Animator.StringToHash("isJumping");
+        isFallingHash = Animator.StringToHash("isFalling");
 
         // set player input callbacks
         playerInput.CharacterControls.Move.started += OnMovementInput;

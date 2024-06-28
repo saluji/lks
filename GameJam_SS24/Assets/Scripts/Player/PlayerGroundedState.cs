@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerGroundedState : PlayerBaseState
+public class PlayerGroundedState : PlayerBaseState, IRootState
 {
     public PlayerGroundedState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
     {
@@ -8,11 +8,16 @@ public class PlayerGroundedState : PlayerBaseState
         InitializeSubState();
     }
 
-    public override void EnterState()
+    public void HandleGravity()
     {
         // low gravity to prevent clipping through ground
         Ctx.CurrentMovementY = Ctx.GroundedGravity;
         Ctx.AppliedMovementY = Ctx.GroundedGravity;
+    }
+
+    public override void EnterState()
+    {
+        HandleGravity();
     }
 
     public override void UpdateState()
@@ -46,6 +51,10 @@ public class PlayerGroundedState : PlayerBaseState
         if (Ctx.IsJumpPressed && !Ctx.RequireNewJumpPress)
         {
             SwitchState(Factory.Jump());
+        }
+        else if (!Ctx.CharacterController.isGrounded)
+        {
+            SwitchState(Factory.Fall());
         }
     }
 }

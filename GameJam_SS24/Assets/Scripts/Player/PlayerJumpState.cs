@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerJumpState : PlayerBaseState
+public class PlayerJumpState : PlayerBaseState, IRootState
 {
     public PlayerJumpState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
     {
@@ -62,7 +62,7 @@ public class PlayerJumpState : PlayerBaseState
         Ctx.AppliedMovementY = Ctx.InitialJumpVelocity;
     }
 
-    void HandleGravity()
+    public void HandleGravity()
     {
         // instantly fall if letting go of jump button
         Ctx.IsFalling = Ctx.CurrentMovementY <= 0.0f || !Ctx.IsJumpPressed;
