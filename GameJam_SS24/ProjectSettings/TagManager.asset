@@ -4,8 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - PlayerEyes
-  - Enemy
+  - NPC
+  - Eyes
+  - Ears
   layers:
   - Default
   - TransparentFX

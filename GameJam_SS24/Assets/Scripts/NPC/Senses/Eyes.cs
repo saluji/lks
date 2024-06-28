@@ -14,14 +14,7 @@ public class Eyes : Sense
     // Update is called once per frame
     protected override void Update()
     {
-        if(IsInRange() && IsInFieldOfView() && IsNotOccluded()) 
-        {
-            IsDetecting = true;
-        }
-        else 
-        {
-            IsDetecting = false;
-        }
+        IsDetecting = IsInRange() && IsInFieldOfView() && IsNotOccluded() ? true : false; 
     }
 
 #if UNITY_EDITOR
