@@ -42,8 +42,8 @@ public class PlayerStateMachine : MonoBehaviour
 
     // jump stats
     [Header("Jump variables")]
-    [SerializeField] float jumpHeight = 1.0f;
-    [SerializeField] float fallTime = 0.5f;
+    [SerializeField] float maxJumpHeight = 1.0f;
+    [SerializeField] float maxAirTime = 0.5f;
     float initialJumpVelocity;
     float timeToApex;
     bool isJumpPressed = false;
@@ -133,10 +133,10 @@ public class PlayerStateMachine : MonoBehaviour
     void SetupJumpVariables()
     {
         // set initial jump variables with gravitational fall equation
-        fallTime = (fallTime == 0) ? 1 : fallTime;
-        timeToApex = fallTime / 2;
-        gravity = -2 * jumpHeight / Mathf.Pow(timeToApex, 2);
-        initialJumpVelocity = 2 * jumpHeight / timeToApex;
+        maxAirTime = (maxAirTime == 0) ? 1 : maxAirTime;
+        timeToApex = maxAirTime / 2;
+        gravity = -2 * maxJumpHeight / Mathf.Pow(timeToApex, 2);
+        initialJumpVelocity = 2 * maxJumpHeight / timeToApex;
     }
 
     void Start()
