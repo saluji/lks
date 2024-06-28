@@ -51,6 +51,9 @@ public class PlayerStateMachine : MonoBehaviour
     bool isJumping = false;
     bool requireNewJumpPress = false;
 
+    // enemy behaviour
+    bool isAudible;
+
     // getter and setter
     public PlayerBaseState CurrentState { get { return currentState; } set { currentState = value; } }
     public CharacterController CharacterController { get { return characterController; } }
@@ -67,6 +70,7 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsMovementPressed { get { return isMovementPressed; } }
     public bool IsRunPressed { get { return isRunPressed; } }
     public bool RequireNewJumpPress { get { return requireNewJumpPress; } set { requireNewJumpPress = value; } }
+    public bool IsAudible { get { return isAudible; } set { isAudible = value; } }
     public float MovementSpeed { get { return movementSpeed; } }
     public float RunMultiplier { get { return runMultiplier; } }
     public float CurrentMovementY { get { return currentMovement.y; } set { currentMovement.y = value; } }
