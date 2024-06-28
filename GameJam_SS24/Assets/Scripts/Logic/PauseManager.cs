@@ -30,7 +30,7 @@ public class PauseManager : MonoBehaviour
         uIManager.TogglePause(isPaused);
         Time.timeScale = 1;
     }
-
+    
     void GameOver()
     {
         isPaused = true;
