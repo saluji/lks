@@ -5,18 +5,18 @@ public class PlayerJumpState : PlayerBaseState, IRootState
     public PlayerJumpState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
     {
         IsRootState = true;
-        InitializeSubState();
     }
 
     public override void EnterState()
     {
+        InitializeSubState();
         HandleJump();
     }
 
     public override void UpdateState()
     {
-        CheckSwitchStates();
         HandleGravity();
+        CheckSwitchStates();
     }
 
     public override void ExitState()

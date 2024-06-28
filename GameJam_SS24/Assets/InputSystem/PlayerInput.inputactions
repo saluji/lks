@@ -31,20 +31,18 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "ed29eb4b-ef1f-4664-8d7b-11371158ed76",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "bb66be9d-6bf3-4877-9a7a-653e2f943efd",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "2D Vector",
                     "id": "2ca250d6-ed69-43c2-8e85-0f059c821a06",
@@ -113,17 +111,6 @@
                 },
                 {
                     "name": "",
-                    "id": "29d7b881-9ea8-4ad3-8f69-0cd0e671335d",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Run",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "5b745ec1-fdb3-40bb-9d5a-3cf2ba770db7",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -135,12 +122,12 @@
                 },
                 {
                     "name": "",
-                    "id": "644885da-da28-4dd7-a26b-84e52972f0c4",
-                    "path": "<Gamepad>/buttonSouth",
+                    "id": "d8fbb42f-f8dc-452c-bf82-242863caef2a",
+                    "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
+                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

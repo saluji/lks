@@ -23,6 +23,7 @@ public class PlayerStateMachine : MonoBehaviour
     Vector3 currentMovement;
     Vector3 currentRunMovement;
     Vector3 appliedMovement;
+    Vector3 cameraRelativeMovement;
     bool isMovementPressed;
     bool isRunPressed;
 
@@ -37,7 +38,6 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] float fallMultiplier = 2.0f;
     [SerializeField] float terminalVelocity = -20.0f;
     float gravity = -1f;
-    float groundedGravity = -0.5f;
     bool isFalling;
 
     // jump stats
@@ -72,7 +72,6 @@ public class PlayerStateMachine : MonoBehaviour
     public float AppliedMovementX { get { return appliedMovement.x; } set { appliedMovement.x = value; } }
     public float AppliedMovementZ { get { return appliedMovement.z; } set { appliedMovement.z = value; } }
     public float InitialJumpVelocity { get { return initialJumpVelocity; } }
-    public float GroundedGravity { get { return groundedGravity; } }
     public float Gravity { get { return gravity; } }
     public float FallMultiplier { get { return fallMultiplier; } }
     public float TerminalVelocity { get { return terminalVelocity; } }
@@ -140,6 +139,11 @@ public class PlayerStateMachine : MonoBehaviour
         initialJumpVelocity = 2 * maxJumpHeight / timeToApex;
     }
 
+    void Start()
+    {
+        characterController.Move(appliedMovement * Time.deltaTime);
+    }
+
     void Update()
     {
         HandleMovement();
@@ -149,22 +153,46 @@ public class PlayerStateMachine : MonoBehaviour
 
     void HandleMovement()
     {
+        // move player relative to camera position
+        cameraRelativeMovement = ConvertToCameraSpace(appliedMovement);
+
         // move player and calculate speed if moving and / or running
-        appliedMovement = new Vector3
-        (
-            (isRunPressed ? currentRunMovement.x : currentMovement.x) * movementSpeed,
-            appliedMovement.y,
-            (isRunPressed ? currentRunMovement.z : currentMovement.z) * movementSpeed
-        );
-        characterController.Move(appliedMovement * Time.deltaTime);
+        characterController.Move(cameraRelativeMovement * Time.deltaTime);
+    }
+
+    Vector3 ConvertToCameraSpace(Vector3 vectorToRotate)
+    {
+        // store the Y value of the original vector to rotate
+        float currentYValue = vectorToRotate.y;
+
+        // get forward and right directional vectors of the camera
+        Vector3 cameraForward = Camera.main.transform.forward;
+        Vector3 cameraRight = Camera.main.transform.right;
+
+        // remove the Y values to ignore upward / downward camera angles
+        cameraForward.y = 0;
+        cameraRight.y = 0;
+
+        // re-normalize both vectors so they each have a magnitude of 1
+        cameraForward = cameraForward.normalized;
+        cameraRight = cameraRight.normalized;
+
+        // rotate the X and Z VectorToRotate values to camera space
+        Vector3 cameraForwardZProduct = vectorToRotate.z * cameraForward;
+        Vector3 cameraRightXProduct = vectorToRotate.x * cameraRight;
+
+        // the sum of both products is the Vector3 in camera space
+        Vector3 vectorRotatedToCameraSpace = cameraForwardZProduct + cameraRightXProduct;
+        vectorRotatedToCameraSpace.y = currentYValue;
+        return vectorRotatedToCameraSpace;
     }
 
     void HandleRotation()
     {
         Vector3 positionToLookAt;
-        positionToLookAt.x = currentMovement.x;
+        positionToLookAt.x = cameraRelativeMovement.x;
         positionToLookAt.y = 0.0f;
-        positionToLookAt.z = currentMovement.z;
+        positionToLookAt.z = cameraRelativeMovement.z;
 
         // turn player depending on inputs
         Quaternion currentRotation = transform.rotation;
