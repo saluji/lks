@@ -32,6 +32,7 @@ public class PlayerStateMachine : MonoBehaviour
     int isRunningHash;
     int isJumpingHash;
     int isFallingHash;
+    int isDyingHash;
 
     // gravity stats
     [Header("Gravity values")]
@@ -59,6 +60,7 @@ public class PlayerStateMachine : MonoBehaviour
     public int IsRunningHash { get { return isRunningHash; } }
     public int IsJumpingHash { get { return isJumpingHash; } }
     public int IsFallingHash { get { return isFallingHash; } }
+    public int IsDyingHash { get { return isDyingHash; } }
     public bool IsJumping { set { isJumping = value; } }
     public bool IsJumpPressed { get { return isJumpPressed; } }
     public bool IsFalling { get { return isFalling; } set { isFalling = value; } }
@@ -93,6 +95,7 @@ public class PlayerStateMachine : MonoBehaviour
         isRunningHash = Animator.StringToHash("isRunning");
         isJumpingHash = Animator.StringToHash("isJumping");
         isFallingHash = Animator.StringToHash("isFalling");
+        isDyingHash = Animator.StringToHash("isDying");
 
         // set player input callbacks
         playerInput.CharacterControls.Move.started += OnMovementInput;

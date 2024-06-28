@@ -11,6 +11,10 @@ public class PauseManager : MonoBehaviour
         {
             Pause();
         }
+        if (Input.GetKeyDown(KeyCode.Q) && !isPaused)
+        {
+            GameOver();
+        }
     }
     void Pause()
     {
@@ -25,5 +29,13 @@ public class PauseManager : MonoBehaviour
         cursorManager.HideCursor();
         uIManager.TogglePause(isPaused);
         Time.timeScale = 1;
+    }
+
+    void GameOver()
+    {
+        isPaused = true;
+        Time.timeScale = 0;
+        uIManager.ToggleGameOver();
+        cursorManager.ShowCursor();
     }
 }
