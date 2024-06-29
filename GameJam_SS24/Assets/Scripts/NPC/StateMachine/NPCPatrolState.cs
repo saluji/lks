@@ -17,7 +17,7 @@ public class NPCPatrolState : NPCBaseState
         {
             Ctx.TargetPosition = Ctx.Waypoints[0].position;
         }
-        SetDestination(Ctx.TargetPosition);
+        Ctx.SetDestination(Ctx.TargetPosition);
     }
 
     public override void UpdateState()
@@ -52,13 +52,8 @@ public class NPCPatrolState : NPCBaseState
             SwitchState(Factory.Idle());
         }
     }
-
-    public void SetDestination(Vector3 destination)
-    {
-        Ctx.Agent.SetDestination(destination);
-    }
-
-    Vector3 GetNextWaypoint()
+    
+    public Vector3 GetNextWaypoint()
     {
         Ctx.CurrentWaypointIndex = ++Ctx.CurrentWaypointIndex % Ctx.Waypoints.Length;
         return Ctx.Waypoints[Ctx.CurrentWaypointIndex].position;

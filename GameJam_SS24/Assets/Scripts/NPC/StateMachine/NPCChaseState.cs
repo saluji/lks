@@ -11,12 +11,15 @@ public class NPCChaseState : NPCBaseState
     {
         Ctx.Animator.SetBool(Ctx.IsPatrolingHash, false);
         Ctx.Animator.SetBool(Ctx.IsChasingHash, true);
+
+        Ctx.SetDestination(Ctx.TargetPosition);
     }
 
     public override void UpdateState()
     {
         Ctx.AppliedSpeedX = Ctx.MovementSpeed * Ctx.RunMultiplier;
         Ctx.AppliedSpeedZ = Ctx.MovementSpeed * Ctx.RunMultiplier;
+
         CheckSwitchStates();
     }
 
@@ -32,6 +35,10 @@ public class NPCChaseState : NPCBaseState
 
     public override void CheckSwitchStates()
     {
-
+        // switch to idle if out of enemy sight
+        if (!Ctx.Eyes.IsInRange())
+        {
+            SwitchState(Factory.Idle());
+        }
     }
 }

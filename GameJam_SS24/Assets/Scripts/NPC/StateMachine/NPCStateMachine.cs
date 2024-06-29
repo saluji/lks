@@ -85,14 +85,22 @@ public class NPCStateMachine : MonoBehaviour
         // set speed to not 0 otherwise NPC won't move
         movementSpeed = (movementSpeed == 0) ? 1 : movementSpeed;
         runMultiplier = (runMultiplier == 0) ? 2 : runMultiplier;
+
+        characterController.Move(appliedSpeed * Time.deltaTime);
     }
     void Update()
     {
         Movement();
         currentState.UpdateStates();
     }
+
     void Movement()
     {
         characterController.Move(appliedSpeed * Time.deltaTime);
+    }
+
+    public void SetDestination(Vector3 destination)
+    {
+        agent.SetDestination(destination);
     }
 }
