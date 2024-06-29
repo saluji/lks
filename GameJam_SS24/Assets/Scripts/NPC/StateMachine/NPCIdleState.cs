@@ -11,7 +11,8 @@ public class NPCIdleState : NPCBaseState
     {
         Ctx.Animator.SetBool(Ctx.IsPatrolingHash, false);
         Ctx.Animator.SetBool(Ctx.IsChasingHash, false);
-        Ctx.AppliedSpeed = 0;
+        Ctx.AppliedSpeedX = 0;
+        Ctx.AppliedSpeedZ = 0;
         Ctx.LeaveTime = Time.time + Random.Range(Ctx.MinWaitTime, Ctx.MaxWaitTime);
     }
 

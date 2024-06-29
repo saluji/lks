@@ -15,7 +15,8 @@ public class NPCChaseState : NPCBaseState
 
     public override void UpdateState()
     {
-        Ctx.AppliedSpeed = Ctx.MovementSpeed * Ctx.RunMultiplier;
+        Ctx.AppliedSpeedX = Ctx.MovementSpeed * Ctx.RunMultiplier;
+        Ctx.AppliedSpeedZ = Ctx.MovementSpeed * Ctx.RunMultiplier;
         CheckSwitchStates();
     }
 

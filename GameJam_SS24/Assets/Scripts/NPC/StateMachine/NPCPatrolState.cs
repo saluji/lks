@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class NPCPatrolState : NPCBaseState
@@ -11,11 +12,19 @@ public class NPCPatrolState : NPCBaseState
     {
         Ctx.Animator.SetBool(Ctx.IsPatrolingHash, true);
         Ctx.Animator.SetBool(Ctx.IsChasingHash, false);
+
+        if (Ctx.TargetPosition == Vector3.zero)
+        {
+            Ctx.TargetPosition = Ctx.Waypoints[0].position;
+        }
+        SetDestination(Ctx.TargetPosition);
     }
 
     public override void UpdateState()
     {
-        Ctx.AppliedSpeed = Ctx.MovementSpeed;
+        Ctx.AppliedSpeedX = Ctx.MovementSpeed;
+        Ctx.AppliedSpeedZ = Ctx.MovementSpeed;
+
         CheckSwitchStates();
     }
 
@@ -36,11 +45,22 @@ public class NPCPatrolState : NPCBaseState
             SwitchState(Factory.Chase());
         }
 
-        // float sqrtDistance = (npcStateMachine.transform.position - _targetPosition).sqrMagnitude;
-        // if(sqrtDistance < 0.1f) 
-        // {
-        //     _targetPosition = GetNextWaypoint();
-        //     npcStateMachine.SwitchToState(npcStateMachine.IdleState);
-        // }
+        float sqrtDistance = (Ctx.transform.position - Ctx.TargetPosition).sqrMagnitude;
+        if(sqrtDistance < 0.1f) 
+        {
+            Ctx.TargetPosition = GetNextWaypoint();
+            SwitchState(Factory.Idle());
+        }
+    }
+
+    public void SetDestination(Vector3 destination)
+    {
+        Ctx.Agent.SetDestination(destination);
+    }
+
+    Vector3 GetNextWaypoint()
+    {
+        Ctx.CurrentWaypointIndex = ++Ctx.CurrentWaypointIndex % Ctx.Waypoints.Length;
+        return Ctx.Waypoints[Ctx.CurrentWaypointIndex].position;
     }
 }
