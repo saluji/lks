@@ -14,14 +14,7 @@ public class Eyes : Sense
     // Update is called once per frame
     protected override void Update()
     {
-        if(IsInRange() && IsInFieldOfView() && IsNotOccluded()) 
-        {
-            IsDetecting = true;
-        }
-        else 
-        {
-            IsDetecting = false;
-        }
+        IsDetecting = IsInRange() && IsInFieldOfView() && IsNotOccluded() ? true : false;
     }
 
 #if UNITY_EDITOR
@@ -30,11 +23,11 @@ public class Eyes : Sense
         base.Update();
         SenseGizmos.DrawRangeCircle(HeadReferenceTransform.position, transform.up, Range);
 
-        if (IsInRange()) 
+        if (IsInRange())
         {
             SenseGizmos.DrawFOV(HeadReferenceTransform.position, HeadReferenceTransform.forward, Vector3.up, Range, Fov);
 
-            if (IsInFieldOfView()) 
+            if (IsInFieldOfView())
             {
                 SenseGizmos.DrawRay(HeadReferenceTransform.position, _player.position, IsNotOccluded());
             }
@@ -55,19 +48,19 @@ public class Eyes : Sense
     }
 
     // Player not occluded by anything?
-    public bool IsNotOccluded() 
+    public bool IsNotOccluded()
     {
         RaycastHit hit;
         Ray ray = new Ray(HeadReferenceTransform.position, _directionToPlayer);
-        //return Physics.Raycast(ray, out hit, Range, DetectionLayer) ? hit.collider.gameObject.CompareTag("Player") : false;
-        if(Physics.Raycast(ray, out hit, Range, DetectionLayer)) 
-        {
-            return hit.collider.gameObject.CompareTag("Player");
-        }
-        else
-        {
-            return false;
-        }
+        return Physics.Raycast(ray, out hit, Range, DetectionLayer) ? hit.collider.gameObject.CompareTag("Player") : false;
+        // if (Physics.Raycast(ray, out hit, Range, DetectionLayer))
+        // {
+        //     return hit.collider.gameObject.CompareTag("Player");
+        // }
+        // else
+        // {
+        //     return false;
+        // }
     }
 
 }
