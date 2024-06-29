@@ -41,4 +41,13 @@ public class PlayerWalkState : PlayerBaseState
             SwitchState(Factory.Run());
         }
     }
+
+    public override void OnTriggerEnter(Collider collider)
+    {
+        GameObject other = collider.gameObject;
+        if (other.CompareTag("NPC"))
+        {
+            SwitchState(Factory.Death());
+        }
+    }
 }

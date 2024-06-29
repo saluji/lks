@@ -9,14 +9,8 @@ public class NPCPatrolState : NPCBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Patrol: Enter");
         Ctx.Animator.SetBool(Ctx.IsPatrolingHash, true);
         Ctx.Animator.SetBool(Ctx.IsChasingHash, false);
-
-        // if (Ctx.TargetPosition == Vector3.zero)
-        // {
-        //     Ctx.TargetPosition = Ctx.Waypoints[0].position;
-        // }
         Ctx.TargetPosition = GetNextWaypoint();
         Ctx.SetDestination(Ctx.TargetPosition);
         Ctx.SetAgentSpeed(Ctx.MovementSpeed, 1f);
@@ -24,13 +18,12 @@ public class NPCPatrolState : NPCBaseState
 
     public override void UpdateState()
     {
-        Debug.Log("Patrol: Update");
         CheckSwitchStates();
     }
 
     public override void ExitState()
     {
-        Debug.Log("Patrol: Exit");
+
     }
 
     public override void InitializeSubState()
@@ -40,15 +33,16 @@ public class NPCPatrolState : NPCBaseState
 
     public override void CheckSwitchStates()
     {
+        // switch to chase if player detected by NPC
         if (Ctx.Eyes.isDetecting || Ctx.Ears.isDetecting)
         {
             SwitchState(Factory.Chase());
         }
 
+        // switch to idle if reaching waypoint
         float sqrtDistance = (Ctx.transform.position - Ctx.TargetPosition).sqrMagnitude;
         if (sqrtDistance < 0.1f)
         {
-            // Ctx.TargetPosition = GetNextWaypoint();
             SwitchState(Factory.Idle());
         }
     }

@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
         menuPanel.SetActive(isPaused);
         hUDPanel.SetActive(!isPaused);
     }
+    
     public void ToggleGameOver()
     {
         hUDPanel.SetActive(false);

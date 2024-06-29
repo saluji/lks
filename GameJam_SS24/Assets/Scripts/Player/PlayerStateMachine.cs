@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,13 +8,8 @@ public class PlayerStateMachine : MonoBehaviour
     PlayerBaseState currentState;
     PlayerStateFactory states;
 
-    // player stats
-    [Header("Player values")]
-    [SerializeField] float movementSpeed = 1f;
-    [SerializeField] float runMultiplier = 1f;
-    [SerializeField] float turnSpeed = 1.0f;
-
     // reference variables
+    [SerializeField] GameManager gameManager;
     PlayerInput playerInput;
     CharacterController characterController;
     Animator animator;
@@ -27,12 +23,11 @@ public class PlayerStateMachine : MonoBehaviour
     bool isMovementPressed;
     bool isRunPressed;
 
-    // hash variables
-    int isWalkingHash;
-    int isRunningHash;
-    int isJumpingHash;
-    int isFallingHash;
-    int isDyingHash;
+    // player stats
+    [Header("Player values")]
+    [SerializeField] float movementSpeed = 1f;
+    [SerializeField] float runMultiplier = 1f;
+    [SerializeField] float turnSpeed = 1.0f;
 
     // gravity stats
     [Header("Gravity values")]
@@ -51,10 +46,18 @@ public class PlayerStateMachine : MonoBehaviour
     bool isJumping = false;
     bool requireNewJumpPress = false;
 
+    // hash variables
+    int isWalkingHash;
+    int isRunningHash;
+    int isJumpingHash;
+    int isFallingHash;
+    int isDyingHash;
+
     // enemy behaviour
     bool isAudible;
 
     // getter and setter
+    public GameManager GameManager { get { return gameManager; } }
     public PlayerBaseState CurrentState { get { return currentState; } set { currentState = value; } }
     public CharacterController CharacterController { get { return characterController; } }
     public Animator Animator { get { return animator; } }
@@ -220,5 +223,10 @@ public class PlayerStateMachine : MonoBehaviour
     {
         // disable the character controls action map
         playerInput.CharacterControls.Disable();
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+       currentState.OnTriggerEnter(collider); 
     }
 }

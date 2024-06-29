@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public abstract class PlayerBaseState
 {
     // get variables from PlayerStateMachine and set into all state machines
@@ -23,6 +25,7 @@ public abstract class PlayerBaseState
     public abstract void ExitState();
     public abstract void InitializeSubState();
     public abstract void CheckSwitchStates();
+    public abstract void OnTriggerEnter(Collider collider);
 
     public void UpdateStates()
     {

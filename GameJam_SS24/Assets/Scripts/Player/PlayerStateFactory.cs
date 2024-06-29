@@ -32,6 +32,7 @@ public class PlayerStateFactory
         states[PlayerStates.death] = new PlayerDeathState(context, this);
     }
 
+    // store states
     public PlayerBaseState Idle()
     {
         return states[PlayerStates.idle];

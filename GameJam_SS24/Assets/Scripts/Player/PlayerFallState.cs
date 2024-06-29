@@ -48,6 +48,15 @@ public class PlayerFallState : PlayerBaseState, IRootState
             SwitchState(Factory.Grounded());
         }
     }
+    
+    public override void OnTriggerEnter(Collider collider)
+    {
+        GameObject other = collider.gameObject;
+        if (other.CompareTag("NPC"))
+        {
+            SwitchState(Factory.Death());
+        }
+    }
 
     public void HandleGravity()
     {
@@ -55,5 +64,4 @@ public class PlayerFallState : PlayerBaseState, IRootState
         Ctx.CurrentMovementY += Ctx.Gravity * Time.deltaTime;
         Ctx.AppliedMovementY = Mathf.Max((previousYVelocity + Ctx.CurrentMovementY) * 0.5f, Ctx.TerminalVelocity);
     }
-
 }

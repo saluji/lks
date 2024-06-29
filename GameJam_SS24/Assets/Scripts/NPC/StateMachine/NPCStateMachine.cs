@@ -81,11 +81,13 @@ public class NPCStateMachine : MonoBehaviour
         currentState.UpdateStates();
     }
 
+    // set agent velocity
     public void SetAgentSpeed(float patrolSpeed, float chaseSpeed)
     {
         agent.speed = patrolSpeed * chaseSpeed;
     }
 
+    // set agent destination
     public void SetDestination(Vector3 destination)
     {
         agent.SetDestination(destination);

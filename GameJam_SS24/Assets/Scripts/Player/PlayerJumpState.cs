@@ -54,6 +54,15 @@ public class PlayerJumpState : PlayerBaseState, IRootState
         }
     }
 
+    public override void OnTriggerEnter(Collider collider)
+    {
+        GameObject other = collider.gameObject;
+        if (other.CompareTag("NPC"))
+        {
+            SwitchState(Factory.Death());
+        }
+    }
+
     void HandleJump()
     {
         Ctx.Animator.SetBool(Ctx.IsJumpingHash, true);

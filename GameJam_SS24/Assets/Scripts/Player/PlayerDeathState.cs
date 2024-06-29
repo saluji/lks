@@ -10,6 +10,7 @@ public class PlayerDeathState : PlayerBaseState
     public override void EnterState()
     {
         Ctx.Animator.SetBool(Ctx.IsDyingHash, true);
+        Ctx.GameManager.GameOver();
     }
 
     public override void UpdateState()
@@ -28,6 +29,11 @@ public class PlayerDeathState : PlayerBaseState
     }
 
     public override void CheckSwitchStates()
+    {
+
+    }
+
+    public override void OnTriggerEnter(Collider collider)
     {
 
     }

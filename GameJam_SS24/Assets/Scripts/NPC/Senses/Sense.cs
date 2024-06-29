@@ -24,7 +24,7 @@ public abstract class Sense : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        player = GameObject.Find("Player").transform;
+        player = GameObject.FindWithTag("Player").transform;
     }
 
     protected virtual void Update()

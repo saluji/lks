@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerIdleState : PlayerBaseState
 {
@@ -39,6 +40,15 @@ public class PlayerIdleState : PlayerBaseState
         else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)
         {
             SwitchState(Factory.Walk());
+        }
+    }
+
+    public override void OnTriggerEnter(Collider collider)
+    {
+        GameObject other = collider.gameObject;
+        if (other.CompareTag("NPC"))
+        {
+            SwitchState(Factory.Death());
         }
     }
 }

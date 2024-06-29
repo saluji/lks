@@ -24,6 +24,7 @@ public class NPCStateFactory
         states[NPCStates.chase] = new NPCChaseState(context, this);
     }
 
+    // store states
     public NPCBaseState Idle()
     {
         return states[NPCStates.idle];
