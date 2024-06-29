@@ -12,6 +12,7 @@ public class NPCIdleState : NPCBaseState
         Ctx.Animator.SetBool(Ctx.IsPatrolingHash, false);
         Ctx.Animator.SetBool(Ctx.IsChasingHash, false);
         Ctx.AppliedSpeed = 0;
+        Ctx.LeaveTime = Time.time + Random.Range(Ctx.MinWaitTime, Ctx.MaxWaitTime);
     }
 
     public override void UpdateState()
@@ -31,7 +32,7 @@ public class NPCIdleState : NPCBaseState
 
     public override void CheckSwitchStates()
     {
-        if (Ctx.CanSeePlayer || Ctx.CanHearPlayer)
+        if (Ctx.Eyes.isDetecting || Ctx.Eyes.isDetecting)
         {
             SwitchState(Factory.Chase());
         }

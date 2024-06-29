@@ -7,35 +7,35 @@ using UnityEngine;
 public abstract class Sense : MonoBehaviour
 {
     // Range of the sense (meter)
-    public float Range;
+    public float range;
 
     // Head in Mixamo-Rig
-    public Transform HeadReferenceTransform;
+    public Transform headReferenceTransform;
 
     // Wird der Spieler gerade wahrgenommen
-    public bool IsDetecting { get; protected set; }
+    public bool isDetecting { get; protected set; }
 
     // Transform of player
-    protected Transform _player;
+    protected Transform player;
 
     // Direction vector to the player
-    protected Vector3 _directionToPlayer;
+    protected Vector3 directionToPlayer;
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        _player = GameObject.Find("Player").transform;
+        player = GameObject.Find("Player").transform;
     }
 
     protected virtual void Update()
     {
-        _directionToPlayer = _player.transform.position - HeadReferenceTransform.position;
+        directionToPlayer = player.transform.position - headReferenceTransform.position;
     }
 
     // Player in range?
     public bool IsInRange()
     {
-        return _directionToPlayer.sqrMagnitude <= (Range * Range);
+        return directionToPlayer.sqrMagnitude <= (range * range);
     }
 
 }

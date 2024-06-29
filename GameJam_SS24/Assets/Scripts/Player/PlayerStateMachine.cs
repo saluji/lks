@@ -8,7 +8,7 @@ public class PlayerStateMachine : MonoBehaviour
     PlayerStateFactory states;
 
     // player stats
-    [Header("Player stats")]
+    [Header("Player values")]
     [SerializeField] float movementSpeed = 1f;
     [SerializeField] float runMultiplier = 1f;
     [SerializeField] float turnSpeed = 1.0f;
@@ -42,7 +42,7 @@ public class PlayerStateMachine : MonoBehaviour
     bool isFalling;
 
     // jump stats
-    [Header("Jump variables")]
+    [Header("Jump values")]
     [SerializeField] float maxJumpHeight = 1.0f;
     [SerializeField] float maxAirTime = 0.5f;
     float initialJumpVelocity;
@@ -64,7 +64,7 @@ public class PlayerStateMachine : MonoBehaviour
     public int IsJumpingHash { get { return isJumpingHash; } }
     public int IsFallingHash { get { return isFallingHash; } }
     public int IsDyingHash { get { return isDyingHash; } }
-    public bool IsJumping { set { isJumping = value; } }
+    public bool IsJumping { get { return isJumping; } set { isJumping = value; } }
     public bool IsJumpPressed { get { return isJumpPressed; } }
     public bool IsFalling { get { return isFalling; } set { isFalling = value; } }
     public bool IsMovementPressed { get { return isMovementPressed; } }

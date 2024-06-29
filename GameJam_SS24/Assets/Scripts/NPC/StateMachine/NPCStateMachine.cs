@@ -1,4 +1,4 @@
-using System.Xml.Serialization;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,31 +12,29 @@ public class NPCStateMachine : MonoBehaviour
     NavMeshAgent agent;
     Animator animator;
 
-    // NPC base stats
-    [Header("Base stats")]
+    // NPC stats
+    [Header("NPC values")]
     [SerializeField] float movementSpeed;
     [SerializeField] float runMultiplier;
     float appliedSpeed;
 
     // idle variables
-    [Header("Idle stats")]
+    [Header("Idle values")]
     [SerializeField] float minWaitTime;
     [SerializeField] float maxWaitTime;
-    [SerializeField] float leaveTime;
 
     // patrol variables
-    [Header("Patrol stats")]
+    [Header("Patrol values")]
     [SerializeField] Transform[] waypoints;
+    float leaveTime;
 
     // chase variables
-    [Header("Chase stats")]
+    [Header("Chase values")]
     [SerializeField] Transform[] returnSpots;
 
     // sense variables
     Eyes eyes;
     Ears ears;
-    bool canSeePlayer;
-    bool canHearPlayer;
 
     // hash variables
     int isPatrolingHash;
@@ -44,14 +42,17 @@ public class NPCStateMachine : MonoBehaviour
 
     // getter and setter
     public Animator Animator { get { return animator; } }
+    public Eyes Eyes { get { return eyes; } }
+    public Ears Ears { get { return ears; } }
     public int IsPatrolingHash { get { return isPatrolingHash; } }
     public int IsChasingHash { get { return isChasingHash; } }
-    public bool CanSeePlayer { get { return canSeePlayer; } }
-    public bool CanHearPlayer { get { return canHearPlayer; } }
     public float LeaveTIme { get { return leaveTime; } }
     public float MovementSpeed { get { return movementSpeed; } }
     public float RunMultiplier { get { return runMultiplier; } }
-    public float AppliedSpeed { set { appliedSpeed = value; } }
+    public float AppliedSpeed { get { return appliedSpeed; } set { appliedSpeed = value; } }
+    public float MinWaitTime { get { return minWaitTime; } }
+    public float MaxWaitTime { get { return maxWaitTime; } }
+    public float LeaveTime { get { return leaveTime; } set { leaveTime = value; } }
 
     void Awake()
     {
@@ -74,7 +75,7 @@ public class NPCStateMachine : MonoBehaviour
 
     void Start()
     {
-        // set speed to not 0 or else NPC won't move
+        // set speed to not 0 otherwise NPC won't move
         movementSpeed = (movementSpeed == 0) ? 1 : movementSpeed;
         runMultiplier = (runMultiplier == 0) ? 2 : runMultiplier;
     }

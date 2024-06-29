@@ -31,16 +31,16 @@ public class NPCPatrolState : NPCBaseState
 
     public override void CheckSwitchStates()
     {
+        if (Ctx.Eyes.isDetecting || Ctx.Eyes.isDetecting)
+        {
+            SwitchState(Factory.Chase());
+        }
+
         // float sqrtDistance = (npcStateMachine.transform.position - _targetPosition).sqrMagnitude;
         // if(sqrtDistance < 0.1f) 
         // {
         //     _targetPosition = GetNextWaypoint();
         //     npcStateMachine.SwitchToState(npcStateMachine.IdleState);
         // }
-
-        if (Ctx.CanSeePlayer || Ctx.CanHearPlayer)
-        {
-            SwitchState(Factory.Chase());
-        }
     }
 }

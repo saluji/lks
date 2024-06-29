@@ -6,30 +6,30 @@ using UnityEngine;
 public class Eyes : Sense
 {
     // Field of view
-    public float Fov;
+    public float fov;
 
     // Which layer are relevant
-    public LayerMask DetectionLayer;
+    public LayerMask detectionLayer;
 
     // Update is called once per frame
     protected override void Update()
     {
-        IsDetecting = IsInRange() && IsInFieldOfView() && IsNotOccluded() ? true : false;
+        isDetecting = IsInRange() && IsInFieldOfView() && IsNotOccluded() ? true : false;
     }
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         base.Update();
-        SenseGizmos.DrawRangeCircle(HeadReferenceTransform.position, transform.up, Range);
+        SenseGizmos.DrawRangeCircle(headReferenceTransform.position, transform.up, range);
 
         if (IsInRange())
         {
-            SenseGizmos.DrawFOV(HeadReferenceTransform.position, HeadReferenceTransform.forward, Vector3.up, Range, Fov);
+            SenseGizmos.DrawFOV(headReferenceTransform.position, headReferenceTransform.forward, Vector3.up, range, fov);
 
             if (IsInFieldOfView())
             {
-                SenseGizmos.DrawRay(HeadReferenceTransform.position, _player.position, IsNotOccluded());
+                SenseGizmos.DrawRay(headReferenceTransform.position, player.position, IsNotOccluded());
             }
         }
     }
@@ -38,21 +38,21 @@ public class Eyes : Sense
     // Player inside fov?
     public bool IsInFieldOfView()
     {
-        Vector3 direction = _directionToPlayer;
+        Vector3 direction = directionToPlayer;
         direction.y = 0;
 
-        Vector3 forward = HeadReferenceTransform.forward;
+        Vector3 forward = headReferenceTransform.forward;
         forward.y = 0;
         float angleBetween = Vector3.Angle(forward, direction);
-        return angleBetween < Fov * 0.5f;
+        return angleBetween < fov * 0.5f;
     }
 
     // Player not occluded by anything?
     public bool IsNotOccluded()
     {
         RaycastHit hit;
-        Ray ray = new Ray(HeadReferenceTransform.position, _directionToPlayer);
-        return Physics.Raycast(ray, out hit, Range, DetectionLayer) ? hit.collider.gameObject.CompareTag("Player") : false;
+        Ray ray = new Ray(headReferenceTransform.position, directionToPlayer);
+        return Physics.Raycast(ray, out hit, range, detectionLayer) ? hit.collider.gameObject.CompareTag("Player") : false;
         // if (Physics.Raycast(ray, out hit, Range, DetectionLayer))
         // {
         //     return hit.collider.gameObject.CompareTag("Player");
