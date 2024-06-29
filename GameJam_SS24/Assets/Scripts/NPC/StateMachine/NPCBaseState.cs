@@ -1,15 +1,19 @@
 public abstract class NPCBaseState
 {
+    // get variables from NPCStateMachine and set into all state machines
+    NPCStateMachine ctx;
+    NPCStateFactory factory;
+    NPCBaseState currentSuperState;
+    NPCBaseState currentSubState;
+
+    protected NPCStateMachine Ctx { get { return ctx; } }
+    protected NPCStateFactory Factory { get { return factory; } }
+
     public NPCBaseState(NPCStateMachine currentContext, NPCStateFactory nPCStateFactory)
     {
         ctx = currentContext;
         factory = nPCStateFactory;
     }
-
-    NPCStateMachine ctx;
-    NPCStateFactory factory;
-    NPCBaseState currentSuperState;
-    NPCBaseState currentSubState;
 
     public abstract void EnterState();
     public abstract void UpdateState();

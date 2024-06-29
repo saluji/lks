@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 
+// store all states in this script
 enum PlayerStates
 {
     idle,

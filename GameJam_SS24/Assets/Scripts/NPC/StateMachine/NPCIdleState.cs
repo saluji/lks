@@ -9,6 +9,8 @@ public class NPCIdleState : NPCBaseState
 
     public override void EnterState()
     {
+        Ctx.Animator.SetBool(Ctx.IsPatrolingHash, false);
+        Ctx.Animator.SetBool(Ctx.IsChasingHash, false);
     }
 
     public override void UpdateState()
@@ -28,6 +30,13 @@ public class NPCIdleState : NPCBaseState
 
     public override void CheckSwitchStates()
     {
-
+        if (Ctx.CanSeePlayer || Ctx.CanHearPlayer)
+        {
+            SwitchState(Factory.Chase());
+        }
+        if (Time.time > Ctx.LeaveTIme)
+        {
+            SwitchState(Factory.Patrol());
+        }
     }
 }

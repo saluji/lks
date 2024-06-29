@@ -1,5 +1,6 @@
 public abstract class PlayerBaseState
 {
+    // get variables from PlayerStateMachine and set into all state machines
     PlayerStateMachine ctx;
     PlayerStateFactory factory;
     PlayerBaseState currentSuperState;
