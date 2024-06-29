@@ -17,7 +17,14 @@ public class Ears : Sense
     {
         base.Update();
 
-        IsDetecting = IsInRange() && _playerController.IsAudible ? true : false;
+        if(IsInRange() && _playerController.IsAudible) 
+        {
+            IsDetecting = true;
+        }
+        else
+        {
+            IsDetecting = false;
+        }
     }
 
 #if UNITY_EDITOR
