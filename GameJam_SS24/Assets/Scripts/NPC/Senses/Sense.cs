@@ -15,11 +15,11 @@ public abstract class Sense : MonoBehaviour
     // Wird der Spieler gerade wahrgenommen
     public bool isDetecting { get; protected set; }
 
-    // Transform of player
-    protected Transform player;
-
     // Direction vector to the player
     protected Vector3 directionToPlayer;
+
+    // Transform of player
+    public Transform player;
 
     // Start is called before the first frame update
     protected virtual void Start()

@@ -3,8 +3,8 @@ public abstract class NPCBaseState
     // get variables from NPCStateMachine and set into all state machines
     NPCStateMachine ctx;
     NPCStateFactory factory;
-    NPCBaseState currentSuperState;
-    NPCBaseState currentSubState;
+    // NPCBaseState currentSuperState;
+    // NPCBaseState currentSubState;
 
     protected NPCStateMachine Ctx { get { return ctx; } }
     protected NPCStateFactory Factory { get { return factory; } }
@@ -24,19 +24,10 @@ public abstract class NPCBaseState
     public void UpdateStates()
     {
         UpdateState();
-        if (currentSubState != null)
-        {
-            currentSubState.UpdateStates();
-        }
-    }
-
-    public void ExitStates()
-    {
-        ExitState();
-        if (currentSubState != null)
-        {
-            currentSubState.ExitStates();
-        }
+        // if (currentSubState != null)
+        // {
+        //     currentSubState.UpdateStates();
+        // }
     }
 
     protected void SwitchState(NPCBaseState newState)
@@ -47,21 +38,24 @@ public abstract class NPCBaseState
         // new state enters state
         newState.EnterState();
 
-        if (currentSuperState != null)
-        {
-            // set the current super states sub state to the new state
-            currentSuperState.SetSubState(newState);
-        }
+        // switch current state of context
+        Ctx.CurrentState = newState;
+
+        // if (currentSuperState != null)
+        // {
+        //     // set the current super states sub state to the new state
+        //     currentSuperState.SetSubState(newState);
+        // }
     }
 
-    protected void SetSuperState(NPCBaseState newSuperState)
-    {
-        currentSuperState = newSuperState;
-    }
+    // protected void SetSuperState(NPCBaseState newSuperState)
+    // {
+    //     currentSuperState = newSuperState;
+    // }
 
-    protected void SetSubState(NPCBaseState newSubState)
-    {
-        currentSubState = newSubState;
-        newSubState.SetSuperState(this);
-    }
+    // protected void SetSubState(NPCBaseState newSubState)
+    // {
+    //     currentSubState = newSubState;
+    //     newSubState.SetSuperState(this);
+    // }
 }

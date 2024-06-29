@@ -9,21 +9,22 @@ public class NPCIdleState : NPCBaseState
 
     public override void EnterState()
     {
+        Debug.Log("Idle: Enter");
         Ctx.Animator.SetBool(Ctx.IsPatrolingHash, false);
         Ctx.Animator.SetBool(Ctx.IsChasingHash, false);
-        Ctx.AppliedSpeedX = 0;
-        Ctx.AppliedSpeedZ = 0;
         Ctx.LeaveTime = Time.time + Random.Range(Ctx.MinWaitTime, Ctx.MaxWaitTime);
+        Ctx.SetAgentSpeed(0, 0);
     }
 
     public override void UpdateState()
     {
+        Debug.Log("Idle: Update");
         CheckSwitchStates();
     }
 
     public override void ExitState()
     {
-
+        Debug.Log("Idle: Exit");
     }
 
     public override void InitializeSubState()

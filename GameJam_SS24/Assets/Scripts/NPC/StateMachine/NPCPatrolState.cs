@@ -10,27 +10,28 @@ public class NPCPatrolState : NPCBaseState
 
     public override void EnterState()
     {
+        Debug.Log("Patrol: Enter");
         Ctx.Animator.SetBool(Ctx.IsPatrolingHash, true);
         Ctx.Animator.SetBool(Ctx.IsChasingHash, false);
 
-        if (Ctx.TargetPosition == Vector3.zero)
-        {
-            Ctx.TargetPosition = Ctx.Waypoints[0].position;
-        }
+        // if (Ctx.TargetPosition == Vector3.zero)
+        // {
+        //     Ctx.TargetPosition = Ctx.Waypoints[0].position;
+        // }
+        Ctx.TargetPosition = GetNextWaypoint();
         Ctx.SetDestination(Ctx.TargetPosition);
+        Ctx.SetAgentSpeed(Ctx.MovementSpeed, 1f);
     }
 
     public override void UpdateState()
     {
-        Ctx.AppliedSpeedX = Ctx.MovementSpeed;
-        Ctx.AppliedSpeedZ = Ctx.MovementSpeed;
-
+        Debug.Log("Patrol: Update");
         CheckSwitchStates();
     }
 
     public override void ExitState()
     {
-
+        Debug.Log("Patrol: Exit");
     }
 
     public override void InitializeSubState()
@@ -46,13 +47,13 @@ public class NPCPatrolState : NPCBaseState
         }
 
         float sqrtDistance = (Ctx.transform.position - Ctx.TargetPosition).sqrMagnitude;
-        if(sqrtDistance < 0.1f) 
+        if (sqrtDistance < 0.1f)
         {
-            Ctx.TargetPosition = GetNextWaypoint();
+            // Ctx.TargetPosition = GetNextWaypoint();
             SwitchState(Factory.Idle());
         }
     }
-    
+
     public Vector3 GetNextWaypoint()
     {
         Ctx.CurrentWaypointIndex = ++Ctx.CurrentWaypointIndex % Ctx.Waypoints.Length;

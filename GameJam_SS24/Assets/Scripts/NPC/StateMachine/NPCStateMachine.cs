@@ -9,7 +9,6 @@ public class NPCStateMachine : MonoBehaviour
     NPCStateFactory states;
 
     // reference variables
-    CharacterController characterController;
     NavMeshAgent agent;
     Animator animator;
     Eyes eyes;
@@ -19,7 +18,6 @@ public class NPCStateMachine : MonoBehaviour
     [Header("NPC values")]
     [SerializeField] float movementSpeed;
     [SerializeField] float runMultiplier;
-    Vector3 appliedSpeed;
 
     // idle variables
     [Header("Idle values")]
@@ -33,16 +31,12 @@ public class NPCStateMachine : MonoBehaviour
     Vector3 targetPosition;
     int currentWaypointIndex;
 
-    // chase variables
-    [Header("Chase values")]
-    [SerializeField] Transform[] returnSpots;
-
     // hash variables
     int isPatrolingHash;
     int isChasingHash;
 
     // getter and setter
-    public CharacterController CharacterController { get { return characterController; } set { characterController = value; } }
+    public NPCBaseState CurrentState { get { return currentState; } set { currentState = value; } }
     public NavMeshAgent Agent { get { return agent; } }
     public Animator Animator { get { return animator; } }
     public Eyes Eyes { get { return eyes; } }
@@ -58,13 +52,10 @@ public class NPCStateMachine : MonoBehaviour
     public float MinWaitTime { get { return minWaitTime; } }
     public float MaxWaitTime { get { return maxWaitTime; } }
     public float LeaveTime { get { return leaveTime; } set { leaveTime = value; } }
-    public float AppliedSpeedX { get { return appliedSpeed.x; } set { appliedSpeed.x = value; } }
-    public float AppliedSpeedZ { get { return appliedSpeed.z; } set { appliedSpeed.z = value; } }
 
     void Awake()
     {
         // set initial reference variable
-        characterController = GetComponent<CharacterController>();
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         eyes = GetComponentInChildren<Eyes>();
@@ -85,18 +76,15 @@ public class NPCStateMachine : MonoBehaviour
         // set speed to not 0 otherwise NPC won't move
         movementSpeed = (movementSpeed == 0) ? 1 : movementSpeed;
         runMultiplier = (runMultiplier == 0) ? 2 : runMultiplier;
-
-        characterController.Move(appliedSpeed * Time.deltaTime);
     }
     void Update()
     {
-        Movement();
         currentState.UpdateStates();
     }
 
-    void Movement()
+    public void SetAgentSpeed(float patrolSpeed, float chaseSpeed)
     {
-        characterController.Move(appliedSpeed * Time.deltaTime);
+        agent.speed = patrolSpeed * chaseSpeed;
     }
 
     public void SetDestination(Vector3 destination)
