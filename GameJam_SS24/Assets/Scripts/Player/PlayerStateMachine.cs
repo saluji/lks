@@ -8,7 +8,7 @@ public class PlayerStateMachine : MonoBehaviour
     PlayerStateFactory states;
 
     // player stats
-    [Header("Player behaviour")]
+    [Header("Player stats")]
     [SerializeField] float movementSpeed = 1f;
     [SerializeField] float runMultiplier = 1f;
     [SerializeField] float turnSpeed = 1.0f;

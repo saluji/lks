@@ -9,10 +9,13 @@ public class NPCPatrolState : NPCBaseState
 
     public override void EnterState()
     {
+        Ctx.Animator.SetBool(Ctx.IsPatrolingHash, true);
+        Ctx.Animator.SetBool(Ctx.IsChasingHash, false);
     }
 
     public override void UpdateState()
     {
+        Ctx.AppliedSpeed = Ctx.MovementSpeed;
         CheckSwitchStates();
     }
 
@@ -28,6 +31,16 @@ public class NPCPatrolState : NPCBaseState
 
     public override void CheckSwitchStates()
     {
+        // float sqrtDistance = (npcStateMachine.transform.position - _targetPosition).sqrMagnitude;
+        // if(sqrtDistance < 0.1f) 
+        // {
+        //     _targetPosition = GetNextWaypoint();
+        //     npcStateMachine.SwitchToState(npcStateMachine.IdleState);
+        // }
 
+        if (Ctx.CanSeePlayer || Ctx.CanHearPlayer)
+        {
+            SwitchState(Factory.Chase());
+        }
     }
 }

@@ -9,10 +9,13 @@ public class NPCChaseState : NPCBaseState
 
     public override void EnterState()
     {
+        Ctx.Animator.SetBool(Ctx.IsPatrolingHash, false);
+        Ctx.Animator.SetBool(Ctx.IsChasingHash, true);
     }
 
     public override void UpdateState()
     {
+        Ctx.AppliedSpeed = Ctx.MovementSpeed * Ctx.RunMultiplier;
         CheckSwitchStates();
     }
 

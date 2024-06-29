@@ -11,6 +11,7 @@ public class NPCIdleState : NPCBaseState
     {
         Ctx.Animator.SetBool(Ctx.IsPatrolingHash, false);
         Ctx.Animator.SetBool(Ctx.IsChasingHash, false);
+        Ctx.AppliedSpeed = 0;
     }
 
     public override void UpdateState()
