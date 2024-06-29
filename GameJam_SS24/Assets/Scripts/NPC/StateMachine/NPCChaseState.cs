@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem.Controls;
 
 public class NPCChaseState : NPCBaseState
 {
@@ -14,7 +13,6 @@ public class NPCChaseState : NPCBaseState
         Ctx.Animator.SetBool(Ctx.IsPatrolingHash, false);
         Ctx.Animator.SetBool(Ctx.IsChasingHash, true);
 
-        Ctx.SetDestination(Ctx.Eyes.player.position);
         Ctx.SetAgentSpeed(Ctx.MovementSpeed, Ctx.RunMultiplier);
     }
 
@@ -36,6 +34,7 @@ public class NPCChaseState : NPCBaseState
 
     public override void CheckSwitchStates()
     {
+        Ctx.SetDestination(Ctx.Eyes.player.position);
         // Ctx.SetAgentSpeed(Ctx.MovementSpeed, Ctx.RunMultiplier);
         // switch to idle if out of enemy sight
         if (!Ctx.Eyes.IsInRange())

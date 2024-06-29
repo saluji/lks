@@ -34,7 +34,7 @@ public class NPCIdleState : NPCBaseState
 
     public override void CheckSwitchStates()
     {
-        if (Ctx.Eyes.isDetecting || Ctx.Eyes.isDetecting)
+        if (Ctx.Eyes.isDetecting || Ctx.Ears.isDetecting)
         {
             SwitchState(Factory.Chase());
         }
