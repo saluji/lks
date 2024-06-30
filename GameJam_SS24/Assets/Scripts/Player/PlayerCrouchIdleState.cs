@@ -10,6 +10,7 @@ public class PlayerCrouchIdleState : PlayerBaseState
     public override void EnterState()
     {
         Debug.Log("Player Crouch Idle: Enter");
+        Ctx.Animator.SetBool(Ctx.IsCrouchingHash, true);
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
         Ctx.AppliedMovementX = 0;
@@ -33,13 +34,21 @@ public class PlayerCrouchIdleState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (Ctx.IsMovementPressed && Ctx.IsRunPressed)
+        if (!Ctx.IsMovementPressed && !Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
+        {
+            SwitchState(Factory.Idle());
+        }
+        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
+        {
+            SwitchState(Factory.Walk());
+        }
+        else if(Ctx.IsMovementPressed && Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
         {
             SwitchState(Factory.Run());
         }
-        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)
+        else if(Ctx.IsMovementPressed && Ctx.IsCrouchPressed)
         {
-            SwitchState(Factory.Walk());
+            SwitchState(Factory.CrouchWalk());
         }
     }
 

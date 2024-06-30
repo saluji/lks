@@ -32,17 +32,25 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
 
     public override void InitializeSubState()
     {
-        if (!Ctx.IsMovementPressed && !Ctx.IsRunPressed)
+        if (!Ctx.IsMovementPressed && !Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
         {
             SetSubState(Factory.Idle());
         }
-        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)
+        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
         {
             SetSubState(Factory.Walk());
         }
-        else
+        else if(Ctx.IsMovementPressed && Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
         {
             SetSubState(Factory.Run());
+        }
+        else if(!Ctx.IsMovementPressed  && Ctx.IsCrouchPressed)
+        {
+            SetSubState(Factory.CrouchIdle());
+        }
+        else if(Ctx.IsMovementPressed && Ctx.IsCrouchPressed)
+        {
+            SetSubState(Factory.CrouchWalk());
         }
     }
 

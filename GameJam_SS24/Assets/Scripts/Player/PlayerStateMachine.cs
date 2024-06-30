@@ -24,6 +24,11 @@ public class PlayerStateMachine : MonoBehaviour
     Vector3 cameraRelativeMovement;
     bool isMovementPressed;
     bool isRunPressed;
+    bool isJumpPressed = false;
+    bool isJumping = false;
+    bool requireNewJumpPress = false;
+    bool isFalling;
+    bool isCrouchPressed;
 
     // player stats
     [Header("Player values")]
@@ -36,7 +41,6 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] float fallMultiplier = 2.0f;
     [SerializeField] float terminalVelocity = -20.0f;
     float gravity = -1f;
-    bool isFalling;
 
     // jump stats
     [Header("Jump values")]
@@ -44,9 +48,7 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] float maxAirTime = 0.5f;
     float initialJumpVelocity;
     float timeToApex;
-    bool isJumpPressed = false;
-    bool isJumping = false;
-    bool requireNewJumpPress = false;
+
 
     // hash variables
     int isWalkingHash;
@@ -54,6 +56,7 @@ public class PlayerStateMachine : MonoBehaviour
     int isJumpingHash;
     int isFallingHash;
     int isDyingHash;
+    int isCrouchingHash;
 
     // enemy behaviour
     bool isAudible;
@@ -71,6 +74,7 @@ public class PlayerStateMachine : MonoBehaviour
     public int IsRunningHash { get { return isRunningHash; } }
     public int IsJumpingHash { get { return isJumpingHash; } }
     public int IsFallingHash { get { return isFallingHash; } }
+    public int IsCrouchingHash { get { return isCrouchingHash; } }
     public int IsDyingHash { get { return isDyingHash; } }
     public bool IsJumping { get { return isJumping; } set { isJumping = value; } }
     public bool IsJumpPressed { get { return isJumpPressed; } }
@@ -79,6 +83,7 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsRunPressed { get { return isRunPressed; } }
     public bool RequireNewJumpPress { get { return requireNewJumpPress; } set { requireNewJumpPress = value; } }
     public bool IsAudible { get { return isAudible; } set { isAudible = value; } }
+    public bool IsCrouchPressed { get { return isCrouchPressed; } }
     public float MovementSpeed { get { return movementSpeed; } }
     public float RunMultiplier { get { return runMultiplier; } }
     public float CurrentMovementY { get { return currentMovement.y; } set { currentMovement.y = value; } }
@@ -112,6 +117,7 @@ public class PlayerStateMachine : MonoBehaviour
         isJumpingHash = Animator.StringToHash("isJumping");
         isFallingHash = Animator.StringToHash("isFalling");
         isDyingHash = Animator.StringToHash("isDying");
+        isCrouchingHash = Animator.StringToHash("isCrouching");
 
         // set player input callbacks
         playerInput.CharacterControls.Move.started += OnMovementInput;
@@ -121,11 +127,14 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.CharacterControls.Run.canceled += OnRun;
         playerInput.CharacterControls.Jump.started += OnJump;
         playerInput.CharacterControls.Jump.canceled += OnJump;
+        playerInput.CharacterControls.Crouch.started += OnCrouch;
+        playerInput.CharacterControls.Crouch.performed += OnCrouch;
+        playerInput.CharacterControls.Crouch.canceled += OnCrouch;
 
         SetupJumpVariables();
     }
 
-    // callback handler function to set the player input values
+    #region Callback handler function
     void OnMovementInput(InputAction.CallbackContext context)
     {
         currentMovementInput = context.ReadValue<Vector2>();
@@ -136,18 +145,23 @@ public class PlayerStateMachine : MonoBehaviour
         isMovementPressed = currentMovementInput.x != 0 || currentMovementInput.y != 0;
     }
 
-    // callback handler function for run button
     void OnRun(InputAction.CallbackContext context)
     {
         isRunPressed = context.ReadValueAsButton();
     }
 
-    // callback handler function for jump button
+
     void OnJump(InputAction.CallbackContext context)
     {
         isJumpPressed = context.ReadValueAsButton();
         requireNewJumpPress = false;
     }
+
+    void OnCrouch(InputAction.CallbackContext context)
+    {
+        isCrouchPressed = context.ReadValueAsButton();
+    }
+    #endregion
 
     void SetupJumpVariables()
     {

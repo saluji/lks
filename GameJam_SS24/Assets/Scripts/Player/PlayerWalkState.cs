@@ -11,7 +11,7 @@ public class PlayerWalkState : PlayerBaseState
     {
         Debug.Log("Player Walk: Enter");
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, true);
-        Ctx.Animator.SetBool(Ctx.IsRunningHash, false);;
+    Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
     }
 
     public override void UpdateState()
@@ -33,13 +33,21 @@ public class PlayerWalkState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (!Ctx.IsMovementPressed)
+        if (!Ctx.IsMovementPressed && !Ctx.IsCrouchPressed)
         {
             SwitchState(Factory.Idle());
         }
-        else if (Ctx.IsMovementPressed && Ctx.IsRunPressed)
+        else if (Ctx.IsMovementPressed && Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
         {
             SwitchState(Factory.Run());
+        }
+        else if (!Ctx.IsMovementPressed && Ctx.IsCrouchPressed)
+        {
+            SwitchState(Factory.CrouchIdle());
+        }
+        else if (Ctx.IsMovementPressed && Ctx.IsCrouchPressed)
+        {
+            SwitchState(Factory.CrouchWalk());
         }
     }
 
