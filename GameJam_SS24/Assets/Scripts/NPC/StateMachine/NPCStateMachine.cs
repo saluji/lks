@@ -34,6 +34,8 @@ public class NPCStateMachine : MonoBehaviour
     int isPatrolingHash;
     int isChasingHash;
 
+    bool gameOverState = false;
+
     // getter and setter
     public NPCBaseState CurrentState { get { return currentState; } set { currentState = value; } }
     public NavMeshAgent Agent { get { return agent; } }
@@ -51,6 +53,7 @@ public class NPCStateMachine : MonoBehaviour
     public float MinWaitTime { get { return minWaitTime; } }
     public float MaxWaitTime { get { return maxWaitTime; } }
     public float LeaveTime { get { return leaveTime; } set { leaveTime = value; } }
+    public bool GameOverState { get { return gameOverState; } set { gameOverState = value; } }
 
     void Awake()
     {
@@ -91,5 +94,10 @@ public class NPCStateMachine : MonoBehaviour
     public void SetDestination(Vector3 destination)
     {
         agent.SetDestination(destination);
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        currentState.OnTriggerEnter(collider);
     }
 }

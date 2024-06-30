@@ -4,19 +4,18 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] CursorManager cursorManager;
     [SerializeField] UIManager uIManager;
-    float gameOverLength = 4;
 
-    public void GameOver()
+    void GameOver()
     {
-        StartCoroutine(GameOverCountdown());
         PauseManager.isPaused = true;
         Time.timeScale = 0;
         uIManager.ToggleGameOver();
         cursorManager.ShowCursor();
     }
 
-    IEnumerator GameOverCountdown()
+    public IEnumerator GameOverCountdown()
     {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(3);
+        GameOver();
     }
 }

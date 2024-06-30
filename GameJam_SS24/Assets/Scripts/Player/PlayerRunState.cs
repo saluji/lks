@@ -9,6 +9,7 @@ public class PlayerRunState : PlayerBaseState
 
     public override void EnterState()
     {
+        Debug.Log("Player Run: Enter");
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, true);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, true);
         Ctx.IsAudible = true;
@@ -23,6 +24,7 @@ public class PlayerRunState : PlayerBaseState
 
     public override void ExitState()
     {
+        Debug.Log("Player Run: Exit");
         Ctx.IsAudible = false;
     }
 

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public abstract class NPCBaseState
 {
     // get variables from NPCStateMachine and set into all state machines
@@ -20,6 +22,7 @@ public abstract class NPCBaseState
     public abstract void ExitState();
     public abstract void InitializeSubState();
     public abstract void CheckSwitchStates();
+    public abstract void OnTriggerEnter(Collider collider);
 
     public void UpdateStates()
     {

@@ -9,10 +9,10 @@ public class PlayerStateMachine : MonoBehaviour
     PlayerStateFactory states;
 
     // reference variables
-    [SerializeField] GameManager gameManager;
     PlayerInput playerInput;
     CharacterController characterController;
     Animator animator;
+    GameManager gameManager;
 
     // store input values
     Vector2 currentMovementInput;
@@ -91,6 +91,7 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput = new PlayerInput();
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         // setup state
         states = new PlayerStateFactory(this);
@@ -143,7 +144,7 @@ public class PlayerStateMachine : MonoBehaviour
     void SetupJumpVariables()
     {
         // set initial jump variables with gravitational fall equation
-        maxAirTime = (maxAirTime == 0) ? 1 : maxAirTime;
+        maxAirTime = (maxAirTime <= 0) ? 1 : maxAirTime;
         timeToApex = maxAirTime / 2;
         gravity = -2 * maxJumpHeight / Mathf.Pow(timeToApex, 2);
         initialJumpVelocity = 2 * maxJumpHeight / timeToApex;
@@ -227,6 +228,6 @@ public class PlayerStateMachine : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-       currentState.OnTriggerEnter(collider); 
+        currentState.OnTriggerEnter(collider);
     }
 }

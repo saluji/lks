@@ -9,6 +9,7 @@ public class NPCPatrolState : NPCBaseState
 
     public override void EnterState()
     {
+        Debug.Log("NPC Patrol: Enter");
         Ctx.Animator.SetBool(Ctx.IsPatrolingHash, true);
         Ctx.Animator.SetBool(Ctx.IsChasingHash, false);
         Ctx.TargetPosition = GetNextWaypoint();
@@ -23,7 +24,7 @@ public class NPCPatrolState : NPCBaseState
 
     public override void ExitState()
     {
-
+        Debug.Log("NPC Patrol: Exit");
     }
 
     public override void InitializeSubState()
@@ -33,8 +34,8 @@ public class NPCPatrolState : NPCBaseState
 
     public override void CheckSwitchStates()
     {
-        // switch to chase if player detected by NPC
-        if (Ctx.Eyes.isDetecting || Ctx.Ears.isDetecting)
+        // as long as game over is not active
+        if ((Ctx.Eyes.isDetecting || Ctx.Ears.isDetecting) && !Ctx.GameOverState)
         {
             SwitchState(Factory.Chase());
         }
@@ -45,6 +46,11 @@ public class NPCPatrolState : NPCBaseState
         {
             SwitchState(Factory.Idle());
         }
+    }
+
+    public override void OnTriggerEnter(Collider collider)
+    {
+
     }
 
     public Vector3 GetNextWaypoint()

@@ -9,6 +9,7 @@ public class PlayerJumpState : PlayerBaseState, IRootState
 
     public override void EnterState()
     {
+        Debug.Log("Player Jump: Enter");
         InitializeSubState();
         HandleJump();
     }
@@ -21,6 +22,7 @@ public class PlayerJumpState : PlayerBaseState, IRootState
 
     public override void ExitState()
     {
+        Debug.Log("Player Jump: Exit");
         Ctx.Animator.SetBool(Ctx.IsJumpingHash, false);
 
         // replace GetKey with GetKeyDown on jump input
