@@ -2,8 +2,14 @@ using System.Collections;
 using UnityEngine;
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] CursorManager cursorManager;
-    [SerializeField] UIManager uIManager;
+    CursorManager cursorManager;
+    UIManager uIManager;
+
+    void Awake()
+    {
+        cursorManager = GameObject.Find("CursorManager").GetComponent<CursorManager>();
+        uIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+    }
 
     void GameOver()
     {

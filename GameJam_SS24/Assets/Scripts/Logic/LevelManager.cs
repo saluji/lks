@@ -3,11 +3,21 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] PauseManager pauseManager;
-    
+    PauseManager pauseManager;
+    int buildIndex;
+
+    void Awake()
+    {
+        buildIndex = SceneManager.GetActiveScene().buildIndex;
+        if (buildIndex != 0)
+        {
+            pauseManager = GameObject.Find("PauseManager").GetComponent<PauseManager>();
+        }
+    }
+
     public void StartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(buildIndex + 1);
     }
 
     public void QuitGame()
@@ -17,12 +27,12 @@ public class LevelManager : MonoBehaviour
 
     public void TitelScreen()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene(buildIndex - 1);
     }
 
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(buildIndex);
         pauseManager.Resume();
     }
 }

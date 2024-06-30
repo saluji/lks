@@ -34,6 +34,7 @@ public class NPCStateMachine : MonoBehaviour
     int isPatrolingHash;
     int isChasingHash;
 
+    // game over state
     bool gameOverState = false;
 
     // getter and setter

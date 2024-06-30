@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerStateMachine : MonoBehaviour
 {
+    #region Variables
     // state variables
     PlayerBaseState currentState;
     PlayerStateFactory states;
@@ -13,6 +14,7 @@ public class PlayerStateMachine : MonoBehaviour
     CharacterController characterController;
     Animator animator;
     GameManager gameManager;
+    // SoundManager soundManager;
 
     // store input values
     Vector2 currentMovementInput;
@@ -56,8 +58,11 @@ public class PlayerStateMachine : MonoBehaviour
     // enemy behaviour
     bool isAudible;
 
-    // getter and setter
+    #endregion
+
+    #region Getter and Setter
     public GameManager GameManager { get { return gameManager; } }
+    // public SoundManager SoundManager { get { return soundManager; } }
     public PlayerBaseState CurrentState { get { return currentState; } set { currentState = value; } }
     public CharacterController CharacterController { get { return characterController; } }
     public Animator Animator { get { return animator; } }
@@ -80,10 +85,12 @@ public class PlayerStateMachine : MonoBehaviour
     public float AppliedMovementY { get { return appliedMovement.y; } set { appliedMovement.y = value; } }
     public float AppliedMovementX { get { return appliedMovement.x; } set { appliedMovement.x = value; } }
     public float AppliedMovementZ { get { return appliedMovement.z; } set { appliedMovement.z = value; } }
+    public float TurnSpeed { set { turnSpeed = value; } }
     public float InitialJumpVelocity { get { return initialJumpVelocity; } }
     public float Gravity { get { return gravity; } }
     public float FallMultiplier { get { return fallMultiplier; } }
     public float TerminalVelocity { get { return terminalVelocity; } }
+    #endregion
 
     void Awake()
     {
@@ -92,6 +99,7 @@ public class PlayerStateMachine : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        // soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 
         // setup state
         states = new PlayerStateFactory(this);

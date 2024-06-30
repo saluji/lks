@@ -11,7 +11,9 @@ public class AudioManager : MonoBehaviour
     public AudioClip walk;
     public AudioClip run;
     public AudioClip jump;
-    public AudioClip death;
+    public AudioClip death; 
+    public AudioClip whistle; 
+    public AudioClip scream; 
 
     void Start()
     {

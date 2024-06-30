@@ -2,9 +2,15 @@ using UnityEngine;
 
 public class PauseManager : MonoBehaviour
 {
-    [SerializeField] CursorManager cursorManager;
-    [SerializeField] UIManager uIManager;
+    CursorManager cursorManager;
+    UIManager uIManager;
     public static bool isPaused = false;
+
+    void Awake()
+    {
+        cursorManager = GameObject.Find("CursorManager").GetComponent<CursorManager>();
+        uIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+    }
 
     void Update()
     {
