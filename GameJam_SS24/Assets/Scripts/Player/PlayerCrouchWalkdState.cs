@@ -12,12 +12,12 @@ public class PlayerCrouchWalkState : PlayerBaseState
         Debug.Log("Player Crouch Walk: Enter");
         Ctx.Animator.SetBool(Ctx.IsCrouchingHash, true);
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, true);
-        Ctx.AppliedMovementX = Ctx.CurrentMovementInput.x / 2;
-        Ctx.AppliedMovementZ = Ctx.CurrentMovementInput.y / 2;
     }
 
     public override void UpdateState()
     {
+        Ctx.AppliedMovementX = Ctx.CurrentMovementInput.x * Ctx.MovementSpeed / 2;
+        Ctx.AppliedMovementZ = Ctx.CurrentMovementInput.y * Ctx.MovementSpeed / 2;
         CheckSwitchStates();
     }
 
@@ -35,21 +35,24 @@ public class PlayerCrouchWalkState : PlayerBaseState
     {
         if (!Ctx.IsMovementPressed && !Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
         {
+            Ctx.Animator.SetBool(Ctx.IsCrouchingHash, false);
             SwitchState(Factory.Idle());
         }
         else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
         {
+            Ctx.Animator.SetBool(Ctx.IsCrouchingHash, false);
             SwitchState(Factory.Walk());
         }
-        else if(Ctx.IsMovementPressed && Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
+        else if (Ctx.IsMovementPressed && Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
         {
+            Ctx.Animator.SetBool(Ctx.IsCrouchingHash, false);
             SwitchState(Factory.Run());
         }
-        else if(!Ctx.IsMovementPressed  && Ctx.IsCrouchPressed)
+        else if (!Ctx.IsMovementPressed && Ctx.IsCrouchPressed)
         {
             SwitchState(Factory.CrouchIdle());
         }
-        
+
     }
 
     public override void OnTriggerEnter(Collider collider)

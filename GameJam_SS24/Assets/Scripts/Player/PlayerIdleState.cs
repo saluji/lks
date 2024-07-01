@@ -11,6 +11,7 @@ public class PlayerIdleState : PlayerBaseState
     public override void EnterState()
     {
         Debug.Log("Player Idle: Enter");
+        Ctx.Animator.SetBool(Ctx.IsCrouchingHash, false);
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
         Ctx.AppliedMovementX = 0;
@@ -34,7 +35,7 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (Ctx.IsMovementPressed && !Ctx.IsRunPressed !&& Ctx.IsCrouchPressed)
+        if (Ctx.IsMovementPressed && !Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
         {
             SwitchState(Factory.Walk());
         }
@@ -47,11 +48,6 @@ public class PlayerIdleState : PlayerBaseState
         else if (!Ctx.IsMovementPressed && Ctx.IsCrouchPressed)
         {
             SwitchState(Factory.CrouchIdle());
-        }
-        
-        else if (Ctx.IsMovementPressed && Ctx.IsCrouchPressed)
-        {
-            SwitchState(Factory.CrouchWalk());
         }
     }
 

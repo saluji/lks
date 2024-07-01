@@ -10,6 +10,7 @@ public class PlayerRunState : PlayerBaseState
     public override void EnterState()
     {
         Debug.Log("Player Run: Enter");
+        Ctx.Animator.SetBool(Ctx.IsCrouchingHash, false);
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, true);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, true);
         Ctx.IsAudible = true;
@@ -42,10 +43,6 @@ public class PlayerRunState : PlayerBaseState
         else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
         {
             SwitchState(Factory.Walk());
-        }
-        else if (!Ctx.IsMovementPressed && Ctx.IsCrouchPressed)
-        {
-            SwitchState(Factory.CrouchIdle());
         }
         else if (Ctx.IsMovementPressed && Ctx.IsCrouchPressed)
         {

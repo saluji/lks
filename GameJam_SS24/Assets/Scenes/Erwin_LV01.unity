@@ -1375,7 +1375,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 270867518}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.24567056, y: 0.000000008182705, z: -0.0000000020738051, w: 0.96935344}
+  m_LocalRotation: {x: 0.24567056, y: -0.00000000833953, z: 0.0000000021135504, w: 0.96935344}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3653,7 +3653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 2
-  runMultiplier: 3
+  runMultiplier: 5
   minWaitTime: 5
   maxWaitTime: 10
   waypoints:
@@ -4377,7 +4377,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.24567054, y: 0.000000016601206, z: -0.0000000042073687, w: 0.96935344}
+  m_LocalRotation: {x: 0.24567054, y: -0.000000016679063, z: 0.000000004227101, w: 0.96935344}
   m_LocalPosition: {x: 7.24, y: 5, z: -5.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4880,7 +4880,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1197324923}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.26740873, y: 0.00000001672044, z: -0.000000004640172, w: 0.96358323}
+  m_LocalRotation: {x: 0.26740873, y: 0.00000001657978, z: -0.000000004601136, w: 0.96358323}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5226,8 +5226,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1353997133}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.24498576, y: 0.0000000144470755, z: -0.0000000036505727,
-    w: 0.9695267}
+  m_LocalRotation: {x: 0.24498579, y: 0.000000008343953, z: -0.0000000021083997, w: 0.9695267}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5552,8 +5551,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c79cbc3826ea5842bcf8d6b18a22c1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 4
-  runMultiplier: 3
+  movementSpeed: 3
+  runMultiplier: 4
   turnSpeed: 15
   fallMultiplier: 1
   terminalVelocity: -10

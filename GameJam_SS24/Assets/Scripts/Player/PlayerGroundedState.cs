@@ -40,15 +40,15 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
         {
             SetSubState(Factory.Walk());
         }
-        else if(Ctx.IsMovementPressed && Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
+        else if (Ctx.IsMovementPressed && Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
         {
             SetSubState(Factory.Run());
         }
-        else if(!Ctx.IsMovementPressed  && Ctx.IsCrouchPressed)
+        else if (!Ctx.IsMovementPressed && Ctx.IsCrouchPressed)
         {
             SetSubState(Factory.CrouchIdle());
         }
-        else if(Ctx.IsMovementPressed && Ctx.IsCrouchPressed)
+        else if (Ctx.IsMovementPressed && Ctx.IsCrouchPressed)
         {
             SetSubState(Factory.CrouchWalk());
         }
@@ -65,7 +65,7 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
             SwitchState(Factory.Fall());
         }
     }
-    
+
     public override void OnTriggerEnter(Collider collider)
     {
         GameObject other = collider.gameObject;

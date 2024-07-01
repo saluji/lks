@@ -36,17 +36,20 @@ public class PlayerCrouchIdleState : PlayerBaseState
     {
         if (!Ctx.IsMovementPressed && !Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
         {
+            Ctx.Animator.SetBool(Ctx.IsCrouchingHash, false);
             SwitchState(Factory.Idle());
         }
         else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
         {
+            Ctx.Animator.SetBool(Ctx.IsCrouchingHash, false);
             SwitchState(Factory.Walk());
         }
-        else if(Ctx.IsMovementPressed && Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
+        else if (Ctx.IsMovementPressed && Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
         {
+            Ctx.Animator.SetBool(Ctx.IsCrouchingHash, false);
             SwitchState(Factory.Run());
         }
-        else if(Ctx.IsMovementPressed && Ctx.IsCrouchPressed)
+        else if (Ctx.IsMovementPressed && Ctx.IsCrouchPressed)
         {
             SwitchState(Factory.CrouchWalk());
         }
