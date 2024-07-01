@@ -29,6 +29,7 @@ public abstract class PlayerBaseState
 
     public void UpdateStates()
     {
+        // update all sub state that are part of this super state 
         UpdateState();
         if (currentSubState != null)
         {

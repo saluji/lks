@@ -16,7 +16,6 @@ public class Ears : Sense
     protected override void Update()
     {
         base.Update();
-
         isDetecting = (IsInRange() && playerController.IsAudible) ? true : false;
     }
 

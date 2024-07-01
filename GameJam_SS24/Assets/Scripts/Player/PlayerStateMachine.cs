@@ -14,7 +14,7 @@ public class PlayerStateMachine : MonoBehaviour
     CharacterController characterController;
     Animator animator;
     GameManager gameManager;
-    // SoundManager soundManager;
+    AudioManager audioManager;
 
     // store input values
     Vector2 currentMovementInput;
@@ -59,17 +59,19 @@ public class PlayerStateMachine : MonoBehaviour
     int isCrouchingHash;
 
     // enemy behaviour
+    Ears ears;
     bool isAudible;
 
     #endregion
 
     #region Getter and Setter
     public GameManager GameManager { get { return gameManager; } }
-    // public SoundManager SoundManager { get { return soundManager; } }
+    public AudioManager AudioManager { get { return audioManager; } }
     public PlayerBaseState CurrentState { get { return currentState; } set { currentState = value; } }
     public CharacterController CharacterController { get { return characterController; } }
     public Animator Animator { get { return animator; } }
     public Vector2 CurrentMovementInput { get { return currentMovementInput; } }
+    public Ears Ears { get { return ears; } set { ears = value; } }
     public int IsWalkingHash { get { return isWalkingHash; } }
     public int IsRunningHash { get { return isRunningHash; } }
     public int IsJumpingHash { get { return isJumpingHash; } }
@@ -104,7 +106,8 @@ public class PlayerStateMachine : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        // soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        ears = GameObject.Find("Ears").GetComponent<Ears>();
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
 
         // setup state
         states = new PlayerStateFactory(this);

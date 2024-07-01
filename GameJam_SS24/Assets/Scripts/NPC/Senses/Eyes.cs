@@ -53,14 +53,6 @@ public class Eyes : Sense
         RaycastHit hit;
         Ray ray = new Ray(headReferenceTransform.position, directionToPlayer);
         return Physics.Raycast(ray, out hit, range, detectionLayer) ? hit.collider.gameObject.CompareTag("Player") : false;
-        // if (Physics.Raycast(ray, out hit, Range, DetectionLayer))
-        // {
-        //     return hit.collider.gameObject.CompareTag("Player");
-        // }
-        // else
-        // {
-        //     return false;
-        // }
     }
 
 }

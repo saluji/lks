@@ -1375,7 +1375,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 270867518}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.24567056, y: -0.00000000833953, z: 0.0000000021135504, w: 0.96935344}
+  m_LocalRotation: {x: 0.24567054, y: -1e-45, z: -0, w: 0.96935344}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2472,7 +2472,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -3472,8 +3472,8 @@ MonoBehaviour:
   musicSource: {fileID: 627687884}
   sFXSource: {fileID: 1413208726}
   backgroundMusic: {fileID: 8300000, guid: dfdfcc44c34a5a542b652caaf0db5109, type: 3}
-  walk: {fileID: 0}
-  run: {fileID: 0}
+  walk: {fileID: 8300000, guid: 3a495d48b92f2934fa574f2182244401, type: 3}
+  run: {fileID: 8300000, guid: c8e85940df58267428457efa8591412c, type: 3}
   jump: {fileID: 0}
   death: {fileID: 0}
   whistle: {fileID: 0}
@@ -4377,7 +4377,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.24567054, y: -0.000000016679063, z: 0.000000004227101, w: 0.96935344}
+  m_LocalRotation: {x: 0.24567057, y: -0.000000014444494, z: 0.0000000036607772, w: 0.96935344}
   m_LocalPosition: {x: 7.24, y: 5, z: -5.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4880,7 +4880,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1197324923}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.26740873, y: 0.00000001657978, z: -0.000000004601136, w: 0.96358323}
+  m_LocalRotation: {x: 0.26740867, y: 0.000000016579781, z: -0.0000000046011355, w: 0.96358323}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5226,7 +5226,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1353997133}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.24498579, y: 0.000000008343953, z: -0.0000000021083997, w: 0.9695267}
+  m_LocalRotation: {x: 0.24498579, y: 0.000000009653227, z: -0.000000002439235, w: 0.9695267}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5326,7 +5326,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
