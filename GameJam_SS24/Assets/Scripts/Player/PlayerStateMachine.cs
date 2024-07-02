@@ -32,6 +32,8 @@ public class PlayerStateMachine : MonoBehaviour
     bool isFalling;
     bool isSnatchPressed;
     bool isConsumePressed;
+    bool isAttackPressed;
+    bool isStompPressed;
     bool isSnatchable;
 
     // player stats
@@ -62,13 +64,11 @@ public class PlayerStateMachine : MonoBehaviour
     int isDyingHash;
     int isSnatchingHash;
     int isConsumingHash;
+    int isAttackingHash;
+    int isStompingHash;
 
     // NPC consumption counter
     int consumeCounter;
-
-    // enemy behaviour
-    Ears ears;
-    bool isAudible;
 
     #endregion
 
@@ -80,7 +80,6 @@ public class PlayerStateMachine : MonoBehaviour
     public CharacterController CharacterController { get { return characterController; } }
     public Animator Animator { get { return animator; } }
     public Vector2 CurrentMovementInput { get { return currentMovementInput; } }
-    public Ears Ears { get { return ears; } set { ears = value; } }
     public int IsWalkingHash { get { return isWalkingHash; } }
     public int IsRunningHash { get { return isRunningHash; } }
     public int IsJumpingHash { get { return isJumpingHash; } }
@@ -97,7 +96,6 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsSnatchPressed { get { return isSnatchPressed; } }
     public bool IsConsumePressed { get { return isConsumePressed; } }
     public bool RequireNewJumpPress { get { return requireNewJumpPress; } set { requireNewJumpPress = value; } }
-    public bool IsAudible { get { return isAudible; } set { isAudible = value; } }
     public bool IsSnatchable { get { return isSnatchable; } set { isSnatchable = value; } }
     public float MovementSpeed { get { return movementSpeed; } }
     public float RunMultiplier { get { return runMultiplier; } }
@@ -119,7 +117,6 @@ public class PlayerStateMachine : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        ears = GameObject.Find("Ears").GetComponent<Ears>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
 
         // setup state
@@ -135,6 +132,8 @@ public class PlayerStateMachine : MonoBehaviour
         isDyingHash = Animator.StringToHash("isDying");
         isSnatchingHash = Animator.StringToHash("isSnatching");
         isConsumingHash = Animator.StringToHash("isConsuming");
+        isAttackingHash = Animator.StringToHash("isAttacking");
+        isStompingHash = Animator.StringToHash("isStomping");
 
         // set player input callbacks
         playerInput.CharacterControls.Move.started += OnMovementInput;
@@ -148,6 +147,10 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.CharacterControls.Snatch.canceled += OnSnatch;
         playerInput.CharacterControls.Consume.started += OnConsume;
         playerInput.CharacterControls.Consume.canceled += OnConsume;
+        playerInput.CharacterControls.Attack.started += OnAttack;
+        playerInput.CharacterControls.Attack.canceled += OnAttack;
+        playerInput.CharacterControls.Stomp.started += OnStomp;
+        playerInput.CharacterControls.Stomp.canceled += OnStomp;
 
         SetupJumpVariables();
     }
@@ -182,6 +185,14 @@ public class PlayerStateMachine : MonoBehaviour
     void OnConsume(InputAction.CallbackContext context)
     {
         isConsumePressed = context.ReadValueAsButton();
+    }
+    void OnAttack(InputAction.CallbackContext context)
+    {
+        isAttackPressed = context.ReadValueAsButton();
+    }
+    void OnStomp(InputAction.CallbackContext context)
+    {
+        isStompPressed = context.ReadValueAsButton();
     }
     #endregion
 

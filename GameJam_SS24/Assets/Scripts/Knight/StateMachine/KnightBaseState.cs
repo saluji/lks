@@ -1,18 +1,18 @@
 using UnityEngine;
 
-public abstract class NPCParentBaseState
+public abstract class KnightBaseState
 {
     // get variables from ParentStateMachine and set into all state machines
-    NPCParentStateMachine ctx;
-    NPCParentStateFactory factory;
+    KnightStateMachine ctx;
+    KnightStateFactory factory;
 
-    protected NPCParentStateMachine Ctx { get { return ctx; } }
-    protected NPCParentStateFactory Factory { get { return factory; } }
+    protected KnightStateMachine Ctx { get { return ctx; } }
+    protected KnightStateFactory Factory { get { return factory; } }
 
-    public NPCParentBaseState(NPCParentStateMachine currentContext, NPCParentStateFactory nPCParentStateFactory)
+    public KnightBaseState(KnightStateMachine currentContext, KnightStateFactory knightStateFactory)
     {
         ctx = currentContext;
-        factory = nPCParentStateFactory;
+        factory = knightStateFactory;
     }
 
     public abstract void EnterState();
@@ -26,7 +26,7 @@ public abstract class NPCParentBaseState
         UpdateState();
     }
 
-    protected void SwitchState(NPCParentBaseState newState)
+    protected void SwitchState(KnightBaseState newState)
     {
         // current state exits state
         ExitState();

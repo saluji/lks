@@ -13,7 +13,6 @@ public class PlayerWalkState : PlayerBaseState
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, true);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
         // Ctx.StartCoroutine(Ctx.AudioManager.PlaySFX(Ctx.AudioManager.walk));
-        Ctx.IsAudible = true;
     }
 
     public override void UpdateState()
@@ -27,7 +26,6 @@ public class PlayerWalkState : PlayerBaseState
     {
         Debug.Log("Player Walk: Exit");
         // Ctx.StopCoroutine(Ctx.AudioManager.PlaySFX(Ctx.AudioManager.walk));
-        Ctx.IsAudible = false;
         Ctx.IsSnatchable = false;
     }
 

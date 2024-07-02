@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class NPCParentWalkState : NPCParentBaseState
+public class KnightPatrolState : KnightBaseState
 {
-    public NPCParentWalkState(NPCParentStateMachine currentContext, NPCParentStateFactory npcParentStateFactory) : base(currentContext, npcParentStateFactory)
+    public KnightPatrolState(KnightStateMachine currentContext, KnightStateFactory knightStateFactory) : base(currentContext, knightStateFactory)
     {
 
     }
 
     public override void EnterState()
     {
-        Debug.Log("Parent Patrol: Enter");
+        Debug.Log("Knight Patrol: Enter");
         Ctx.Animator.SetBool(Ctx.IsPatrolingHash, true);
         Ctx.Animator.SetBool(Ctx.IsChasingHash, false);
         Ctx.TargetPosition = GetNextWaypoint();
@@ -24,13 +24,13 @@ public class NPCParentWalkState : NPCParentBaseState
 
     public override void ExitState()
     {
-        Debug.Log("Parent Patrol: Exit");
+        Debug.Log("Knight Patrol: Exit");
     }
 
     public override void CheckSwitchStates()
     {
         // as long as game over is not active
-        if ((Ctx.Eyes.isDetecting || Ctx.Ears.isDetecting) && !Ctx.GameOverState)
+        if (Ctx.Eyes.isDetecting && !Ctx.GameOverState)
         {
             SwitchState(Factory.Chase());
         }

@@ -11,7 +11,10 @@ enum PlayerStates
     fall,
     death,
     snatch,
-    consume
+    consume,
+    attack
+    // stomp,
+    // glide
 }
 
 // call states from the factory script
@@ -34,6 +37,7 @@ public class PlayerStateFactory
         states[PlayerStates.death] = new PlayerDeathState(context, this);
         states[PlayerStates.snatch] = new PlayerSnatchState(context, this);
         states[PlayerStates.consume] = new PlayerConsumeState(context, this);
+        states[PlayerStates.attack] = new PlayerAttackState(context, this);
     }
 
     // store states
@@ -76,5 +80,9 @@ public class PlayerStateFactory
     public PlayerBaseState Consume()
     {
         return states[PlayerStates.consume];
+    }
+    public PlayerBaseState Attack()
+    {
+        return states[PlayerStates.attack];
     }
 }

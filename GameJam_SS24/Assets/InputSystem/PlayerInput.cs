@@ -80,6 +80,24 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""d2b66590-66d6-4488-bc1d-aed33c2f9dee"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Stomp"",
+                    ""type"": ""Button"",
+                    ""id"": ""93713db8-a931-4f68-95b3-14a92216052d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -174,7 +192,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e8ac17d3-e5da-47a2-8991-16d3089b7db3"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -185,11 +203,33 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f383660d-dd0d-40d0-85a2-64063455ad78"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Consume"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b3c4f90c-b740-42dc-a4fa-3b567fe5cdd2"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a7ac078a-97c8-4099-ac21-d84eedf3bb85"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Stomp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -206,6 +246,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_CharacterControls_Look = m_CharacterControls.FindAction("Look", throwIfNotFound: true);
         m_CharacterControls_Snatch = m_CharacterControls.FindAction("Snatch", throwIfNotFound: true);
         m_CharacterControls_Consume = m_CharacterControls.FindAction("Consume", throwIfNotFound: true);
+        m_CharacterControls_Attack = m_CharacterControls.FindAction("Attack", throwIfNotFound: true);
+        m_CharacterControls_Stomp = m_CharacterControls.FindAction("Stomp", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -273,6 +315,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_CharacterControls_Look;
     private readonly InputAction m_CharacterControls_Snatch;
     private readonly InputAction m_CharacterControls_Consume;
+    private readonly InputAction m_CharacterControls_Attack;
+    private readonly InputAction m_CharacterControls_Stomp;
     public struct CharacterControlsActions
     {
         private @PlayerInput m_Wrapper;
@@ -283,6 +327,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_CharacterControls_Look;
         public InputAction @Snatch => m_Wrapper.m_CharacterControls_Snatch;
         public InputAction @Consume => m_Wrapper.m_CharacterControls_Consume;
+        public InputAction @Attack => m_Wrapper.m_CharacterControls_Attack;
+        public InputAction @Stomp => m_Wrapper.m_CharacterControls_Stomp;
         public InputActionMap Get() { return m_Wrapper.m_CharacterControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -310,6 +356,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Consume.started += instance.OnConsume;
             @Consume.performed += instance.OnConsume;
             @Consume.canceled += instance.OnConsume;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
+            @Stomp.started += instance.OnStomp;
+            @Stomp.performed += instance.OnStomp;
+            @Stomp.canceled += instance.OnStomp;
         }
 
         private void UnregisterCallbacks(ICharacterControlsActions instance)
@@ -332,6 +384,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Consume.started -= instance.OnConsume;
             @Consume.performed -= instance.OnConsume;
             @Consume.canceled -= instance.OnConsume;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
+            @Stomp.started -= instance.OnStomp;
+            @Stomp.performed -= instance.OnStomp;
+            @Stomp.canceled -= instance.OnStomp;
         }
 
         public void RemoveCallbacks(ICharacterControlsActions instance)
@@ -357,5 +415,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnSnatch(InputAction.CallbackContext context);
         void OnConsume(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
+        void OnStomp(InputAction.CallbackContext context);
     }
 }

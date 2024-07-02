@@ -13,10 +13,6 @@ public class PlayerRunState : PlayerBaseState
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, true);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, true);
         // Ctx.StartCoroutine(Ctx.AudioManager.PlaySFX(Ctx.AudioManager.run));
-        Ctx.IsAudible = true;
-
-        // enemy hears double range if player running
-        Ctx.Ears.range *= 2;
     }
 
     public override void UpdateState()
@@ -30,8 +26,6 @@ public class PlayerRunState : PlayerBaseState
     {
         Debug.Log("Player Run: Exit");
         // Ctx.StopCoroutine(Ctx.AudioManager.PlaySFX(Ctx.AudioManager.run));
-        Ctx.IsAudible = false;
-        Ctx.Ears.range /= 2;
         Ctx.IsSnatchable = false;
     }
 

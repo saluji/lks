@@ -1,19 +1,18 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NPCParentStateMachine : MonoBehaviour
+public class KnightStateMachine : MonoBehaviour
 {
     // state variables
-    NPCParentBaseState currentState;
-    NPCParentStateFactory states;
+    KnightBaseState currentState;
+    KnightStateFactory states;
 
     // reference variables
     NavMeshAgent agent;
     Animator animator;
     Eyes eyes;
-    Ears ears;
 
-    // NPC stats
+    // knight stats
     [Header("NPC values")]
     [SerializeField] float movementSpeed;
     [SerializeField] float runMultiplier;
@@ -38,11 +37,10 @@ public class NPCParentStateMachine : MonoBehaviour
     bool gameOverState = false;
 
     // getter and setter
-    public NPCParentBaseState CurrentState { get { return currentState; } set { currentState = value; } }
+    public KnightBaseState CurrentState { get { return currentState; } set { currentState = value; } }
     public NavMeshAgent Agent { get { return agent; } }
     public Animator Animator { get { return animator; } }
     public Eyes Eyes { get { return eyes; } }
-    public Ears Ears { get { return ears; } }
     public Vector3 TargetPosition { get { return targetPosition; } set { targetPosition = value; } }
     public Transform[] Waypoints { get { return waypoints; } }
     public int CurrentWaypointIndex { get { return currentWaypointIndex; } set { currentWaypointIndex = value; } }
@@ -62,10 +60,9 @@ public class NPCParentStateMachine : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         eyes = GetComponentInChildren<Eyes>();
-        ears = GetComponentInChildren<Ears>();
 
         // setup state
-        states = new NPCParentStateFactory(this);
+        states = new KnightStateFactory(this);
         currentState = states.Idle();
         currentState.EnterState();
 

@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class NPCParentChaseState : NPCParentBaseState
+public class KnightChaseState : KnightBaseState
 {
-    public NPCParentChaseState(NPCParentStateMachine currentContext, NPCParentStateFactory nPCParentStateFactory) : base(currentContext, nPCParentStateFactory)
+    public KnightChaseState(KnightStateMachine currentContext, KnightStateFactory knightStateFactory) : base(currentContext, knightStateFactory)
     {
 
     }
 
     public override void EnterState()
     {
-        Debug.Log("NPC Chase: Enter");
+        Debug.Log("Knight Chase: Enter");
         Ctx.Animator.SetBool(Ctx.IsPatrolingHash, false);
         Ctx.Animator.SetBool(Ctx.IsChasingHash, true);
         Ctx.SetAgentSpeed(Ctx.MovementSpeed, Ctx.RunMultiplier);
@@ -22,7 +22,7 @@ public class NPCParentChaseState : NPCParentBaseState
 
     public override void ExitState()
     {
-        Debug.Log("NPC Chase: Exit");
+        Debug.Log("Knight Chase: Exit");
     }
 
     public override void CheckSwitchStates()
@@ -33,23 +33,13 @@ public class NPCParentChaseState : NPCParentBaseState
         // switch to idle if out of enemy sight
         if (!Ctx.Eyes.IsInRange())
         {
-            // switch to idle if player out of NPC detection range
+            // switch to idle if player out of Knight detection range
             SwitchState(Factory.Idle());
         }
     }
 
     public override void OnTriggerStay(Collider collider)
     {
-        // if colliding with player change to hold animation
-    
 
-        // set game over state active and switch to patrol if colliding with player
-
-        // GameObject other = collider.gameObject;
-        // if (other.CompareTag("Player"))
-        // {
-        //     Ctx.GameOverState = true;
-        //     SwitchState(Factory.Patrol());
-        // }
     }
 }

@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class ParentIdleState : NPCParentBaseState
+public class KnightIdleState : KnightBaseState
 {
-    public ParentIdleState(NPCParentStateMachine currentContext, NPCParentStateFactory npcParentStateFactory) : base(currentContext, npcParentStateFactory)
+    public KnightIdleState(KnightStateMachine currentContext, KnightStateFactory knightStateFactory) : base(currentContext, knightStateFactory)
     {
 
     }
 
     public override void EnterState()
     {
-        Debug.Log("NPC Idle: Enter");
+        Debug.Log("Knight Idle: Enter");
         Ctx.Animator.SetBool(Ctx.IsPatrolingHash, false);
         Ctx.Animator.SetBool(Ctx.IsChasingHash, false);
         Ctx.LeaveTime = Time.time + Random.Range(Ctx.MinWaitTime, Ctx.MaxWaitTime);
@@ -23,13 +23,13 @@ public class ParentIdleState : NPCParentBaseState
 
     public override void ExitState()
     {
-        Debug.Log("NPC Idle: Exit");
+        Debug.Log("Knight Idle: Exit");
     }
 
     public override void CheckSwitchStates()
     {
-        // switch to chase if player in NPCs fov or audible as long as game over is not active
-        if ((Ctx.Eyes.isDetecting || Ctx.Ears.isDetecting) && !Ctx.GameOverState)
+        // switch to chase if player in Knight fov or audible as long as game over is not active
+        if (Ctx.Eyes.isDetecting && !Ctx.GameOverState)
         {
             SwitchState(Factory.Chase());
         }
