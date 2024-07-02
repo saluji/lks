@@ -5,7 +5,9 @@ enum KnighttStates
 {
     idle,
     patrol,
-    chase
+    chase,
+    death,
+    attack
 }
 
 // call states from the factory script
@@ -22,6 +24,8 @@ public class KnightStateFactory
         states[KnighttStates.idle] = new KnightIdleState(context, this);
         states[KnighttStates.patrol] = new KnightPatrolState(context, this);
         states[KnighttStates.chase] = new KnightChaseState(context, this);
+        states[KnighttStates.death] = new KnightDeathState(context, this);
+        states[KnighttStates.attack] = new KnightAttackState(context, this);
     }
 
     // store states
@@ -38,5 +42,13 @@ public class KnightStateFactory
     public KnightBaseState Chase()
     {
         return states[KnighttStates.chase];
+    }
+    public KnightBaseState Death()
+    {
+        return states[KnighttStates.death];
+    }
+    public KnightBaseState Attack()
+    {
+        return states[KnighttStates.attack];
     }
 }

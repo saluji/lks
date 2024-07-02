@@ -17,7 +17,7 @@ public class KnightChaseState : KnightBaseState
 
     public override void UpdateState()
     {
-        CheckSwitchStates();
+        Ctx.SetDestination(Ctx.Eyes.player.position);
     }
 
     public override void ExitState()
@@ -27,19 +27,15 @@ public class KnightChaseState : KnightBaseState
 
     public override void CheckSwitchStates()
     {
-        // chase player
-        Ctx.SetDestination(Ctx.Eyes.player.position);
 
-        // switch to idle if out of enemy sight
-        if (!Ctx.Eyes.IsInRange())
-        {
-            // switch to idle if player out of Knight detection range
-            SwitchState(Factory.Idle());
-        }
     }
 
-    public override void OnTriggerStay(Collider collider)
+    public override void OnTriggerEnter(Collider collider)
     {
-
+        GameObject other = collider.gameObject;
+        if (other.CompareTag("Player"))
+        {
+            SwitchState(Factory.Attack());
+        }
     }
 }

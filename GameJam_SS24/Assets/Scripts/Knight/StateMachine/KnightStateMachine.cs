@@ -11,6 +11,7 @@ public class KnightStateMachine : MonoBehaviour
     NavMeshAgent agent;
     Animator animator;
     Eyes eyes;
+    Sense sense;
 
     // knight stats
     [Header("NPC values")]
@@ -40,6 +41,7 @@ public class KnightStateMachine : MonoBehaviour
     public KnightBaseState CurrentState { get { return currentState; } set { currentState = value; } }
     public NavMeshAgent Agent { get { return agent; } }
     public Animator Animator { get { return animator; } }
+    public Sense Sense { get { return sense; } }
     public Eyes Eyes { get { return eyes; } }
     public Vector3 TargetPosition { get { return targetPosition; } set { targetPosition = value; } }
     public Transform[] Waypoints { get { return waypoints; } }
@@ -59,6 +61,7 @@ public class KnightStateMachine : MonoBehaviour
         // set initial reference variable
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        sense = GetComponentInChildren<Sense>();
         eyes = GetComponentInChildren<Eyes>();
 
         // setup state
@@ -94,8 +97,8 @@ public class KnightStateMachine : MonoBehaviour
         agent.SetDestination(destination);
     }
 
-    void OnTriggerStay(Collider collider)
+    void OnTriggerEnter(Collider collider)
     {
-        currentState.OnTriggerStay(collider);
+        currentState.OnTriggerEnter(collider);
     }
 }

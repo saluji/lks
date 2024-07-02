@@ -87,6 +87,8 @@ public class PlayerStateMachine : MonoBehaviour
     public int IsSnatchingHash { get { return isSnatchingHash; } }
     public int IsConsumingHash { get { return isConsumingHash; } }
     public int IsDyingHash { get { return isDyingHash; } }
+    public int IsAttackingHash { get { return isAttackingHash; } }
+    public int IsStompingHash { get { return isStompingHash; } }
     public int ConsumeCounter { get { return consumeCounter; } set { consumeCounter = value; } }
     public bool IsJumping { get { return isJumping; } set { isJumping = value; } }
     public bool IsJumpPressed { get { return isJumpPressed; } }
