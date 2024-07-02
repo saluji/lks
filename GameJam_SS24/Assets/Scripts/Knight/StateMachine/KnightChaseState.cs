@@ -35,8 +35,8 @@ public class KnightChaseState : KnightBaseState
         GameObject other = collider.gameObject;
         if (other.CompareTag("Player"))
         {
-            // SwitchState(Factory.Attack());
-            SwitchState(Factory.Death());
+            SwitchState(Factory.Attack());
+            // SwitchState(Factory.Death());
         }
     }
 }

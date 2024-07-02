@@ -14,9 +14,11 @@ public class PlayerStateMachine : MonoBehaviour
     PlayerInput playerInput;
     CharacterController characterController;
     Animator animator;
+    AnimationClip animationClip;
     GameManager gameManager;
     AudioManager audioManager;
     UIManager uIManager;
+    Transform jawPosition;
 
     // store input values
     Vector2 currentMovementInput;
@@ -35,6 +37,7 @@ public class PlayerStateMachine : MonoBehaviour
     bool isAttackPressed;
     bool isStompPressed;
     bool isSnatchable;
+    bool isActionable;
 
     // player stats
     [Header("Player values")]
@@ -67,7 +70,8 @@ public class PlayerStateMachine : MonoBehaviour
     int isStompingHash;
 
     // NPC consumption counter
-    int consumeCounter;
+    int consumeCounter = 0;
+    int maxNPC = 100;
 
     // animation length
     float animationLength = 0;
@@ -81,6 +85,8 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerBaseState CurrentState { get { return currentState; } set { currentState = value; } }
     public CharacterController CharacterController { get { return characterController; } }
     public Animator Animator { get { return animator; } }
+    public AnimationClip AnimationClip { get { return animationClip; } }
+    public Transform JawPosition { get { return jawPosition; } }
     public Vector2 CurrentMovementInput { get { return currentMovementInput; } }
     public int IsWalkingHash { get { return isWalkingHash; } }
     public int IsRunningHash { get { return isRunningHash; } }
@@ -92,6 +98,7 @@ public class PlayerStateMachine : MonoBehaviour
     public int IsAttackingHash { get { return isAttackingHash; } }
     public int IsStompingHash { get { return isStompingHash; } }
     public int ConsumeCounter { get { return consumeCounter; } set { consumeCounter = value; } }
+    public int MaxNPC { get { return maxNPC; } }
     public bool IsJumping { get { return isJumping; } set { isJumping = value; } }
     public bool IsJumpPressed { get { return isJumpPressed; } }
     public bool IsFalling { get { return isFalling; } set { isFalling = value; } }
@@ -102,6 +109,7 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsAttackPressed { get { return isAttackPressed; } }
     public bool RequireNewJumpPress { get { return requireNewJumpPress; } set { requireNewJumpPress = value; } }
     public bool IsSnatchable { get { return isSnatchable; } set { isSnatchable = value; } }
+    public bool IsActionable { get { return isActionable; } set { isActionable = value; } }
     public float MovementSpeed { get { return movementSpeed; } }
     public float RunMultiplier { get { return runMultiplier; } }
     public float CurrentMovementY { get { return currentMovement.y; } set { currentMovement.y = value; } }
@@ -125,6 +133,8 @@ public class PlayerStateMachine : MonoBehaviour
         animator = GetComponent<Animator>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        uIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+        jawPosition = GameObject.Find("JawTip").transform;
 
         // setup state
         states = new PlayerStateFactory(this);
@@ -288,7 +298,7 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.CharacterControls.Disable();
     }
 
-    void OnTriggerStay(Collider collider)
+    void OnTriggerEnter(Collider collider)
     {
         currentState.OnTriggerStay(collider);
     }

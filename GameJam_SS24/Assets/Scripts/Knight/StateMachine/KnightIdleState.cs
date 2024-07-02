@@ -43,6 +43,16 @@ public class KnightIdleState : KnightBaseState
 
     public override void OnTriggerEnter(Collider collider)
     {
-
+        // GameObject other = collider.gameObject;
+        // if (other.CompareTag("Player"))
+        // {
+        //     Debug.Log("Snatch");
+        //     Ctx.UIManager.ShowInteractPanel();
+        //     if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter < 8)
+        //     {
+        //         Ctx.ConsumeCounter++;
+        //         Ctx.IsSnatchable = true;
+        //     }
+        // }
     }
 }
