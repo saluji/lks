@@ -15,6 +15,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip death;
     public AudioClip whistle;
     public AudioClip scream;
+    public AudioClip sneak;
 
     // bool isPlaying;
 
