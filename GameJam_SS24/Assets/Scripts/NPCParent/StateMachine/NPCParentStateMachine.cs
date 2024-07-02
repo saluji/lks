@@ -97,8 +97,8 @@ public class NPCParentStateMachine : MonoBehaviour
         agent.SetDestination(destination);
     }
 
-    void OnTriggerEnter(Collider collider)
+    void OnTriggerStay(Collider collider)
     {
-        currentState.OnTriggerEnter(collider);
+        currentState.OnTriggerStay(collider);
     }
 }

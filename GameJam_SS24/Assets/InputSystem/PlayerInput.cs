@@ -64,9 +64,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Crouch"",
+                    ""name"": ""Snatch"",
                     ""type"": ""Button"",
                     ""id"": ""08e308d6-f9eb-4190-a43c-f9b334b978a0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Consume"",
+                    ""type"": ""Button"",
+                    ""id"": ""8fbfc64a-07ab-4f7d-8bf8-5f082045b670"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -165,11 +174,22 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e8ac17d3-e5da-47a2-8991-16d3089b7db3"",
-                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Crouch"",
+                    ""action"": ""Snatch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f383660d-dd0d-40d0-85a2-64063455ad78"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Consume"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -184,7 +204,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_CharacterControls_Run = m_CharacterControls.FindAction("Run", throwIfNotFound: true);
         m_CharacterControls_Jump = m_CharacterControls.FindAction("Jump", throwIfNotFound: true);
         m_CharacterControls_Look = m_CharacterControls.FindAction("Look", throwIfNotFound: true);
-        m_CharacterControls_Crouch = m_CharacterControls.FindAction("Crouch", throwIfNotFound: true);
+        m_CharacterControls_Snatch = m_CharacterControls.FindAction("Snatch", throwIfNotFound: true);
+        m_CharacterControls_Consume = m_CharacterControls.FindAction("Consume", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -250,7 +271,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_CharacterControls_Run;
     private readonly InputAction m_CharacterControls_Jump;
     private readonly InputAction m_CharacterControls_Look;
-    private readonly InputAction m_CharacterControls_Crouch;
+    private readonly InputAction m_CharacterControls_Snatch;
+    private readonly InputAction m_CharacterControls_Consume;
     public struct CharacterControlsActions
     {
         private @PlayerInput m_Wrapper;
@@ -259,7 +281,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Run => m_Wrapper.m_CharacterControls_Run;
         public InputAction @Jump => m_Wrapper.m_CharacterControls_Jump;
         public InputAction @Look => m_Wrapper.m_CharacterControls_Look;
-        public InputAction @Crouch => m_Wrapper.m_CharacterControls_Crouch;
+        public InputAction @Snatch => m_Wrapper.m_CharacterControls_Snatch;
+        public InputAction @Consume => m_Wrapper.m_CharacterControls_Consume;
         public InputActionMap Get() { return m_Wrapper.m_CharacterControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -281,9 +304,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
-            @Crouch.started += instance.OnCrouch;
-            @Crouch.performed += instance.OnCrouch;
-            @Crouch.canceled += instance.OnCrouch;
+            @Snatch.started += instance.OnSnatch;
+            @Snatch.performed += instance.OnSnatch;
+            @Snatch.canceled += instance.OnSnatch;
+            @Consume.started += instance.OnConsume;
+            @Consume.performed += instance.OnConsume;
+            @Consume.canceled += instance.OnConsume;
         }
 
         private void UnregisterCallbacks(ICharacterControlsActions instance)
@@ -300,9 +326,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
-            @Crouch.started -= instance.OnCrouch;
-            @Crouch.performed -= instance.OnCrouch;
-            @Crouch.canceled -= instance.OnCrouch;
+            @Snatch.started -= instance.OnSnatch;
+            @Snatch.performed -= instance.OnSnatch;
+            @Snatch.canceled -= instance.OnSnatch;
+            @Consume.started -= instance.OnConsume;
+            @Consume.performed -= instance.OnConsume;
+            @Consume.canceled -= instance.OnConsume;
         }
 
         public void RemoveCallbacks(ICharacterControlsActions instance)
@@ -326,6 +355,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnRun(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
-        void OnCrouch(InputAction.CallbackContext context);
+        void OnSnatch(InputAction.CallbackContext context);
+        void OnConsume(InputAction.CallbackContext context);
     }
 }

@@ -14,7 +14,7 @@ public class PlayerDeathState : PlayerBaseState, IRootState
         Ctx.AppliedMovementX = 0;
         Ctx.AppliedMovementZ = 0;
         Ctx.TurnSpeed = 0;
-        Ctx.StartCoroutine(Ctx.GameManager.GameOverCountdown());
+        // Ctx.StartCoroutine(Ctx.GameManager.GameOverCountdown());
     }
 
     public override void UpdateState()
@@ -37,7 +37,7 @@ public class PlayerDeathState : PlayerBaseState, IRootState
 
     }
 
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
 
     }

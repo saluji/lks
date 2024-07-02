@@ -32,25 +32,17 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
 
     public override void InitializeSubState()
     {
-        if (!Ctx.IsMovementPressed && !Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
+        if (!Ctx.IsMovementPressed && !Ctx.IsRunPressed)
         {
             SetSubState(Factory.Idle());
         }
-        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
+        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)
         {
             SetSubState(Factory.Walk());
         }
-        else if (Ctx.IsMovementPressed && Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
+        else if (Ctx.IsMovementPressed && Ctx.IsRunPressed)
         {
             SetSubState(Factory.Run());
-        }
-        else if (!Ctx.IsMovementPressed && Ctx.IsCrouchPressed)
-        {
-            SetSubState(Factory.CrouchIdle());
-        }
-        else if (Ctx.IsMovementPressed && Ctx.IsCrouchPressed)
-        {
-            SetSubState(Factory.CrouchWalk());
         }
     }
 
@@ -66,7 +58,7 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
         }
     }
 
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
         GameObject other = collider.gameObject;
         if (other.CompareTag("NPC"))

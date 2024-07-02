@@ -10,8 +10,8 @@ enum PlayerStates
     jump,
     fall,
     death,
-    crouchIdle,
-    crouchWalk
+    snatch,
+    consume
 }
 
 // call states from the factory script
@@ -32,8 +32,8 @@ public class PlayerStateFactory
         states[PlayerStates.grounded] = new PlayerGroundedState(context, this);
         states[PlayerStates.fall] = new PlayerFallState(context, this);
         states[PlayerStates.death] = new PlayerDeathState(context, this);
-        states[PlayerStates.crouchIdle] = new PlayerCrouchIdleState(context, this);
-        states[PlayerStates.crouchWalk] = new PlayerCrouchWalkState(context, this);
+        states[PlayerStates.snatch] = new PlayerSnatchState(context, this);
+        states[PlayerStates.consume] = new PlayerConsumeState(context, this);
     }
 
     // store states
@@ -69,12 +69,12 @@ public class PlayerStateFactory
     {
         return states[PlayerStates.death];
     }
-    public PlayerBaseState CrouchIdle()
+    public PlayerBaseState Snatch()
     {
-        return states[PlayerStates.crouchIdle];
+        return states[PlayerStates.snatch];
     }
-    public PlayerBaseState CrouchWalk()
+    public PlayerBaseState Consume()
     {
-        return states[PlayerStates.crouchWalk];
+        return states[PlayerStates.consume];
     }
 }

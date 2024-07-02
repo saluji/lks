@@ -42,9 +42,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Crouch",
+                    "name": "Snatch",
                     "type": "Button",
                     "id": "08e308d6-f9eb-4190-a43c-f9b334b978a0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Consume",
+                    "type": "Button",
+                    "id": "8fbfc64a-07ab-4f7d-8bf8-5f082045b670",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -143,11 +152,22 @@
                 {
                     "name": "",
                     "id": "e8ac17d3-e5da-47a2-8991-16d3089b7db3",
-                    "path": "<Keyboard>/leftCtrl",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Crouch",
+                    "action": "Snatch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f383660d-dd0d-40d0-85a2-64063455ad78",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Consume",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

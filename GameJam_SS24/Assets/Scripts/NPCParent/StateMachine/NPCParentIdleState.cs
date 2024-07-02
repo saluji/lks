@@ -26,11 +26,6 @@ public class ParentIdleState : NPCParentBaseState
         Debug.Log("NPC Idle: Exit");
     }
 
-    public override void InitializeSubState()
-    {
-
-    }
-
     public override void CheckSwitchStates()
     {
         // switch to chase if player in NPCs fov or audible as long as game over is not active
@@ -46,7 +41,7 @@ public class ParentIdleState : NPCParentBaseState
         }
     }
 
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
 
     }

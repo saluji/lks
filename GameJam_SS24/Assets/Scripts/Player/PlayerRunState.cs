@@ -10,7 +10,6 @@ public class PlayerRunState : PlayerBaseState
     public override void EnterState()
     {
         Debug.Log("Player Run: Enter");
-        Ctx.Animator.SetBool(Ctx.IsCrouchingHash, false);
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, true);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, true);
         // Ctx.StartCoroutine(Ctx.AudioManager.PlaySFX(Ctx.AudioManager.run));
@@ -33,6 +32,7 @@ public class PlayerRunState : PlayerBaseState
         // Ctx.StopCoroutine(Ctx.AudioManager.PlaySFX(Ctx.AudioManager.run));
         Ctx.IsAudible = false;
         Ctx.Ears.range /= 2;
+        Ctx.IsSnatchable = false;
     }
 
     public override void InitializeSubState()
@@ -42,26 +42,31 @@ public class PlayerRunState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (!Ctx.IsMovementPressed && !Ctx.IsCrouchPressed)
+        if (!Ctx.IsMovementPressed)
         {
             SwitchState(Factory.Idle());
         }
-        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
+        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)
         {
             SwitchState(Factory.Walk());
         }
-        else if (Ctx.IsMovementPressed && Ctx.IsCrouchPressed)
+        else if (Ctx.IsSnatchPressed && Ctx.IsSnatchable)
         {
-            SwitchState(Factory.CrouchWalk());
+            SwitchState(Factory.Snatch());
         }
     }
 
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
         GameObject other = collider.gameObject;
         if (other.CompareTag("NPC"))
         {
-            SwitchState(Factory.Death());
+            Ctx.UIManager.ShowInteractPanel();
+            if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter < 8)
+            {
+                Ctx.ConsumeCounter++;
+                Ctx.IsSnatchable = true;
+            }
         }
     }
 }

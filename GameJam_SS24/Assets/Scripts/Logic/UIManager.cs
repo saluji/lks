@@ -5,16 +5,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject menuPanel;
     [SerializeField] GameObject hUDPanel;
     [SerializeField] GameObject gameOverPanel;
+    [SerializeField] GameObject interactPanel;
 
     void Awake()
     {
-        // menuPanel = GameObject.Find("MenuPanel");
-        // hUDPanel = GameObject.Find("HUDPanel");
-        // gameOverPanel = GameObject.Find("GameOverPanel");
-
         menuPanel.SetActive(false);
         hUDPanel.SetActive(true);
         gameOverPanel.SetActive(false);
+        interactPanel.SetActive(false);
     }
 
     public void TogglePause(bool isPaused)
@@ -27,5 +25,9 @@ public class UIManager : MonoBehaviour
     {
         hUDPanel.SetActive(false);
         gameOverPanel.SetActive(true);
+    }
+    public void ShowInteractPanel()
+    {
+        interactPanel.SetActive(true);
     }
 }

@@ -25,11 +25,6 @@ public class NPCParentChaseState : NPCParentBaseState
         Debug.Log("NPC Chase: Exit");
     }
 
-    public override void InitializeSubState()
-    {
-
-    }
-
     public override void CheckSwitchStates()
     {
         // chase player
@@ -43,14 +38,18 @@ public class NPCParentChaseState : NPCParentBaseState
         }
     }
 
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
+        // if colliding with player change to hold animation
+    
+
         // set game over state active and switch to patrol if colliding with player
-        GameObject other = collider.gameObject;
-        if (other.CompareTag("Player"))
-        {
-            Ctx.GameOverState = true;
-            SwitchState(Factory.Patrol());
-        }
+
+        // GameObject other = collider.gameObject;
+        // if (other.CompareTag("Player"))
+        // {
+        //     Ctx.GameOverState = true;
+        //     SwitchState(Factory.Patrol());
+        // }
     }
 }

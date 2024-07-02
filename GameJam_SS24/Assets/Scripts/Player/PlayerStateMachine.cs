@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,6 +16,7 @@ public class PlayerStateMachine : MonoBehaviour
     Animator animator;
     GameManager gameManager;
     AudioManager audioManager;
+    UIManager uIManager;
 
     // store input values
     Vector2 currentMovementInput;
@@ -28,7 +30,9 @@ public class PlayerStateMachine : MonoBehaviour
     bool isJumping = false;
     bool requireNewJumpPress = false;
     bool isFalling;
-    bool isCrouchPressed;
+    bool isSnatchPressed;
+    bool isConsumePressed;
+    bool isSnatchable;
 
     // player stats
     [Header("Player values")]
@@ -56,7 +60,11 @@ public class PlayerStateMachine : MonoBehaviour
     int isJumpingHash;
     int isFallingHash;
     int isDyingHash;
-    int isCrouchingHash;
+    int isSnatchingHash;
+    int isConsumingHash;
+
+    // NPC consumption counter
+    int consumeCounter;
 
     // enemy behaviour
     Ears ears;
@@ -67,6 +75,7 @@ public class PlayerStateMachine : MonoBehaviour
     #region Getter and Setter
     public GameManager GameManager { get { return gameManager; } }
     public AudioManager AudioManager { get { return audioManager; } }
+    public UIManager UIManager { get { return uIManager; } }
     public PlayerBaseState CurrentState { get { return currentState; } set { currentState = value; } }
     public CharacterController CharacterController { get { return characterController; } }
     public Animator Animator { get { return animator; } }
@@ -76,16 +85,20 @@ public class PlayerStateMachine : MonoBehaviour
     public int IsRunningHash { get { return isRunningHash; } }
     public int IsJumpingHash { get { return isJumpingHash; } }
     public int IsFallingHash { get { return isFallingHash; } }
-    public int IsCrouchingHash { get { return isCrouchingHash; } }
+    public int IsSnatchingHash { get { return isSnatchingHash; } }
+    public int IsConsumingHash { get { return isConsumingHash; } }
     public int IsDyingHash { get { return isDyingHash; } }
+    public int ConsumeCounter { get { return consumeCounter; } set { consumeCounter = value; } }
     public bool IsJumping { get { return isJumping; } set { isJumping = value; } }
     public bool IsJumpPressed { get { return isJumpPressed; } }
     public bool IsFalling { get { return isFalling; } set { isFalling = value; } }
     public bool IsMovementPressed { get { return isMovementPressed; } }
     public bool IsRunPressed { get { return isRunPressed; } }
+    public bool IsSnatchPressed { get { return isSnatchPressed; } }
+    public bool IsConsumePressed { get { return isConsumePressed; } }
     public bool RequireNewJumpPress { get { return requireNewJumpPress; } set { requireNewJumpPress = value; } }
     public bool IsAudible { get { return isAudible; } set { isAudible = value; } }
-    public bool IsCrouchPressed { get { return isCrouchPressed; } }
+    public bool IsSnatchable { get { return isSnatchable; } set { isSnatchable = value; } }
     public float MovementSpeed { get { return movementSpeed; } }
     public float RunMultiplier { get { return runMultiplier; } }
     public float CurrentMovementY { get { return currentMovement.y; } set { currentMovement.y = value; } }
@@ -120,7 +133,8 @@ public class PlayerStateMachine : MonoBehaviour
         isJumpingHash = Animator.StringToHash("isJumping");
         isFallingHash = Animator.StringToHash("isFalling");
         isDyingHash = Animator.StringToHash("isDying");
-        isCrouchingHash = Animator.StringToHash("isCrouching");
+        isSnatchingHash = Animator.StringToHash("isSnatching");
+        isConsumingHash = Animator.StringToHash("isConsuming");
 
         // set player input callbacks
         playerInput.CharacterControls.Move.started += OnMovementInput;
@@ -130,9 +144,10 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.CharacterControls.Run.canceled += OnRun;
         playerInput.CharacterControls.Jump.started += OnJump;
         playerInput.CharacterControls.Jump.canceled += OnJump;
-        playerInput.CharacterControls.Crouch.started += OnCrouch;
-        playerInput.CharacterControls.Crouch.performed += OnCrouch;
-        playerInput.CharacterControls.Crouch.canceled += OnCrouch;
+        playerInput.CharacterControls.Snatch.started += OnSnatch;
+        playerInput.CharacterControls.Snatch.canceled += OnSnatch;
+        playerInput.CharacterControls.Consume.started += OnConsume;
+        playerInput.CharacterControls.Consume.canceled += OnConsume;
 
         SetupJumpVariables();
     }
@@ -160,9 +175,13 @@ public class PlayerStateMachine : MonoBehaviour
         requireNewJumpPress = false;
     }
 
-    void OnCrouch(InputAction.CallbackContext context)
+    void OnSnatch(InputAction.CallbackContext context)
     {
-        isCrouchPressed = context.ReadValueAsButton();
+        isSnatchPressed = context.ReadValueAsButton();
+    }
+    void OnConsume(InputAction.CallbackContext context)
+    {
+        isConsumePressed = context.ReadValueAsButton();
     }
     #endregion
 
@@ -251,8 +270,12 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.CharacterControls.Disable();
     }
 
-    void OnTriggerEnter(Collider collider)
+    void OnTriggerStay(Collider collider)
     {
-        currentState.OnTriggerEnter(collider);
+        currentState.OnTriggerStay(collider);
+    }
+    public IEnumerator AnimationDuration(float duration)
+    {
+        yield return new WaitForSeconds(duration);
     }
 }

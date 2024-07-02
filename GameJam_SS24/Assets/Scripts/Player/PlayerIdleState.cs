@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 public class PlayerIdleState : PlayerBaseState
 {
@@ -11,7 +10,6 @@ public class PlayerIdleState : PlayerBaseState
     public override void EnterState()
     {
         Debug.Log("Player Idle: Enter");
-        Ctx.Animator.SetBool(Ctx.IsCrouchingHash, false);
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
         Ctx.AppliedMovementX = 0;
@@ -26,6 +24,7 @@ public class PlayerIdleState : PlayerBaseState
     public override void ExitState()
     {
         Debug.Log("Player Idle: Exit");
+        Ctx.IsSnatchable = false;
     }
 
     public override void InitializeSubState()
@@ -35,28 +34,41 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        if (Ctx.IsMovementPressed && !Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
+        if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)
         {
             SwitchState(Factory.Walk());
         }
 
-        else if (Ctx.IsMovementPressed && Ctx.IsRunPressed && !Ctx.IsCrouchPressed)
+        else if (Ctx.IsMovementPressed && Ctx.IsRunPressed)
         {
             SwitchState(Factory.Run());
         }
-
-        else if (!Ctx.IsMovementPressed && Ctx.IsCrouchPressed)
+        // else if (Ctx.IsSnatchPressed && Ctx.IsSnatchable && Ctx.ConsumeCounter < 8)
+        // {
+        //     SwitchState(Factory.Snatch());
+        // }
+        else if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter < 8)
         {
-            SwitchState(Factory.CrouchIdle());
+            Ctx.ConsumeCounter++;
+            Ctx.IsSnatchable = true;
+        }
+        else if (Ctx.IsConsumePressed && Ctx.ConsumeCounter < 8)
+        {
+            SwitchState(Factory.Consume());
         }
     }
 
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
-        GameObject other = collider.gameObject;
-        if (other.CompareTag("NPC"))
-        {
-            SwitchState(Factory.Death());
-        }
+        // GameObject other = collider.gameObject;
+        // if (other.CompareTag("NPC"))
+        // {
+        //     Ctx.UIManager.ShowInteractPanel();
+        //     if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter < 8)
+        //     {
+        //         Ctx.ConsumeCounter++;
+        //         Ctx.IsSnatchable = true;
+        //     }
+        // }
     }
 }

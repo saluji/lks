@@ -27,11 +27,6 @@ public class NPCParentWalkState : NPCParentBaseState
         Debug.Log("Parent Patrol: Exit");
     }
 
-    public override void InitializeSubState()
-    {
-
-    }
-
     public override void CheckSwitchStates()
     {
         // as long as game over is not active
@@ -48,7 +43,7 @@ public class NPCParentWalkState : NPCParentBaseState
         }
     }
 
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
 
     }
