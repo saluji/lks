@@ -45,7 +45,9 @@ public class PlayerAttackState : PlayerBaseState
     public override void CheckSwitchStates()
     {
         if (Time.time > Ctx.AnimationLength)
+        {
             SwitchState(Factory.Idle());
+        }
     }
 
     public override void OnTriggerStay(Collider collider)

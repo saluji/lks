@@ -16,6 +16,7 @@ public class PlayerSnatchState : PlayerBaseState
         Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
         Ctx.AppliedMovementX = 0;
         Ctx.AppliedMovementZ = 0;
+        Ctx.TurnSpeed = 0;
         Ctx.AnimationLength = Time.time + 1f;
     }
 
@@ -27,6 +28,7 @@ public class PlayerSnatchState : PlayerBaseState
     public override void ExitState()
     {
         Debug.Log("Snatch Exit");
+        Ctx.TurnSpeed = 15;
         Ctx.Animator.SetBool(Ctx.IsSnatchingHash, false);
     }
 
@@ -37,7 +39,6 @@ public class PlayerSnatchState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-
         if (Time.time > Ctx.AnimationLength)
         {
             SwitchState(Factory.Idle());

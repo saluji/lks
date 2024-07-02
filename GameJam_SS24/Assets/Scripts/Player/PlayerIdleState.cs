@@ -52,6 +52,10 @@ public class PlayerIdleState : PlayerBaseState
         {
             SwitchState(Factory.Snatch());
         }
+        else if (Ctx.IsConsumePressed)
+        {
+            SwitchState(Factory.Consume());
+        }
         // else if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter > 0 && Ctx.ConsumeCounter <= 100)
         // else if (Ctx.IsSnatchPressed)
         // {

@@ -110,6 +110,7 @@ public class PlayerStateMachine : MonoBehaviour
     public bool RequireNewJumpPress { get { return requireNewJumpPress; } set { requireNewJumpPress = value; } }
     public bool IsSnatchable { get { return isSnatchable; } set { isSnatchable = value; } }
     public bool IsActionable { get { return isActionable; } set { isActionable = value; } }
+    public bool IsStompPressed { get { return isStompPressed; } }
     public float MovementSpeed { get { return movementSpeed; } }
     public float RunMultiplier { get { return runMultiplier; } }
     public float CurrentMovementY { get { return currentMovement.y; } set { currentMovement.y = value; } }
