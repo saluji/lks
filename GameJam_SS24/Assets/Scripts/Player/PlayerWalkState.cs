@@ -44,9 +44,17 @@ public class PlayerWalkState : PlayerBaseState
         {
             SwitchState(Factory.Run());
         }
-        else if (Ctx.IsSnatchPressed && Ctx.IsSnatchable)
+        else if (Ctx.IsAttackPressed)
+        {
+            SwitchState(Factory.Attack());
+        }
+        else if (Ctx.IsSnatchPressed)
         {
             SwitchState(Factory.Snatch());
+        }
+        else if (Ctx.IsConsumePressed)
+        {
+            SwitchState(Factory.Consume());
         }
     }
 

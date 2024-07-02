@@ -29,7 +29,7 @@ public class PlayerStateMachine : MonoBehaviour
     bool isMovementPressed;
     bool isRunPressed;
     bool isJumpPressed = false;
-    bool isJumping = false;
+    // bool isJumping = false;
     bool requireNewJumpPress = false;
     bool isFalling;
     bool isSnatchPressed;
@@ -99,7 +99,7 @@ public class PlayerStateMachine : MonoBehaviour
     public int IsStompingHash { get { return isStompingHash; } }
     public int ConsumeCounter { get { return consumeCounter; } set { consumeCounter = value; } }
     public int MaxNPC { get { return maxNPC; } }
-    public bool IsJumping { get { return isJumping; } set { isJumping = value; } }
+    // public bool IsJumping { get { return isJumping; } set { isJumping = value; } }
     public bool IsJumpPressed { get { return isJumpPressed; } }
     public bool IsFalling { get { return isFalling; } set { isFalling = value; } }
     public bool IsMovementPressed { get { return isMovementPressed; } }
@@ -160,6 +160,7 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.CharacterControls.Run.started += OnRun;
         playerInput.CharacterControls.Run.canceled += OnRun;
         playerInput.CharacterControls.Jump.started += OnJump;
+        playerInput.CharacterControls.Jump.performed += OnJump;
         playerInput.CharacterControls.Jump.canceled += OnJump;
         playerInput.CharacterControls.Snatch.started += OnSnatch;
         playerInput.CharacterControls.Snatch.canceled += OnSnatch;

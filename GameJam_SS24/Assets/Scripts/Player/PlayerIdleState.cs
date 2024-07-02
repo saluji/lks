@@ -38,7 +38,6 @@ public class PlayerIdleState : PlayerBaseState
         {
             SwitchState(Factory.Walk());
         }
-
         else if (Ctx.IsMovementPressed && Ctx.IsRunPressed)
         {
             SwitchState(Factory.Run());
@@ -47,7 +46,6 @@ public class PlayerIdleState : PlayerBaseState
         {
             SwitchState(Factory.Attack());
         }
-        // else if (Ctx.IsSnatchPressed && Ctx.IsSnatchable && Ctx.ConsumeCounter < 8)
         else if (Ctx.IsSnatchPressed)
         {
             SwitchState(Factory.Snatch());
@@ -56,6 +54,7 @@ public class PlayerIdleState : PlayerBaseState
         {
             SwitchState(Factory.Consume());
         }
+        // else if (Ctx.IsSnatchPressed && Ctx.IsSnatchable && Ctx.ConsumeCounter < 8)
         // else if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter > 0 && Ctx.ConsumeCounter <= 100)
         // else if (Ctx.IsSnatchPressed)
         // {

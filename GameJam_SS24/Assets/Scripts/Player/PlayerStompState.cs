@@ -61,6 +61,7 @@ public class PlayerStompState : PlayerBaseState, IRootState
     {
         float previousYVelocity = Ctx.CurrentMovementY;
         Ctx.CurrentMovementY += Ctx.Gravity * Time.deltaTime;
-        Ctx.AppliedMovementY = (previousYVelocity + Ctx.CurrentMovementY) * 0.5f;
+        // Ctx.AppliedMovementY = (previousYVelocity + Ctx.CurrentMovementY) * 0.5f;
+        Ctx.AppliedMovementY = previousYVelocity + Ctx.CurrentMovementY;
     }
 }

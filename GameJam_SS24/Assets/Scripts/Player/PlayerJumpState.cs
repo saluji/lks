@@ -38,18 +38,6 @@ public class PlayerJumpState : PlayerBaseState, IRootState
         {
             SetSubState(Factory.Idle());
         }
-        // if (!Ctx.IsMovementPressed && !Ctx.IsRunPressed)
-        // {
-        //     SetSubState(Factory.Idle());
-        // }
-        // else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)
-        // {
-        //     SetSubState(Factory.Walk());
-        // }
-        // else if (Ctx.IsMovementPressed && Ctx.IsRunPressed)
-        // {
-        //     SetSubState(Factory.Run());
-        // }
     }
 
     public override void CheckSwitchStates()
@@ -76,7 +64,7 @@ public class PlayerJumpState : PlayerBaseState, IRootState
     void HandleJump()
     {
         Ctx.Animator.SetBool(Ctx.IsJumpingHash, true);
-        Ctx.IsJumping = true;
+        // Ctx.IsJumping = true;
         Ctx.CurrentMovementY = Ctx.InitialJumpVelocity;
         Ctx.AppliedMovementY = Ctx.InitialJumpVelocity;
     }
