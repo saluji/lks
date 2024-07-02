@@ -43,11 +43,12 @@ public class PlayerIdleState : PlayerBaseState
         {
             SwitchState(Factory.Run());
         }
-        // else if (Ctx.IsAttackPressed)
-        // {
-        //     SwitchState(Factory.Attack());
-        // }
-        else if (Ctx.IsSnatchPressed && Ctx.IsSnatchable && Ctx.ConsumeCounter < 8)
+        else if (Ctx.IsAttackPressed)
+        {
+            SwitchState(Factory.Attack());
+        }
+        // else if (Ctx.IsSnatchPressed && Ctx.IsSnatchable && Ctx.ConsumeCounter < 8)
+        else if (Ctx.IsSnatchPressed)
         {
             SwitchState(Factory.Snatch());
         }
@@ -67,16 +68,17 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void OnTriggerStay(Collider collider)
     {
-        GameObject other = collider.gameObject;
-        if (other.CompareTag("NPC"))
+        // if (collider.gameObject.CompareTag("NPC"))
         {
-            Ctx.UIManager.ShowInteractPanel();
-            if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter < Ctx.MaxNPC)
-            {
-                other.gameObject.transform.position = Ctx.JawPosition.position;
-                Ctx.ConsumeCounter++;
-                Ctx.IsSnatchable = true;
-            }
+            // SwitchState(Factory.Death());
+            // Ctx.UIManager.ShowInteractPanel();
+            // // if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter < Ctx.MaxNPC)
+            // if (Ctx.IsSnatchPressed)
+            // {
+            //     other.gameObject.transform.position = Ctx.JawPosition.position;
+            //     // Ctx.ConsumeCounter++;
+            //     Ctx.IsSnatchable = true;
+            // }
         }
     }
 }

@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEditor.AnimatedValues;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -19,11 +20,12 @@ public class PlayerAttackState : PlayerBaseState
         Ctx.AppliedMovementZ = 0;
         Ctx.TurnSpeed = 0;
         Ctx.AnimationLength = Time.time + 1f;
-        // Ctx.AnimationLength = Time.time + Ctx.AnimationClip.length;
+        Object.Instantiate(Ctx.Fireball, Ctx.JawPosition.position, Ctx.JawPosition.rotation);
     }
 
     public override void UpdateState()
     {
+        Ctx.Fireball.transform.position += Ctx.Fireball.transform.forward;
         CheckSwitchStates();
     }
 
@@ -31,6 +33,7 @@ public class PlayerAttackState : PlayerBaseState
     {
         Debug.Log("Player Attack: Exit");
         Ctx.TurnSpeed = 15;
+        // Object.Destroy(Ctx.Fireball);
         Ctx.Animator.SetBool(Ctx.IsAttackingHash, false);
     }
 

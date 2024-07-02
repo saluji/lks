@@ -14,11 +14,11 @@ public class PlayerStateMachine : MonoBehaviour
     PlayerInput playerInput;
     CharacterController characterController;
     Animator animator;
-    AnimationClip animationClip;
     GameManager gameManager;
     AudioManager audioManager;
     UIManager uIManager;
     Transform jawPosition;
+    [SerializeField] GameObject fireball;
 
     // store input values
     Vector2 currentMovementInput;
@@ -80,12 +80,12 @@ public class PlayerStateMachine : MonoBehaviour
 
     #region Getter and Setter
     public GameManager GameManager { get { return gameManager; } }
+    public GameObject Fireball { get { return fireball; } }
     public AudioManager AudioManager { get { return audioManager; } }
     public UIManager UIManager { get { return uIManager; } }
     public PlayerBaseState CurrentState { get { return currentState; } set { currentState = value; } }
     public CharacterController CharacterController { get { return characterController; } }
     public Animator Animator { get { return animator; } }
-    public AnimationClip AnimationClip { get { return animationClip; } }
     public Transform JawPosition { get { return jawPosition; } }
     public Vector2 CurrentMovementInput { get { return currentMovementInput; } }
     public int IsWalkingHash { get { return isWalkingHash; } }
@@ -298,7 +298,7 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.CharacterControls.Disable();
     }
 
-    void OnTriggerEnter(Collider collider)
+    void OnTriggerStay(Collider collider)
     {
         currentState.OnTriggerStay(collider);
     }

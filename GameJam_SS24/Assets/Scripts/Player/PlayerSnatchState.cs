@@ -16,6 +16,7 @@ public class PlayerSnatchState : PlayerBaseState
         Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
         Ctx.AppliedMovementX = 0;
         Ctx.AppliedMovementZ = 0;
+        Ctx.AnimationLength = Time.time + 1f;
     }
 
     public override void UpdateState()
@@ -36,7 +37,11 @@ public class PlayerSnatchState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        // SwitchState(Factory.Idle());
+
+        if (Time.time > Ctx.AnimationLength)
+        {
+            SwitchState(Factory.Idle());
+        }
     }
 
     public override void OnTriggerStay(Collider collider)

@@ -52,15 +52,18 @@ public class PlayerWalkState : PlayerBaseState
 
     public override void OnTriggerStay(Collider collider)
     {
-        // GameObject other = collider.gameObject;
-        // if (other.CompareTag("NPC"))
-        // {
-        //     Ctx.UIManager.ShowInteractPanel();
-        //     if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter < 8)
-        //     {
-        //         Ctx.ConsumeCounter++;
-        //         Ctx.IsSnatchable = true;
-        //     }
-        // }
+        GameObject other = collider.gameObject;
+        if (other.CompareTag("NPC"))
+        {
+            SwitchState(Factory.Death());
+            // Ctx.UIManager.ShowInteractPanel();
+            // // if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter < Ctx.MaxNPC)
+            // if (Ctx.IsSnatchPressed)
+            // {
+            //     other.gameObject.transform.position = Ctx.JawPosition.position;
+            //     // Ctx.ConsumeCounter++;
+            //     Ctx.IsSnatchable = true;
+            // }
+        }
     }
 }

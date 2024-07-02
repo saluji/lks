@@ -28,31 +28,25 @@ public class KnightIdleState : KnightBaseState
 
     public override void CheckSwitchStates()
     {
-        // switch to chase if player in range
-        if (Ctx.Sense.isDetecting && !Ctx.GameOverState)
-        {
-            SwitchState(Factory.Chase());
-        }
+        // // switch to chase if player in range
+        // if (Ctx.Sense.isDetecting && !Ctx.GameOverState)
+        // {
+        //     SwitchState(Factory.Chase());
+        // }
 
-        // switch to patrol after random amount of time
-        if (Time.time > Ctx.LeaveTIme)
-        {
-            SwitchState(Factory.Patrol());
-        }
+        // // switch to patrol after random amount of time
+        // if (Time.time > Ctx.LeaveTIme)
+        // {
+        //     SwitchState(Factory.Patrol());
+        // }
     }
 
     public override void OnTriggerEnter(Collider collider)
     {
-        // GameObject other = collider.gameObject;
-        // if (other.CompareTag("Player"))
-        // {
-        //     Debug.Log("Snatch");
-        //     Ctx.UIManager.ShowInteractPanel();
-        //     if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter < 8)
-        //     {
-        //         Ctx.ConsumeCounter++;
-        //         Ctx.IsSnatchable = true;
-        //     }
-        // }
+        GameObject other = collider.gameObject;
+        if (other.CompareTag("Player"))
+        {
+            SwitchState(Factory.Death());
+        }
     }
 }
