@@ -28,8 +28,8 @@ public class KnightIdleState : KnightBaseState
 
     public override void CheckSwitchStates()
     {
-        // switch to chase if player in Knight fov or audible as long as game over is not active
-        if (Ctx.Eyes.isDetecting && !Ctx.GameOverState)
+        // switch to chase if player in range
+        if (Ctx.Sense.isDetecting && !Ctx.GameOverState)
         {
             SwitchState(Factory.Chase());
         }
@@ -41,7 +41,7 @@ public class KnightIdleState : KnightBaseState
         }
     }
 
-    public override void OnTriggerStay(Collider collider)
+    public override void OnTriggerEnter(Collider collider)
     {
 
     }

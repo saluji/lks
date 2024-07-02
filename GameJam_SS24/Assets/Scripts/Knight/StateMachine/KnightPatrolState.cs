@@ -43,7 +43,7 @@ public class KnightPatrolState : KnightBaseState
         }
     }
 
-    public override void OnTriggerStay(Collider collider)
+    public override void OnTriggerEnter(Collider collider)
     {
 
     }

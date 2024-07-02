@@ -19,7 +19,7 @@ public abstract class KnightBaseState
     public abstract void UpdateState();
     public abstract void ExitState();
     public abstract void CheckSwitchStates();
-    public abstract void OnTriggerStay(Collider collider);
+    public abstract void OnTriggerEnter(Collider collider);
 
     public void UpdateStates()
     {
