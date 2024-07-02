@@ -1,4 +1,6 @@
+using UnityEditor.AnimatedValues;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class PlayerAttackState : PlayerBaseState
 {
@@ -9,20 +11,25 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Player Death: Enter");
+        Debug.Log("Player Attack: Enter");
         Ctx.Animator.SetBool(Ctx.IsAttackingHash, true);
+        Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);
+        Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
         Ctx.AppliedMovementX = 0;
         Ctx.AppliedMovementZ = 0;
-        Ctx.StartCoroutine(Ctx.GameManager.GameOverCountdown());
+        // Ctx.AnimationLength = Ctx.Animator.GetNextAnimatorClipInfo().length;
+        Ctx.AnimationLength = 0;
     }
 
     public override void UpdateState()
     {
-
+        Ctx.AnimationLength += Time.time;
+        CheckSwitchStates();
     }
 
     public override void ExitState()
     {
+        Debug.Log("Player Attack: Exit");
         Ctx.Animator.SetBool(Ctx.IsAttackingHash, false);
     }
 
@@ -33,7 +40,8 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-
+        if (Ctx.AnimationLength > 1)
+            SwitchState(Factory.Idle());
     }
 
     public override void OnTriggerStay(Collider collider)

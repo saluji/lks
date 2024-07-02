@@ -10,22 +10,22 @@ public class PlayerSnatchState : PlayerBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Player Idle: Enter");
+        Debug.Log("Snatch Enter");
+        Ctx.Animator.SetBool(Ctx.IsSnatchingHash, true);
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
-        Ctx.Animator.SetBool(Ctx.IsSnatchingHash, true);
         Ctx.AppliedMovementX = 0;
         Ctx.AppliedMovementZ = 0;
-        CheckSwitchStates();
     }
 
     public override void UpdateState()
     {
+        CheckSwitchStates();
     }
 
     public override void ExitState()
     {
-        Debug.Log("Player Idle: Exit");
+        Debug.Log("Snatch Exit");
         Ctx.Animator.SetBool(Ctx.IsSnatchingHash, false);
     }
 
@@ -36,8 +36,7 @@ public class PlayerSnatchState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        Ctx.StartCoroutine(Ctx.AnimationDuration(1f));
-        SwitchState(Factory.Idle());
+        // SwitchState(Factory.Idle());
     }
 
     public override void OnTriggerStay(Collider collider)

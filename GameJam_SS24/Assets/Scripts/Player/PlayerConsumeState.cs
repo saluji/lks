@@ -9,7 +9,7 @@ public class PlayerConsumeState : PlayerBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Player Idle: Enter");
+        Debug.Log("Consume Enter");
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
         Ctx.Animator.SetBool(Ctx.IsConsumingHash, true);
@@ -24,7 +24,7 @@ public class PlayerConsumeState : PlayerBaseState
 
     public override void ExitState()
     {
-        Debug.Log("Player Idle: Exit");
+        Debug.Log("Consume Exit");
         Ctx.ConsumeCounter = 0;
         Ctx.Animator.SetBool(Ctx.IsConsumingHash, false);
     }
@@ -36,7 +36,8 @@ public class PlayerConsumeState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        Ctx.StartCoroutine(Ctx.AnimationDuration(2.4f));
+        // Ctx.StartCoroutine(Ctx.AnimationDuration(2.4f));
+        // SwitchState(Factory.Idle());
     }
 
     public override void OnTriggerStay(Collider collider)

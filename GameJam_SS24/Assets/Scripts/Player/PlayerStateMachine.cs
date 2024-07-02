@@ -55,7 +55,6 @@ public class PlayerStateMachine : MonoBehaviour
     float initialJumpVelocity;
     float timeToApex;
 
-
     // hash variables
     int isWalkingHash;
     int isRunningHash;
@@ -69,6 +68,9 @@ public class PlayerStateMachine : MonoBehaviour
 
     // NPC consumption counter
     int consumeCounter;
+
+    // animation length
+    float animationLength = 0;
 
     #endregion
 
@@ -97,6 +99,7 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsRunPressed { get { return isRunPressed; } }
     public bool IsSnatchPressed { get { return isSnatchPressed; } }
     public bool IsConsumePressed { get { return isConsumePressed; } }
+    public bool IsAttackPressed { get { return isAttackPressed; } }
     public bool RequireNewJumpPress { get { return requireNewJumpPress; } set { requireNewJumpPress = value; } }
     public bool IsSnatchable { get { return isSnatchable; } set { isSnatchable = value; } }
     public float MovementSpeed { get { return movementSpeed; } }
@@ -110,7 +113,9 @@ public class PlayerStateMachine : MonoBehaviour
     public float Gravity { get { return gravity; } }
     public float FallMultiplier { get { return fallMultiplier; } }
     public float TerminalVelocity { get { return terminalVelocity; } }
+    public float AnimationLength { get { return animationLength; } set { animationLength = value; } }
     #endregion
+
 
     void Awake()
     {
@@ -286,9 +291,5 @@ public class PlayerStateMachine : MonoBehaviour
     void OnTriggerStay(Collider collider)
     {
         currentState.OnTriggerStay(collider);
-    }
-    public IEnumerator AnimationDuration(float duration)
-    {
-        yield return new WaitForSeconds(duration);
     }
 }

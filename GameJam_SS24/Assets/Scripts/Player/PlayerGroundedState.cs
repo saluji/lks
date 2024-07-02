@@ -60,10 +60,10 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
 
     public override void OnTriggerStay(Collider collider)
     {
-        GameObject other = collider.gameObject;
-        if (other.CompareTag("NPC"))
-        {
-            SwitchState(Factory.Death());
-        }
+        // GameObject other = collider.gameObject;
+        // if (other.CompareTag("NPC"))
+        // {
+        //     SwitchState(Factory.Death());
+        // }
     }
 }

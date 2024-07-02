@@ -30,7 +30,7 @@ public class KnightAttackState : KnightBaseState
     public override void CheckSwitchStates()
     {
         // as long as game over is not active
-        if (Ctx.Eyes.isDetecting && !Ctx.GameOverState)
+        if (Ctx.Eyes.isDetecting)
         {
             SwitchState(Factory.Chase());
         }
