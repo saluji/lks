@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class NPCPatrolState : NPCBaseState
+public class NPCParentWalkState : NPCParentBaseState
 {
-    public NPCPatrolState(NPCStateMachine currentContext, NPCStateFactory nPCStateFactory) : base(currentContext, nPCStateFactory)
+    public NPCParentWalkState(NPCParentStateMachine currentContext, NPCParentStateFactory npcParentStateFactory) : base(currentContext, npcParentStateFactory)
     {
 
     }
 
     public override void EnterState()
     {
-        Debug.Log("NPC Patrol: Enter");
+        Debug.Log("Parent Patrol: Enter");
         Ctx.Animator.SetBool(Ctx.IsPatrolingHash, true);
         Ctx.Animator.SetBool(Ctx.IsChasingHash, false);
         Ctx.TargetPosition = GetNextWaypoint();
@@ -24,7 +24,7 @@ public class NPCPatrolState : NPCBaseState
 
     public override void ExitState()
     {
-        Debug.Log("NPC Patrol: Exit");
+        Debug.Log("Parent Patrol: Exit");
     }
 
     public override void InitializeSubState()

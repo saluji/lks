@@ -1,20 +1,20 @@
 using UnityEngine;
 
-public abstract class NPCBaseState
+public abstract class NPCParentBaseState
 {
-    // get variables from NPCStateMachine and set into all state machines
-    NPCStateMachine ctx;
-    NPCStateFactory factory;
-    // NPCBaseState currentSuperState;
-    // NPCBaseState currentSubState;
+    // get variables from ParentStateMachine and set into all state machines
+    NPCParentStateMachine ctx;
+    NPCParentStateFactory factory;
+    // ParentBaseState currentSuperState;
+    // ParentBaseState currentSubState;
 
-    protected NPCStateMachine Ctx { get { return ctx; } }
-    protected NPCStateFactory Factory { get { return factory; } }
+    protected NPCParentStateMachine Ctx { get { return ctx; } }
+    protected NPCParentStateFactory Factory { get { return factory; } }
 
-    public NPCBaseState(NPCStateMachine currentContext, NPCStateFactory nPCStateFactory)
+    public NPCParentBaseState(NPCParentStateMachine currentContext, NPCParentStateFactory nPCParentStateFactory)
     {
         ctx = currentContext;
-        factory = nPCStateFactory;
+        factory = nPCParentStateFactory;
     }
 
     public abstract void EnterState();
@@ -33,7 +33,7 @@ public abstract class NPCBaseState
         // }
     }
 
-    protected void SwitchState(NPCBaseState newState)
+    protected void SwitchState(NPCParentBaseState newState)
     {
         // current state exits state
         ExitState();
@@ -51,12 +51,12 @@ public abstract class NPCBaseState
         // }
     }
 
-    // protected void SetSuperState(NPCBaseState newSuperState)
+    // protected void SetSuperState(ParentBaseState newSuperState)
     // {
     //     currentSuperState = newSuperState;
     // }
 
-    // protected void SetSubState(NPCBaseState newSubState)
+    // protected void SetSubState(ParentBaseState newSubState)
     // {
     //     currentSubState = newSubState;
     //     newSubState.SetSuperState(this);

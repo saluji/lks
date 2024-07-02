@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class NPCIdleState : NPCBaseState
+public class ParentIdleState : NPCParentBaseState
 {
-    public NPCIdleState(NPCStateMachine currentContext, NPCStateFactory nPCStateFactory) : base(currentContext, nPCStateFactory)
+    public ParentIdleState(NPCParentStateMachine currentContext, NPCParentStateFactory npcParentStateFactory) : base(currentContext, npcParentStateFactory)
     {
 
     }

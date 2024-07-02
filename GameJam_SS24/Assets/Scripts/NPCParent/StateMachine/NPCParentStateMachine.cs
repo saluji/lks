@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NPCStateMachine : MonoBehaviour
+public class NPCParentStateMachine : MonoBehaviour
 {
     // state variables
-    NPCBaseState currentState;
-    NPCStateFactory states;
+    NPCParentBaseState currentState;
+    NPCParentStateFactory states;
 
     // reference variables
     NavMeshAgent agent;
@@ -38,7 +38,7 @@ public class NPCStateMachine : MonoBehaviour
     bool gameOverState = false;
 
     // getter and setter
-    public NPCBaseState CurrentState { get { return currentState; } set { currentState = value; } }
+    public NPCParentBaseState CurrentState { get { return currentState; } set { currentState = value; } }
     public NavMeshAgent Agent { get { return agent; } }
     public Animator Animator { get { return animator; } }
     public Eyes Eyes { get { return eyes; } }
@@ -65,7 +65,7 @@ public class NPCStateMachine : MonoBehaviour
         ears = GetComponentInChildren<Ears>();
 
         // setup state
-        states = new NPCStateFactory(this);
+        states = new NPCParentStateFactory(this);
         currentState = states.Idle();
         currentState.EnterState();
 

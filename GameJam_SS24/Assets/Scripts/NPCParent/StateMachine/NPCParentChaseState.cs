@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class NPCChaseState : NPCBaseState
+public class NPCParentChaseState : NPCParentBaseState
 {
-    public NPCChaseState(NPCStateMachine currentContext, NPCStateFactory nPCStateFactory) : base(currentContext, nPCStateFactory)
+    public NPCParentChaseState(NPCParentStateMachine currentContext, NPCParentStateFactory nPCParentStateFactory) : base(currentContext, nPCParentStateFactory)
     {
 
     }
