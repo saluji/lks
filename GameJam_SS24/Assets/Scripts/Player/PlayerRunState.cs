@@ -26,7 +26,6 @@ public class PlayerRunState : PlayerBaseState
     {
         Debug.Log("Player Run: Exit");
         // Ctx.StopCoroutine(Ctx.AudioManager.PlaySFX(Ctx.AudioManager.run));
-        Ctx.IsSnatchable = false;
     }
 
     public override void InitializeSubState()
@@ -60,18 +59,10 @@ public class PlayerRunState : PlayerBaseState
 
     public override void OnTriggerStay(Collider collider)
     {
-        GameObject other = collider.gameObject;
-        if (other.CompareTag("NPC"))
+        if (collider.gameObject.CompareTag("NPC") && Ctx.IsSnatchPressed && Ctx.ConsumeCounter < Ctx.MaxNPC)
         {
-            SwitchState(Factory.Death());
-            // Ctx.UIManager.ShowInteractPanel();
-            // // if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter < Ctx.MaxNPC)
-            // if (Ctx.IsSnatchPressed)
-            // {
-            //     other.gameObject.transform.position = Ctx.Mouth.position;
-            //     // Ctx.ConsumeCounter++;
-            //     Ctx.IsSnatchable = true;
-            // }
+            collider.gameObject.transform.position = Ctx.Mouth.position;
+            SwitchState(Factory.Snatch());
         }
     }
 }

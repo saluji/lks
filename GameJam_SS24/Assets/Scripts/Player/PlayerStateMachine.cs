@@ -39,7 +39,6 @@ public class PlayerStateMachine : MonoBehaviour
     bool isConsumePressed;
     bool isAttackPressed;
     bool isStompPressed;
-    bool isSnatchable;
     bool isActionable;
 
     // player stats
@@ -112,7 +111,6 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsConsumePressed { get { return isConsumePressed; } }
     public bool IsAttackPressed { get { return isAttackPressed; } }
     public bool RequireNewJumpPress { get { return requireNewJumpPress; } set { requireNewJumpPress = value; } }
-    public bool IsSnatchable { get { return isSnatchable; } set { isSnatchable = value; } }
     public bool IsActionable { get { return isActionable; } set { isActionable = value; } }
     public bool IsStompPressed { get { return isStompPressed; } }
     public float MovementSpeed { get { return movementSpeed; } }
@@ -313,14 +311,14 @@ public class PlayerStateMachine : MonoBehaviour
     void OnTriggerStay(Collider collider)
     {
         // currentState.OnTriggerEnter(collider);
-        if (collider.gameObject.CompareTag("Wifey"))
-        {
-            wifey.IncreaseHP(healAmount);
-        }
-        if (collider.gameObject.CompareTag("NPC") && isSnatchPressed)
-        {
-            Destroy(collider.gameObject);
-        }
+        // if (collider.gameObject.CompareTag("Wifey"))
+        // {
+        //     wifey.IncreaseHP(healAmount);
+        // }
+        // if (collider.gameObject.CompareTag("NPC") && isSnatchPressed)
+        // {
+        //     Destroy(collider.gameObject);
+        // }
     }
     public void IncreaseHP(int amount)
     {

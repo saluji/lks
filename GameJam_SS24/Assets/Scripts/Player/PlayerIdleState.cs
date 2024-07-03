@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using UnityEngine;
 
 public class PlayerIdleState : PlayerBaseState
@@ -21,7 +22,6 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void ExitState()
     {
-        Ctx.IsSnatchable = false;
     }
 
     public override void InitializeSubState()
@@ -43,11 +43,11 @@ public class PlayerIdleState : PlayerBaseState
         {
             SwitchState(Factory.Attack());
         }
-        else if (Ctx.IsSnatchPressed)
-        {
-            SwitchState(Factory.Snatch());
-        }
-        else if (Ctx.IsConsumePressed)
+        // else if (Ctx.IsSnatchPressed)
+        // {
+        //     SwitchState(Factory.Snatch());
+        // }
+        else if (Ctx.IsConsumePressed && Ctx.ConsumeCounter > 0)
         {
             SwitchState(Factory.Consume());
         }
@@ -68,15 +68,10 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void OnTriggerStay(Collider collider)
     {
-        // if (collider.gameObject.CompareTag("NPC"))
-        // {
-        //     Ctx.UIManager.ShowInteractPanel();
-            // // if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter < Ctx.MaxNPC)
-            // {
-            //     other.gameObject.transform.position = Ctx.Mouth.position;
-            //     // Ctx.ConsumeCounter++;
-            //     Ctx.IsSnatchable = true;
-            // }
-        // }
+        if (collider.gameObject.CompareTag("NPC") && Ctx.IsSnatchPressed && Ctx.ConsumeCounter < Ctx.MaxNPC)
+        {
+            collider.gameObject.transform.position = Ctx.Mouth.position;
+            SwitchState(Factory.Snatch());
+        }
     }
 }
