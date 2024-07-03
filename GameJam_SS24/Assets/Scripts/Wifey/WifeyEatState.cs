@@ -13,7 +13,7 @@ public class WifeyEatState : WifeyBaseState
         Ctx.Animator.SetBool(Ctx.IsEatingHash, true);
         Ctx.Animator.SetBool(Ctx.IsDefendingHash, false);
         Ctx.AnimationLength = Time.time + 1.5f;
-        // regen hp with snatchCounter * 5
+        Ctx.IncreaseHP(Ctx.PlayerStateMachine.SnatchCounter);
     }
     public override void UpdateState()
     {
@@ -29,10 +29,10 @@ public class WifeyEatState : WifeyBaseState
             SwitchState(Factory.Idle());
         }
     }
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
         // if colliding with player and hasFood
-        if (collider.gameObject.CompareTag("Player"))
+        if (collider.gameObject.CompareTag("Player") && Ctx.PlayerStateMachine.SnatchCounter > 0)
         {
             SwitchState(Factory.Eat());
         }

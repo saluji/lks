@@ -39,15 +39,15 @@ public class PlayerJumpState : PlayerBaseState, IRootState
         {
             SetSubState(Factory.Idle());
         }
+        else if (Ctx.UIManager.PlayerHP.value < 0)
+        {
+            SwitchState(Factory.Death());
+        }
     }
 
     public override void CheckSwitchStates()
     {
-        if (Ctx.IsStompPressed)
-        {
-            SwitchState(Factory.Stomp());
-        }
-        else if (Ctx.CharacterController.isGrounded)
+        if (Ctx.CharacterController.isGrounded)
         {
             SwitchState(Factory.Grounded());
         }

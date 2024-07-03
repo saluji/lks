@@ -41,7 +41,6 @@ public class PlayerStateMachine : MonoBehaviour
     bool isSnatchPressed;
     bool isConsumePressed;
     bool isAttackPressed;
-    bool isStompPressed;
     bool isActionable;
 
     // player stats
@@ -72,7 +71,6 @@ public class PlayerStateMachine : MonoBehaviour
     int isSnatchingHash;
     int isConsumingHash;
     int isAttackingHash;
-    int isStompingHash;
 
     // NPC consumption counter
     int snatchCounter = 0;
@@ -101,7 +99,6 @@ public class PlayerStateMachine : MonoBehaviour
     public int IsConsumingHash { get { return isConsumingHash; } }
     public int IsDyingHash { get { return isDyingHash; } }
     public int IsAttackingHash { get { return isAttackingHash; } }
-    public int IsStompingHash { get { return isStompingHash; } }
     public int SnatchCounter { get { return snatchCounter; } set { snatchCounter = value; } }
     public int MaxNPC { get { return maxNPC; } }
     public bool IsJumpable { get { return isJumpable; } set { isJumpable = value; } }
@@ -114,7 +111,6 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsAttackPressed { get { return isAttackPressed; } }
     public bool RequireNewJumpPress { get { return requireNewJumpPress; } set { requireNewJumpPress = value; } }
     public bool IsActionable { get { return isActionable; } set { isActionable = value; } }
-    public bool IsStompPressed { get { return isStompPressed; } }
     public float MovementSpeed { get { return movementSpeed; } }
     public float RunMultiplier { get { return runMultiplier; } }
     public float CurrentMovementY { get { return currentMovement.y; } set { currentMovement.y = value; } }
@@ -160,7 +156,6 @@ public class PlayerStateMachine : MonoBehaviour
         isSnatchingHash = Animator.StringToHash("isSnatching");
         isConsumingHash = Animator.StringToHash("isConsuming");
         isAttackingHash = Animator.StringToHash("isAttacking");
-        isStompingHash = Animator.StringToHash("isStomping");
 
         // set player input callbacks
         playerInput.CharacterControls.Move.started += OnMovementInput;
@@ -177,8 +172,6 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.CharacterControls.Consume.canceled += OnConsume;
         playerInput.CharacterControls.Attack.started += OnAttack;
         playerInput.CharacterControls.Attack.canceled += OnAttack;
-        playerInput.CharacterControls.Stomp.started += OnStomp;
-        playerInput.CharacterControls.Stomp.canceled += OnStomp;
 
         SetupJumpVariables();
     }
@@ -217,10 +210,6 @@ public class PlayerStateMachine : MonoBehaviour
     void OnAttack(InputAction.CallbackContext context)
     {
         isAttackPressed = context.ReadValueAsButton();
-    }
-    void OnStomp(InputAction.CallbackContext context)
-    {
-        isStompPressed = context.ReadValueAsButton();
     }
     #endregion
 
@@ -299,7 +288,7 @@ public class PlayerStateMachine : MonoBehaviour
     }
     void HandleHP()
     {
-        uIManager.PlayerHP.value -= 1;
+        uIManager.PlayerHP.value--;
         StartCoroutine(TickHP());
     }
 

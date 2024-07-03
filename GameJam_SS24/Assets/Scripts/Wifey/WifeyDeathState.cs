@@ -11,7 +11,7 @@ public class WifeyDeathState : WifeyBaseState
     public override void EnterState()
     {
         Ctx.Animator.SetTrigger(Ctx.IsDyingHash);
-        // set game over
+        Ctx.StartCoroutine(Ctx.GameManager.GameOverCountdown());
     }
     public override void UpdateState()
     {
@@ -23,7 +23,7 @@ public class WifeyDeathState : WifeyBaseState
     public override void CheckSwitchStates()
     {
     }
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
     }
 }

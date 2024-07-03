@@ -9,6 +9,8 @@ public class WifeyStateMachine : MonoBehaviour
     WifeyStateFactory states;
 
     // reference variables
+    PlayerStateMachine playerStateMachine;
+    GameManager gameManager;
     Animator animator;
     UIManager uIManager;
 
@@ -24,6 +26,9 @@ public class WifeyStateMachine : MonoBehaviour
 
     // getter and setter
     public WifeyBaseState CurrentState { get { return currentState; } set { currentState = value; } }
+    public PlayerStateMachine PlayerStateMachine { get { return playerStateMachine; } }
+    public GameManager GameManager { get { return gameManager; } }
+    public UIManager UIManager { get { return uIManager; } }
     public Animator Animator { get { return animator; } }
     // public UIManager UIManager { get { return uIManager; } }
     public int IsEatingHash { get { return isEatingHash; } }
@@ -39,8 +44,7 @@ public class WifeyStateMachine : MonoBehaviour
         currentState.EnterState();
 
         // set max HP value
-        uIManager.WifeyHP.maxValue = maxHP;
-        uIManager.WifeyHP.value = maxHP;
+        uIManager.WifeyHP.maxValue = uIManager.WifeyHP.value = maxHP;
 
         // set has reference
         isEatingHash = Animator.StringToHash("isEating");
@@ -60,7 +64,7 @@ public class WifeyStateMachine : MonoBehaviour
     }
     void HandleHP()
     {
-        uIManager.WifeyHP.value -= 1;
+        uIManager.WifeyHP.value--;
         StartCoroutine(TickHP());
     }
 
@@ -70,15 +74,15 @@ public class WifeyStateMachine : MonoBehaviour
         HandleHP();
     }
 
-    void OnTriggerEnter(Collider collider)
+    void OnTriggerStay(Collider collider)
     {
-        currentState.OnTriggerEnter(collider);
+        currentState.OnTriggerStay(collider);
     }
 
     // HP increases by 5 for every NPC, receive only 1 dmg per attack
-    public void IncreaseHP()
+    public void IncreaseHP(int counter)
     {
-        uIManager.WifeyHP.value += 5;
+        uIManager.WifeyHP.value = 5 * counter;
     }
     public void DecreaseHP()
     {

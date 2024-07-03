@@ -46,10 +46,14 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
         {
             SwitchState(Factory.Jump());
         }
+        else if (Ctx.UIManager.PlayerHP.value < 0)
+        {
+            SwitchState(Factory.Death());
+        }
     }
 
     public override void OnTriggerStay(Collider collider)
     {
-        
+
     }
 }

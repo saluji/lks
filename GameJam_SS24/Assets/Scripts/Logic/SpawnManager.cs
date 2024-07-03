@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+
     [SerializeField] GameObject knights;
+    [SerializeField] float seconds;
     // [SerializeField] GameObject npc;
     [SerializeField] Transform spawnPoint;
 
@@ -23,7 +25,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnDelay()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(seconds);
         SpawnNPC();
     }
 }

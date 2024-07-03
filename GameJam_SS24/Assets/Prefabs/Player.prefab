@@ -1224,7 +1224,6 @@ MonoBehaviour:
   runMultiplier: 3
   turnSpeed: 15
   maxHP: 100
-  healAmount: 100
   fallMultiplier: 1
   terminalVelocity: -20
   maxJumpHeight: 5

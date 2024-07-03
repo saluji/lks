@@ -11,7 +11,7 @@ public class PlayerConsumeState : PlayerBaseState
     {
         Ctx.AppliedMovementX = Ctx.AppliedMovementZ = Ctx.TurnSpeed = 0;
         Ctx.Animator.SetBool(Ctx.IsConsumingHash, true);
-        Ctx.AnimationLength = Time.time + 2.33f;
+        Ctx.AnimationLength = Time.time + 1.16f;
         Ctx.IncreaseHP();
         Ctx.IsJumpable = false;
     }
@@ -39,6 +39,10 @@ public class PlayerConsumeState : PlayerBaseState
         if (Time.time > Ctx.AnimationLength)
         {
             SwitchState(Factory.Idle());
+        }
+        else if (Ctx.UIManager.PlayerHP.value < 0)
+        {
+            SwitchState(Factory.Death());
         }
     }
 

@@ -48,13 +48,13 @@ public class PlayerRunState : PlayerBaseState
         {
             SwitchState(Factory.Attack());
         }
-        // else if (Ctx.IsSnatchPressed)
-        // {
-        //     SwitchState(Factory.Snatch());
-        // }
         else if (Ctx.IsConsumePressed)
         {
             SwitchState(Factory.Consume());
+        }
+        else if (Ctx.UIManager.PlayerHP.value < 0)
+        {
+            SwitchState(Factory.Death());
         }
     }
 

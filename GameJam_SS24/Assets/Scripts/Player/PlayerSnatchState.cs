@@ -12,7 +12,7 @@ public class PlayerSnatchState : PlayerBaseState
     {
         Ctx.AppliedMovementX = Ctx.AppliedMovementZ = Ctx.TurnSpeed = 0;
         Ctx.Animator.SetBool(Ctx.IsSnatchingHash, true);
-        Ctx.AnimationLength = Time.time + 1f;
+        Ctx.AnimationLength = Time.time + 0.5f;
         Ctx.IsJumpable = false;
     }
 
@@ -39,6 +39,10 @@ public class PlayerSnatchState : PlayerBaseState
         if (Time.time > Ctx.AnimationLength)
         {
             SwitchState(Factory.Idle());
+        }
+        else if (Ctx.UIManager.PlayerHP.value < 0)
+        {
+            SwitchState(Factory.Death());
         }
     }
 

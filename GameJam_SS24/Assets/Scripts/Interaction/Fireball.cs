@@ -14,5 +14,10 @@ public class Fireball : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        else if (collider.gameObject.CompareTag("Destructable"))
+        {
+            collider.gameObject.AddComponent<Rigidbody>();
+            Destroy(gameObject);
+        }
     }
 }

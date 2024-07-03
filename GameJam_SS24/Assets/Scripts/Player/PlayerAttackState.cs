@@ -14,14 +14,13 @@ public class PlayerAttackState : PlayerBaseState
     {
         Ctx.AppliedMovementX = Ctx.AppliedMovementZ = Ctx.TurnSpeed = 0;
         Ctx.Animator.SetBool(Ctx.IsAttackingHash, true);
-        Ctx.AnimationLength = Time.time + 0.5f;
+        Ctx.AnimationLength = Time.time + 0.25f;
         Object.Instantiate(Ctx.Fireball, Ctx.JawPosition.position, Ctx.JawPosition.rotation);
         Ctx.IsJumpable = false;
     }
 
     public override void UpdateState()
     {
-        // Ctx.Fireball.transform.position += Ctx.Fireball.transform.forward;
         CheckSwitchStates();
     }
 
@@ -29,7 +28,6 @@ public class PlayerAttackState : PlayerBaseState
     {
         Debug.Log("Player Attack: Exit");
         Ctx.TurnSpeed = 15;
-        // Object.Destroy(Ctx.Fireball);
         Ctx.Animator.SetBool(Ctx.IsAttackingHash, false);
         Ctx.IsJumpable = true;
     }
@@ -45,6 +43,10 @@ public class PlayerAttackState : PlayerBaseState
         if (Time.time > Ctx.AnimationLength)
         {
             SwitchState(Factory.Idle());
+        }
+        else if (Ctx.UIManager.PlayerHP.value < 0)
+        {
+            SwitchState(Factory.Death());
         }
     }
 

@@ -12,6 +12,7 @@ public class WifeyDefendState : WifeyBaseState
     {
         Ctx.Animator.SetBool(Ctx.IsEatingHash, false);
         Ctx.Animator.SetBool(Ctx.IsDefendingHash, true);
+        Ctx.DecreaseHP();
     }
     public override void UpdateState()
     {
@@ -22,18 +23,21 @@ public class WifeyDefendState : WifeyBaseState
     }
     public override void CheckSwitchStates()
     {
-        // if hp = 0 => Death
+        if (Ctx.UIManager.WifeyHP.value < 0)
+        {
+            SwitchState(Factory.Death());
+        }
 
         // if no more enemies in range > idle
     }
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
         // if colliding with player and hasFood
-        if (collider.gameObject.CompareTag("Player"))
+        if (collider.gameObject.CompareTag("Player") && Ctx.PlayerStateMachine.SnatchCounter > 0)
         {
             SwitchState(Factory.Eat());
         }
-        if (collider.gameObject.CompareTag("NPC"))
+        else if (collider.gameObject.CompareTag("NPC"))
         {
             SwitchState(Factory.Defend());
         }

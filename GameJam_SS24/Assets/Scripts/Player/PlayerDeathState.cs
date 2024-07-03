@@ -12,7 +12,7 @@ public class PlayerDeathState : PlayerBaseState, IRootState
         Debug.Log("Player Death: Enter");
         Ctx.AppliedMovementX = Ctx.AppliedMovementZ = Ctx.TurnSpeed = 0;
         Ctx.Animator.SetTrigger(Ctx.IsDyingHash);
-        // Ctx.StartCoroutine(Ctx.GameManager.GameOverCountdown());
+        Ctx.StartCoroutine(Ctx.GameManager.GameOverCountdown());
     }
 
     public override void UpdateState()

@@ -12,8 +12,6 @@ enum PlayerStates
     snatch,
     consume,
     attack,
-    stomp
-    // glide
 }
 
 // call states from the factory script
@@ -36,7 +34,6 @@ public class PlayerStateFactory
         states[PlayerStates.snatch] = new PlayerSnatchState(context, this);
         states[PlayerStates.consume] = new PlayerConsumeState(context, this);
         states[PlayerStates.attack] = new PlayerAttackState(context, this);
-        states[PlayerStates.stomp] = new PlayerStompState(context, this);
     }
 
     // store states
@@ -79,9 +76,5 @@ public class PlayerStateFactory
     public PlayerBaseState Attack()
     {
         return states[PlayerStates.attack];
-    }
-    public PlayerBaseState Stomp()
-    {
-        return states[PlayerStates.stomp];
     }
 }

@@ -22,12 +22,15 @@ public class WifeyIdleState : WifeyBaseState
     }
     public override void CheckSwitchStates()
     {
-        // if hp = 0 => Death
+        if (Ctx.UIManager.WifeyHP.value < 0)
+        {
+            SwitchState(Factory.Death());
+        }
     }
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
-        // if colliding with player and hasFood
-        if (collider.gameObject.CompareTag("Player"))
+        // if colliding with player and has food 
+        if (collider.gameObject.CompareTag("Player") && Ctx.PlayerStateMachine.SnatchCounter > 0)
         {
             SwitchState(Factory.Eat());
         }

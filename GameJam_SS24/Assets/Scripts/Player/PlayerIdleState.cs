@@ -43,27 +43,14 @@ public class PlayerIdleState : PlayerBaseState
         {
             SwitchState(Factory.Attack());
         }
-        // else if (Ctx.IsSnatchPressed)
-        // {
-        //     SwitchState(Factory.Snatch());
-        // }
         else if (Ctx.IsConsumePressed && Ctx.SnatchCounter > 0)
         {
             SwitchState(Factory.Consume());
         }
-        // else if (Ctx.IsSnatchPressed && Ctx.IsSnatchable && Ctx.SnatchCounter < 8)
-        // else if (Ctx.IsSnatchPressed && Ctx.SnatchCounter > 0 && Ctx.SnatchCounter <= 100)
-        // else if (Ctx.IsSnatchPressed)
-        // {
-        //     // Ctx.SnatchCounter++;
-        //     // Ctx.IsSnatchable = true;
-        //     SwitchState(Factory.Snatch());
-        // }
-        // // else if (Ctx.IsConsumePressed && Ctx.SnatchCounter < 0)
-        // else if (Ctx.IsConsumePressed)
-        // {
-        //     SwitchState(Factory.Consume());
-        // }
+        else if (Ctx.UIManager.PlayerHP.value < 0)
+        {
+            SwitchState(Factory.Death());
+        }
     }
 
     public override void OnTriggerStay(Collider collider)
