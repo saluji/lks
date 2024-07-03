@@ -16,6 +16,7 @@ public class PlayerStateMachine : MonoBehaviour
     Animator animator;
     GameManager gameManager;
     AudioManager audioManager;
+    // PauseManager pauseManager;
     UIManager uIManager;
     Transform jawPosition;
     [SerializeField] GameObject fireball;
@@ -31,10 +32,12 @@ public class PlayerStateMachine : MonoBehaviour
     bool isJumpPressed = false;
     // bool isJumping = false;
     bool requireNewJumpPress = false;
+    bool requireNewAttackPress = false;
     bool isFalling;
     bool isSnatchPressed;
     bool isConsumePressed;
     bool isAttackPressed;
+    // bool isAttacking;
     bool isStompPressed;
     bool isSnatchable;
     bool isActionable;
@@ -82,6 +85,7 @@ public class PlayerStateMachine : MonoBehaviour
     public GameManager GameManager { get { return gameManager; } }
     public GameObject Fireball { get { return fireball; } }
     public AudioManager AudioManager { get { return audioManager; } }
+    // public PauseManager PauseManager { get { return pauseManager; } }
     public UIManager UIManager { get { return uIManager; } }
     public PlayerBaseState CurrentState { get { return currentState; } set { currentState = value; } }
     public CharacterController CharacterController { get { return characterController; } }
@@ -107,7 +111,9 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsSnatchPressed { get { return isSnatchPressed; } }
     public bool IsConsumePressed { get { return isConsumePressed; } }
     public bool IsAttackPressed { get { return isAttackPressed; } }
+    // public bool IsAttacking { get { return isAttacking; } set { isAttacking = value; } }
     public bool RequireNewJumpPress { get { return requireNewJumpPress; } set { requireNewJumpPress = value; } }
+    public bool RequireNewAttackPress { get { return requireNewAttackPress; } set { requireNewAttackPress = value; } }
     public bool IsSnatchable { get { return isSnatchable; } set { isSnatchable = value; } }
     public bool IsActionable { get { return isActionable; } set { isActionable = value; } }
     public bool IsStompPressed { get { return isStompPressed; } }
@@ -134,6 +140,7 @@ public class PlayerStateMachine : MonoBehaviour
         animator = GetComponent<Animator>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        // pauseManager = GameObject.Find("PauseMaanger").GetComponent<PauseManager>();
         uIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
         jawPosition = GameObject.Find("JawTip").transform;
 
@@ -208,6 +215,7 @@ public class PlayerStateMachine : MonoBehaviour
     void OnAttack(InputAction.CallbackContext context)
     {
         isAttackPressed = context.ReadValueAsButton();
+        requireNewAttackPress = false;
     }
     void OnStomp(InputAction.CallbackContext context)
     {

@@ -42,7 +42,7 @@ public class PlayerIdleState : PlayerBaseState
         {
             SwitchState(Factory.Run());
         }
-        else if (Ctx.IsAttackPressed)
+        else if (Ctx.IsAttackPressed && !PauseManager.isPaused)
         {
             SwitchState(Factory.Attack());
         }
