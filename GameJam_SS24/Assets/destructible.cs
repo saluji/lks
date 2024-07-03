@@ -19,10 +19,10 @@ public class BuildingDestruction : MonoBehaviour
             rb.isKinematic = false;
 
             // Zerstöre das Objekt nach 5 Sekunden
-            Destroy(gameObject, 3f);
+            Destroy(gameObject, 2f);
 
             // Zerstöre den Fireball nach 2 Sekunden
-            Destroy(other.gameObject, 2f);
+            Destroy(other.gameObject, 1f);
         }
     }
 }
