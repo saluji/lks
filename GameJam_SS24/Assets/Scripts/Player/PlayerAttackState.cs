@@ -14,8 +14,6 @@ public class PlayerAttackState : PlayerBaseState
     {
         Ctx.AppliedMovementX = Ctx.AppliedMovementZ = Ctx.TurnSpeed = 0;
         Ctx.Animator.SetBool(Ctx.IsAttackingHash, true);
-        Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);
-        Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
         Ctx.AnimationLength = Time.time + 1f;
         Object.Instantiate(Ctx.Fireball, Ctx.JawPosition.position, Ctx.JawPosition.rotation);
         Ctx.IsJumpable = false;
@@ -23,7 +21,8 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void UpdateState()
     {
-        Ctx.Fireball.transform.position += Ctx.Fireball.transform.forward;
+        // Ctx.Fireball.transform.position += Ctx.Fireball.transform.forward;
+        Ctx.Fireball.transform.Translate(Vector3.forward);
         CheckSwitchStates();
     }
 

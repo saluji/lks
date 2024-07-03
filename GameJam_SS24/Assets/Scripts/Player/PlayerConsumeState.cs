@@ -10,8 +10,6 @@ public class PlayerConsumeState : PlayerBaseState
     public override void EnterState()
     {
         Ctx.AppliedMovementX = Ctx.AppliedMovementZ = Ctx.TurnSpeed = 0;
-        Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);
-        Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
         Ctx.Animator.SetBool(Ctx.IsConsumingHash, true);
         Ctx.AnimationLength = Time.time + 2.33f;
         Ctx.IncreaseHP(Ctx.HealAmount);

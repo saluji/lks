@@ -10,14 +10,10 @@ public class PlayerStompState : PlayerBaseState, IRootState
     public override void EnterState()
     {
         InitializeSubState();
+        Ctx.AppliedMovementX = Ctx.AppliedMovementZ = Ctx.TurnSpeed = 0;
         Debug.Log("Consume Enter");
-        Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);
-        Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
         Ctx.Animator.SetBool(Ctx.IsStompingHash, true);
-        Ctx.AppliedMovementX = 0;
-        Ctx.AppliedMovementZ = 0;
-        Ctx.TurnSpeed = 0;
-        // Ctx.AnimationLength = Time.time + 0.5f;
+        // Ctx.AnimationLength = Time.time + 0.66f;
         // Ctx.AnimationLength = Time.time + 2f;
     }
 

@@ -10,6 +10,7 @@ public class PlayerJumpState : PlayerBaseState, IRootState
     public override void EnterState()
     {
         Debug.Log("Player Jump: Enter");
+        Ctx.Animator.SetBool(Ctx.IsJumpingHash, true);
         InitializeSubState();
         HandleJump();
     }

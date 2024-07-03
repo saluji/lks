@@ -12,8 +12,6 @@ public class PlayerSnatchState : PlayerBaseState
     {
         Ctx.AppliedMovementX = Ctx.AppliedMovementZ = Ctx.TurnSpeed = 0;
         Ctx.Animator.SetBool(Ctx.IsSnatchingHash, true);
-        Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);
-        Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
         Ctx.AnimationLength = Time.time + 1f;
         Ctx.IsJumpable = false;
     }

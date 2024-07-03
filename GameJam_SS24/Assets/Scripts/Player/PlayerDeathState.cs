@@ -10,10 +10,8 @@ public class PlayerDeathState : PlayerBaseState, IRootState
     public override void EnterState()
     {
         Debug.Log("Player Death: Enter");
+        Ctx.AppliedMovementX = Ctx.AppliedMovementZ = Ctx.TurnSpeed = 0;
         Ctx.Animator.SetTrigger(Ctx.IsDyingHash);
-        Ctx.AppliedMovementX = 0;
-        Ctx.AppliedMovementZ = 0;
-        Ctx.TurnSpeed = 0;
         // Ctx.StartCoroutine(Ctx.GameManager.GameOverCountdown());
     }
 

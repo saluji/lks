@@ -156,7 +156,7 @@ public class PlayerStateMachine : MonoBehaviour
         // set hash reference
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
-        isJumpingHash = Animator.StringToHash("isJumpable");
+        isJumpingHash = Animator.StringToHash("isJumping");
         isDyingHash = Animator.StringToHash("isDying");
         isSnatchingHash = Animator.StringToHash("isSnatching");
         isConsumingHash = Animator.StringToHash("isConsuming");
