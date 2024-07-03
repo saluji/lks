@@ -9,15 +9,13 @@ public class PlayerConsumeState : PlayerBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Consume Enter");
+        Ctx.AppliedMovementX = Ctx.AppliedMovementZ = Ctx.TurnSpeed = 0;
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
         Ctx.Animator.SetBool(Ctx.IsConsumingHash, true);
-        Ctx.AppliedMovementX = 0;
-        Ctx.AppliedMovementZ = 0;
-        Ctx.TurnSpeed = 0;
         Ctx.AnimationLength = Time.time + 2.33f;
         Ctx.IncreaseHP(Ctx.HealAmount);
+        Ctx.IsJumpable = false;
     }
 
     public override void UpdateState()
@@ -31,6 +29,7 @@ public class PlayerConsumeState : PlayerBaseState
         Ctx.ConsumeCounter = 0;
         Ctx.TurnSpeed = 15;
         Ctx.Animator.SetBool(Ctx.IsConsumingHash, false);
+        Ctx.IsJumpable = true;
     }
 
     public override void InitializeSubState()

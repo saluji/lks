@@ -10,14 +10,12 @@ public class PlayerSnatchState : PlayerBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Snatch Enter");
+        Ctx.AppliedMovementX = Ctx.AppliedMovementZ = Ctx.TurnSpeed = 0;
         Ctx.Animator.SetBool(Ctx.IsSnatchingHash, true);
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
-        Ctx.AppliedMovementX = 0;
-        Ctx.AppliedMovementZ = 0;
-        Ctx.TurnSpeed = 0;
         Ctx.AnimationLength = Time.time + 1f;
+        Ctx.IsJumpable = false;
     }
 
     public override void UpdateState()
@@ -30,6 +28,7 @@ public class PlayerSnatchState : PlayerBaseState
         Debug.Log("Snatch Exit");
         Ctx.TurnSpeed = 15;
         Ctx.Animator.SetBool(Ctx.IsSnatchingHash, false);
+        Ctx.IsJumpable = true;
     }
 
     public override void InitializeSubState()

@@ -68,10 +68,13 @@ public class PlayerJumpState : PlayerBaseState, IRootState
 
     void HandleJump()
     {
-        Ctx.Animator.SetBool(Ctx.IsJumpingHash, true);
-        // Ctx.IsJumping = true;
-        Ctx.CurrentMovementY = Ctx.InitialJumpVelocity;
-        Ctx.AppliedMovementY = Ctx.InitialJumpVelocity;
+        // only jump if not doing any actions on the ground
+        if (Ctx.IsJumpable)
+        {
+            Ctx.Animator.SetBool(Ctx.IsJumpingHash, true);
+            Ctx.CurrentMovementY = Ctx.InitialJumpVelocity;
+            Ctx.AppliedMovementY = Ctx.InitialJumpVelocity;
+        }
     }
 
     public void HandleGravity()

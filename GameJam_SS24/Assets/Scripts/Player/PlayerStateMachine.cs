@@ -30,7 +30,7 @@ public class PlayerStateMachine : MonoBehaviour
     bool isMovementPressed;
     bool isRunPressed;
     bool isJumpPressed = false;
-    // bool isJumping = false;
+    bool isJumpable = true;
     bool requireNewJumpPress = false;
     bool isFalling;
     bool isSnatchPressed;
@@ -103,7 +103,7 @@ public class PlayerStateMachine : MonoBehaviour
     public int ConsumeCounter { get { return consumeCounter; } set { consumeCounter = value; } }
     public int MaxNPC { get { return maxNPC; } }
     public int HealAmount { get { return healAmount; } }
-    // public bool IsJumping { get { return isJumping; } set { isJumping = value; } }
+    public bool IsJumpable { get { return isJumpable; } set { isJumpable = value; } }
     public bool IsJumpPressed { get { return isJumpPressed; } }
     public bool IsFalling { get { return isFalling; } set { isFalling = value; } }
     public bool IsMovementPressed { get { return isMovementPressed; } }
@@ -154,7 +154,7 @@ public class PlayerStateMachine : MonoBehaviour
         // set hash reference
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
-        isJumpingHash = Animator.StringToHash("isJumping");
+        isJumpingHash = Animator.StringToHash("isJumpable");
         isFallingHash = Animator.StringToHash("isFalling");
         isDyingHash = Animator.StringToHash("isDying");
         isSnatchingHash = Animator.StringToHash("isSnatching");

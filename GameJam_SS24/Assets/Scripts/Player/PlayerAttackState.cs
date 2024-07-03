@@ -12,15 +12,13 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Player Attack: Enter");
+        Ctx.AppliedMovementX = Ctx.AppliedMovementZ = Ctx.TurnSpeed = 0;
         Ctx.Animator.SetBool(Ctx.IsAttackingHash, true);
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
-        Ctx.AppliedMovementX = 0;
-        Ctx.AppliedMovementZ = 0;
-        Ctx.TurnSpeed = 0;
         Ctx.AnimationLength = Time.time + 1f;
         Object.Instantiate(Ctx.Fireball, Ctx.JawPosition.position, Ctx.JawPosition.rotation);
+        Ctx.IsJumpable = false;
     }
 
     public override void UpdateState()
@@ -35,6 +33,7 @@ public class PlayerAttackState : PlayerBaseState
         Ctx.TurnSpeed = 15;
         // Object.Destroy(Ctx.Fireball);
         Ctx.Animator.SetBool(Ctx.IsAttackingHash, false);
+        Ctx.IsJumpable = true;
     }
 
     public override void InitializeSubState()
