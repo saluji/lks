@@ -20,6 +20,7 @@ public class KnightDeathState : KnightBaseState
 
     public override void ExitState()
     {
+        
     }
 
     public override void CheckSwitchStates()

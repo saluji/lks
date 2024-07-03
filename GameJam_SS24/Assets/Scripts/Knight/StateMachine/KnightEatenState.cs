@@ -19,7 +19,6 @@ public class KnightEatenState : KnightBaseState
 
     public override void ExitState()
     {
-        // Ctx.PlayerStateMachine.IncreaseHP(Ctx.IncreaseHP);
     }
 
     public override void CheckSwitchStates()
@@ -28,21 +27,16 @@ public class KnightEatenState : KnightBaseState
 
     public override void OnTriggerStay(Collider collider)
     {
-        // snatching makes player slower and increases consumption counter
-        if (collider.gameObject.CompareTag("Player") && Ctx.PlayerStateMachine.IsSnatchPressed)
-        {
-            Ctx.PlayerStateMachine.SnatchCounter++;
-        }
         // regenerate hp if consuming
         if (collider.gameObject.CompareTag("Player") && Ctx.PlayerStateMachine.IsConsumePressed)
         {
-            Ctx.PlayerStateMachine.IncreaseHP(Ctx.IncreaseHP);
+            Ctx.PlayerStateMachine.IncreaseHP();
             // Object.Destroy(gameObject.this);
         }
-    }
-    public void Consumed()
-    {
-        //destroy object
-        // Object.Destroy(gameObject);
+        else if (collider.gameObject.CompareTag("Wifey"))
+        {
+            Ctx.WifeyStateMachine.IncreaseHP();
+            // Object.Destroy(gameObject.this);
+        }
     }
 }

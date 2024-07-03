@@ -21,7 +21,7 @@ public class NPCEatenState : NPCBaseState
     }
     public override void ExitState()
     {
-        Ctx.PlayerStateMachine.IncreaseHP(Ctx.IncreaseHP);
+        Ctx.PlayerStateMachine.IncreaseHP();
     }
     public override void CheckSwitchStates()
     {

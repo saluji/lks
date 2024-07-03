@@ -129,7 +129,6 @@ public class PlayerStateMachine : MonoBehaviour
     public float AnimationLength { get { return animationLength; } set { animationLength = value; } }
     #endregion
 
-
     void Awake()
     {
         // set initial reference variables
@@ -237,6 +236,7 @@ public class PlayerStateMachine : MonoBehaviour
     void Start()
     {
         characterController.Move(appliedMovement * Time.deltaTime);
+        HandleHP();
     }
 
     void Update()
@@ -297,6 +297,17 @@ public class PlayerStateMachine : MonoBehaviour
             transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, turnSpeed * Time.deltaTime);
         }
     }
+    void HandleHP()
+    {
+        uIManager.PlayerHP.value -= 1;
+        StartCoroutine(TickHP());
+    }
+
+    IEnumerator TickHP()
+    {
+        yield return new WaitForSeconds(1);
+        HandleHP();
+    }
 
     void OnEnable()
     {
@@ -322,12 +333,14 @@ public class PlayerStateMachine : MonoBehaviour
         //     Destroy(collider.gameObject);
         // }
     }
-    public void IncreaseHP(int amount)
+
+    // get and receive 1 HP for attack / consumption
+    public void IncreaseHP()
     {
-        uIManager.PlayerHP.value += amount;
+        uIManager.PlayerHP.value++;
     }
-    public void DecreaseHP(int amount)
+    public void DecreaseHP()
     {
-        uIManager.PlayerHP.value -= amount;
+        uIManager.PlayerHP.value--;
     }
 }

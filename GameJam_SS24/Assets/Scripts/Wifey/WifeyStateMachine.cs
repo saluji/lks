@@ -50,18 +50,25 @@ public class WifeyStateMachine : MonoBehaviour
 
     void Update()
     {
+        HandleHP();
         currentState.UpdateStates();
+    }
+    void HandleHP()
+    {
+        // uIManager.WifeyHP.value -= Time.time;
     }
     void OnTriggerEnter(Collider collider)
     {
         currentState.OnTriggerEnter(collider);
     }
-    public void IncreaseHP(int amount)
+
+    // HP increases by 5 for every NPC, receive only 1 dmg per attack
+    public void IncreaseHP()
     {
-        uIManager.WifeyHP.value += amount;
+        uIManager.WifeyHP.value += 5;
     }
-    public void DecreaseHP(int amount)
+    public void DecreaseHP()
     {
-        uIManager.WifeyHP.value -= amount;
+        uIManager.WifeyHP.value--;
     }
 }

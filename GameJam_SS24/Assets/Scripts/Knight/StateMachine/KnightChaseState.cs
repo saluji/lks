@@ -17,7 +17,7 @@ public class KnightChaseState : KnightBaseState
     public override void UpdateState()
     {
         // chase player
-        Ctx.SetDestination(Ctx.Eyes.player.position);
+        Ctx.SetDestination(Ctx.PlayerStateMachine.transform.position);
     }
 
     public override void ExitState()
@@ -27,14 +27,26 @@ public class KnightChaseState : KnightBaseState
 
     public override void CheckSwitchStates()
     {
-
+        if (!Ctx.Eyes.IsInRange())
+        {
+            SwitchState(Factory.Patrol());
+        }
     }
 
     public override void OnTriggerStay(Collider collider)
     {
-        if (collider.gameObject.CompareTag("Player") && Ctx.PlayerStateMachine.IsSnatchPressed || collider.gameObject.CompareTag("Fireball"))
+        if (collider.gameObject.CompareTag("Player"))
         {
+            SwitchState(Factory.Attack());
+        }
+        else if (collider.gameObject.CompareTag("Player") && Ctx.PlayerStateMachine.IsSnatchPressed)
+        {
+            Ctx.PlayerStateMachine.SnatchCounter++;
             SwitchState(Factory.Eaten());
+        }
+        else if (collider.gameObject.CompareTag("Fireball"))
+        {
+            SwitchState(Factory.Death());
         }
     }
 }

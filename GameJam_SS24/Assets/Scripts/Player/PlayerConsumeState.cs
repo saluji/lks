@@ -12,7 +12,7 @@ public class PlayerConsumeState : PlayerBaseState
         Ctx.AppliedMovementX = Ctx.AppliedMovementZ = Ctx.TurnSpeed = 0;
         Ctx.Animator.SetBool(Ctx.IsConsumingHash, true);
         Ctx.AnimationLength = Time.time + 2.33f;
-        Ctx.IncreaseHP(Ctx.HealAmount);
+        Ctx.IncreaseHP();
         Ctx.IsJumpable = false;
     }
 

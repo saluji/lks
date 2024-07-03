@@ -3,7 +3,6 @@ using System.Collections.Generic;
 // store all states in this script
 enum KnightStates
 {
-    idle,
     patrol,
     chase,
     death,
@@ -22,7 +21,6 @@ public class KnightStateFactory
     public KnightStateFactory(KnightStateMachine currentContext)
     {
         context = currentContext;
-        states[KnightStates.idle] = new KnightIdleState(context, this);
         states[KnightStates.patrol] = new KnightPatrolState(context, this);
         states[KnightStates.chase] = new KnightChaseState(context, this);
         states[KnightStates.death] = new KnightDeathState(context, this);
@@ -31,10 +29,6 @@ public class KnightStateFactory
     }
 
     // store states
-    public KnightBaseState Idle()
-    {
-        return states[KnightStates.idle];
-    }
 
     public KnightBaseState Patrol()
     {

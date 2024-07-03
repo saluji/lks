@@ -42,15 +42,20 @@ public class KnightAttackState : KnightBaseState
         {
             SwitchState(Factory.Death());
         }
-
-        //decrease hp with every attack
-        if (collider.gameObject.CompareTag("Player"))
+        else if (collider.gameObject.CompareTag("Player"))
         {
-            Ctx.PlayerStateMachine.DecreaseHP(Ctx.Damage);
+            Ctx.PlayerStateMachine.DecreaseHP();
+            SwitchState(Factory.Attack());
         }
-        if (collider.gameObject.CompareTag("Wifey"))
+        else if (collider.gameObject.CompareTag("Player") && Ctx.PlayerStateMachine.IsSnatchPressed)
         {
-            Ctx.WifeyStateMachine.DecreaseHP(Ctx.Damage);
+            Ctx.PlayerStateMachine.SnatchCounter++;
+            SwitchState(Factory.Eaten());
+        }
+        else if (collider.gameObject.CompareTag("Wifey"))
+        {
+            Ctx.WifeyStateMachine.DecreaseHP();
+            SwitchState(Factory.Attack());
         }
     }
 }

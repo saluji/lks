@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1630162553560299865}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 16555.398}
+  m_LocalPosition: {x: 0, y: 0, z: 16561.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -118,4 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8beddfba4e4ad0647b6cfa7f01d364e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pieces: []
+  explosionForce: 5
+  explosionRadius: 5
   speed: 10

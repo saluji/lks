@@ -31,8 +31,6 @@ public class NPCStateMachine : MonoBehaviour
     Vector3 targetPosition;
     int currentWaypointIndex;
 
-    [SerializeField] int increaseHP;
-
     // hash variables
     int isWalkingHash;
     int isFleeingHash;
@@ -53,7 +51,6 @@ public class NPCStateMachine : MonoBehaviour
     public int IsFleeingHash { get { return isFleeingHash; } }
     public int IsDyingHash { get { return isDyingHash; } }
     public int IsEatenHash { get { return isEatenHash; } }
-    public int IncreaseHP { get { return increaseHP; } }
     public float LeaveTIme { get { return leaveTime; } }
     public float MovementSpeed { get { return movementSpeed; } }
     public float RunMultiplier { get { return runMultiplier; } }

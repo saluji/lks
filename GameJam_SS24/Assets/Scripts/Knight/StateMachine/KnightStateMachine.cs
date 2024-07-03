@@ -22,18 +22,6 @@ public class KnightStateMachine : MonoBehaviour
     [SerializeField] int damage;
     [SerializeField] int increaseHP;
 
-    // idle variables
-    [Header("Idle values")]
-    [SerializeField] float minWaitTime;
-    [SerializeField] float maxWaitTime;
-    float leaveTime;
-
-    // patrol variables
-    [Header("Patrol values")]
-    [SerializeField] Transform[] waypoints;
-    Vector3 targetPosition;
-    int currentWaypointIndex;
-
     // hash variables
     int isPatrolingHash;
     int isChasingHash;
@@ -51,9 +39,6 @@ public class KnightStateMachine : MonoBehaviour
     public Animator Animator { get { return animator; } }
     public Sense Sense { get { return sense; } }
     public Eyes Eyes { get { return eyes; } }
-    public Vector3 TargetPosition { get { return targetPosition; } set { targetPosition = value; } }
-    public Transform[] Waypoints { get { return waypoints; } }
-    public int CurrentWaypointIndex { get { return currentWaypointIndex; } set { currentWaypointIndex = value; } }
     public int IsPatrolingHash { get { return isPatrolingHash; } }
     public int IsChasingHash { get { return isChasingHash; } }
     public int IsAttackingHash { get { return isAttackingHash; } }
@@ -61,12 +46,8 @@ public class KnightStateMachine : MonoBehaviour
     public int IsEatenHash { get { return isEatenHash; } }
     public int Damage { get { return damage; } }
     public int IncreaseHP { get { return increaseHP; } }
-    public float LeaveTIme { get { return leaveTime; } }
     public float MovementSpeed { get { return movementSpeed; } }
     public float RunMultiplier { get { return runMultiplier; } }
-    public float MinWaitTime { get { return minWaitTime; } }
-    public float MaxWaitTime { get { return maxWaitTime; } }
-    public float LeaveTime { get { return leaveTime; } set { leaveTime = value; } }
     public float AnimationLength { get { return animationLength; } set { animationLength = value; } }
 
     void Awake()
@@ -81,7 +62,7 @@ public class KnightStateMachine : MonoBehaviour
 
         // setup state
         states = new KnightStateFactory(this);
-        currentState = states.Idle();
+        currentState = states.Patrol();
         currentState.EnterState();
 
         // set has reference
