@@ -1,8 +1,16 @@
 using UnityEngine;
+using System.Collections;
 
 public class Fireball : MonoBehaviour
 {
-    [SerializeField] float speed = 10;
+    [SerializeField] float speed = 10f;
+
+    void Start()
+    {
+        // Startet den Timer, um den Fireball nach 5 Sekunden zu zerstören
+        StartCoroutine(DestroyAfterTime(5f));
+    }
+
     void Update()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
@@ -19,5 +27,11 @@ public class Fireball : MonoBehaviour
             collider.gameObject.AddComponent<Rigidbody>();
             Destroy(gameObject);
         }
+    }
+
+    private IEnumerator DestroyAfterTime(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
     }
 }
