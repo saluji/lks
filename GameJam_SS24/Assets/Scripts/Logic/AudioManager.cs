@@ -16,7 +16,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip whistle;
     public AudioClip scream;
     public AudioClip sneak;
-
+    public AudioClip button;
     // bool isPlaying;
 
     void Awake()
