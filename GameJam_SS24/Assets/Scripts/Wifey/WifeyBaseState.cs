@@ -1,18 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class WifeyBaseState : MonoBehaviour
+public abstract class WifeyBaseState
 {
-    // Start is called before the first frame update
-    void Start()
+    // get variables from ParentStateMachine and set into all state machines
+    WifeyStateMachine ctx;
+    WifeyStateFactory factory;
+
+    protected WifeyStateMachine Ctx { get { return ctx; } }
+    protected WifeyStateFactory Factory { get { return factory; } }
+
+    public WifeyBaseState(WifeyStateMachine currentContext, WifeyStateFactory wifeyStateFactory)
     {
-        
+        ctx = currentContext;
+        factory = wifeyStateFactory;
     }
 
-    // Update is called once per frame
-    void Update()
+    public abstract void EnterState();
+    public abstract void UpdateState();
+    public abstract void ExitState();
+    public abstract void CheckSwitchStates();
+    public abstract void OnTriggerEnter(Collider collider);
+
+    public void UpdateStates()
     {
-        
+        UpdateState();
+    }
+
+    protected void SwitchState(WifeyBaseState newState)
+    {
+        // current state exits state
+        ExitState();
+
+        // new state enters state
+        newState.EnterState();
+
+        // switch current state of context
+        Ctx.CurrentState = newState;
     }
 }

@@ -2,17 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WifeyDeathState : MonoBehaviour
+public class WifeyDeathState : WifeyBaseState
 {
-    // Start is called before the first frame update
-    void Start()
+    public WifeyDeathState(WifeyStateMachine currentContext, WifeyStateFactory wifeyStateFactory) : base(currentContext, wifeyStateFactory)
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    }
+    public override void EnterState()
     {
-        
+        Ctx.Animator.SetTrigger(Ctx.IsDyingHash);
+        // set game over
+    }
+    public override void UpdateState()
+    {
+
+    }
+    public override void ExitState()
+    {
+    }
+    public override void CheckSwitchStates()
+    {
+    }
+    public override void OnTriggerEnter(Collider collider)
+    {
     }
 }
