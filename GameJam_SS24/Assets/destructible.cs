@@ -2,15 +2,22 @@ using UnityEngine;
 
 public class BuildingDestruction : MonoBehaviour
 {
-    private bool isBroken = false; // Um sicherzustellen, dass das Objekt nur einmal zerfällt
+    AudioManager audioManager;
+    private bool isBroken = false; // Um sicherzustellen, dass das Objekt nur einmal zerfï¿½llt
+
+    void Awake()
+    {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+    }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Fireball") && !isBroken)
         {
+            audioManager.PlaySFX(audioManager.explosion);
             isBroken = true;
 
-            // Füge einen Rigidbody hinzu und aktiviere ihn
+            // Fï¿½ge einen Rigidbody hinzu und aktiviere ihn
             Rigidbody rb = gameObject.GetComponent<Rigidbody>();
             if (rb == null)
             {
@@ -18,10 +25,10 @@ public class BuildingDestruction : MonoBehaviour
             }
             rb.isKinematic = false;
 
-            // Zerstöre das Objekt nach 5 Sekunden
+            // Zerstï¿½re das Objekt nach 5 Sekunden
             Destroy(gameObject, 2f);
 
-            // Zerstöre den Fireball nach 2 Sekunden
+            // Zerstï¿½re den Fireball nach 2 Sekunden
             Destroy(other.gameObject, 1f);
         }
     }

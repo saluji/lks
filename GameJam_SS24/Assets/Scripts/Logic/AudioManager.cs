@@ -13,11 +13,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip run;
     public AudioClip jump;
     public AudioClip death;
-    public AudioClip whistle;
-    public AudioClip scream;
-    public AudioClip sneak;
-    public AudioClip button;
-    // bool isPlaying;
+    public AudioClip fireball;
+    public AudioClip explosion;
 
     void Awake()
     {
@@ -26,21 +23,8 @@ public class AudioManager : MonoBehaviour
         musicSource.Play();
     }
 
-    public IEnumerator PlaySFX(AudioClip clip)
+    public void PlaySFX(AudioClip clip)
     {
         sFXSource.PlayOneShot(clip);
-        yield return new WaitForSeconds(clip.length);
-        StartCoroutine(PlaySFX(clip));
-        //     isPlaying = true;
-        //     if (isPlaying)
-        //     {
-        //         isPlaying = false;
-        //         StartCoroutine(ClipLength(clip.length));
-        //         isPlaying = true;
     }
-    // }
-
-    // IEnumerator ClipLength(float clipLength)
-    // {
-    //}
 }

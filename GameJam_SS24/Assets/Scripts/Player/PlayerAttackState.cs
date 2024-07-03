@@ -16,6 +16,7 @@ public class PlayerAttackState : PlayerBaseState
         Ctx.Animator.SetBool(Ctx.IsAttackingHash, true);
         Ctx.AnimationLength = Time.time + 0.5f;
         Object.Instantiate(Ctx.Fireball, Ctx.JawPosition.position, Ctx.JawPosition.rotation);
+        Ctx.AudioManager.PlaySFX(Ctx.AudioManager.fireball);
         Ctx.IsJumpable = false;
     }
 
