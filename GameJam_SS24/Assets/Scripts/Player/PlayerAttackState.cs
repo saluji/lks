@@ -13,7 +13,6 @@ public class PlayerAttackState : PlayerBaseState
     public override void EnterState()
     {
         Debug.Log("Player Attack: Enter");
-        // Ctx.IsAttacking = true;
         Ctx.Animator.SetBool(Ctx.IsAttackingHash, true);
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
@@ -34,13 +33,8 @@ public class PlayerAttackState : PlayerBaseState
     {
         Debug.Log("Player Attack: Exit");
         Ctx.TurnSpeed = 15;
-        // Ctx.IsAttacking = false;
         // Object.Destroy(Ctx.Fireball);
         Ctx.Animator.SetBool(Ctx.IsAttackingHash, false);
-        if (Ctx.IsAttackPressed)
-        {
-            Ctx.RequireNewAttackPress = true;
-        }
     }
 
     public override void InitializeSubState()
