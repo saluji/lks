@@ -34,4 +34,10 @@ public class Fireball : MonoBehaviour
         yield return new WaitForSeconds(delay);
         Destroy(gameObject);
     }
+
+    private IEnumerator DestroyAfterTime(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Destroy(gameObject);
+    }
 }
