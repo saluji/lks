@@ -7,7 +7,8 @@ enum KnightStates
     patrol,
     chase,
     death,
-    attack
+    attack,
+    eaten
 }
 
 // call states from the factory script
@@ -26,6 +27,7 @@ public class KnightStateFactory
         states[KnightStates.chase] = new KnightChaseState(context, this);
         states[KnightStates.death] = new KnightDeathState(context, this);
         states[KnightStates.attack] = new KnightAttackState(context, this);
+        states[KnightStates.eaten] = new KnightEatenState(context, this);
     }
 
     // store states
@@ -50,5 +52,9 @@ public class KnightStateFactory
     public KnightBaseState Attack()
     {
         return states[KnightStates.attack];
+    }
+    public KnightBaseState Eaten()
+    {
+        return states[KnightStates.eaten];
     }
 }

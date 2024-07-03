@@ -22,7 +22,7 @@ public class WifeyStateMachine : MonoBehaviour
 
     float animationLength;
 
-    //getter and setter
+    // getter and setter
     public WifeyBaseState CurrentState { get { return currentState; } set { currentState = value; } }
     public Animator Animator { get { return animator; } }
     // public UIManager UIManager { get { return uIManager; } }

@@ -13,9 +13,11 @@ public class PlayerStateMachine : MonoBehaviour
     // reference variables
     PlayerInput playerInput;
     CharacterController characterController;
+    WifeyStateMachine wifey;
+    KnightStateMachine knight;
+    NPCStateMachine npc;
     Animator animator;
     GameManager gameManager;
-    WifeyStateMachine wifey;
     AudioManager audioManager;
     UIManager uIManager;
     Transform jawPosition;
@@ -134,6 +136,8 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput = new PlayerInput();
         characterController = GetComponent<CharacterController>();
         wifey = GameObject.Find("Wifey").GetComponent<WifeyStateMachine>();
+        knight = GameObject.Find("Knight").GetComponent<KnightStateMachine>();
+        npc = GameObject.Find("NPC").GetComponent<NPCStateMachine>();
         animator = GetComponent<Animator>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();

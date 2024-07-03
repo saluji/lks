@@ -8,11 +8,11 @@ public class KnightStateMachine : MonoBehaviour
     KnightStateFactory states;
 
     // reference variables
+    PlayerStateMachine player;
     NavMeshAgent agent;
     Animator animator;
     Eyes eyes;
     Sense sense;
-    PlayerStateMachine player;
     WifeyStateMachine wifey;
 
     // knight stats
@@ -20,6 +20,7 @@ public class KnightStateMachine : MonoBehaviour
     [SerializeField] float movementSpeed;
     [SerializeField] float runMultiplier;
     [SerializeField] int damage;
+    [SerializeField] int increaseHP;
 
     // idle variables
     [Header("Idle values")]
@@ -38,6 +39,7 @@ public class KnightStateMachine : MonoBehaviour
     int isChasingHash;
     int isAttackingHash;
     int isDyingHash;
+    int isEatenHash;
 
     float animationLength;
 
@@ -56,7 +58,9 @@ public class KnightStateMachine : MonoBehaviour
     public int IsChasingHash { get { return isChasingHash; } }
     public int IsAttackingHash { get { return isAttackingHash; } }
     public int IsDyingHash { get { return isDyingHash; } }
+    public int IsEatenHash { get { return isEatenHash; } }
     public int Damage { get { return damage; } }
+    public int IncreaseHP { get { return increaseHP; } }
     public float LeaveTIme { get { return leaveTime; } }
     public float MovementSpeed { get { return movementSpeed; } }
     public float RunMultiplier { get { return runMultiplier; } }
@@ -85,6 +89,7 @@ public class KnightStateMachine : MonoBehaviour
         isChasingHash = Animator.StringToHash("isChasing");
         isAttackingHash = Animator.StringToHash("isAttacking");
         isDyingHash = Animator.StringToHash("isDying");
+        isEatenHash = Animator.StringToHash("isEaten");
     }
 
     void Start()

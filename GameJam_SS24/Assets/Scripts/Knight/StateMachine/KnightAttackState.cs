@@ -10,8 +10,9 @@ public class KnightAttackState : KnightBaseState
 
     public override void EnterState()
     {
-        Ctx.Animator.SetBool(Ctx.IsPatrolingHash, true);
+        Ctx.Animator.SetBool(Ctx.IsPatrolingHash, false);
         Ctx.Animator.SetBool(Ctx.IsChasingHash, false);
+        Ctx.Animator.SetBool(Ctx.IsAttackingHash, true);
         Ctx.SetAgentSpeed(0, 0);
         Ctx.AnimationLength = Time.time + 0.6f;
     }
@@ -58,6 +59,7 @@ public class KnightAttackState : KnightBaseState
         // chase if out of player range
         if (collider.gameObject.CompareTag("Player"))
         {
+            Ctx.Animator.SetBool(Ctx.IsAttackingHash, false);
             SwitchState(Factory.Chase());
         }
     }

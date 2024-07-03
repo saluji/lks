@@ -8,6 +8,7 @@ public class NPCStateMachine : MonoBehaviour
     NPCStateFactory states;
 
     // reference variables
+    PlayerStateMachine player;
     NavMeshAgent agent;
     Animator animator;
     Eyes eyes;
@@ -30,13 +31,17 @@ public class NPCStateMachine : MonoBehaviour
     Vector3 targetPosition;
     int currentWaypointIndex;
 
+    [SerializeField] int increaseHP;
+
     // hash variables
     int isWalkingHash;
     int isFleeingHash;
     int isDyingHash;
+    int isEatenHash;
 
     // getter and setter
     public NPCBaseState CurrentState { get { return currentState; } set { currentState = value; } }
+    public PlayerStateMachine PlayerStateMachine { get { return player; } }
     public NavMeshAgent Agent { get { return agent; } }
     public Animator Animator { get { return animator; } }
     public Sense Sense { get { return sense; } }
@@ -47,6 +52,8 @@ public class NPCStateMachine : MonoBehaviour
     public int IsWalkingHash { get { return isWalkingHash; } }
     public int IsFleeingHash { get { return isFleeingHash; } }
     public int IsDyingHash { get { return isDyingHash; } }
+    public int IsEatenHash { get { return isEatenHash; } }
+    public int IncreaseHP { get { return increaseHP; } }
     public float LeaveTIme { get { return leaveTime; } }
     public float MovementSpeed { get { return movementSpeed; } }
     public float RunMultiplier { get { return runMultiplier; } }
@@ -61,10 +68,13 @@ public class NPCStateMachine : MonoBehaviour
         currentState = states.Idle();
         currentState.EnterState();
 
+        player = GameObject.Find("Player").GetComponent<PlayerStateMachine>();
+
         // set has reference
         isWalkingHash = Animator.StringToHash("isWalking");
         isFleeingHash = Animator.StringToHash("isFleeing");
         isDyingHash = Animator.StringToHash("isDying");
+        isEatenHash = Animator.StringToHash("isEaten");
     }
     void Update()
     {

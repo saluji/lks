@@ -47,7 +47,8 @@ public class PlayerConsumeState : PlayerBaseState
 
     public override void OnTriggerEnter(Collider collider)
     {
-
+        // if (collider.gameObject.CompareTag("NPC"))
+        //     collider.gameObject.Consume();
     }
     public override void OnTriggerExit(Collider collider)
     {

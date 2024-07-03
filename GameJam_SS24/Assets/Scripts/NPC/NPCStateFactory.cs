@@ -6,7 +6,8 @@ enum NPCStates
     idle,
     walk,
     flee,
-    death
+    death,
+    eaten
 }
 
 // call states from the factory script
@@ -24,6 +25,7 @@ public class NPCStateFactory
         states[NPCStates.walk] = new NPCWalkState(context, this);
         states[NPCStates.flee] = new NPCFleeState(context, this);
         states[NPCStates.death] = new NPCDeathState(context, this);
+        states[NPCStates.eaten] = new NPCEatenState(context, this);
     }
 
     // store states
@@ -44,5 +46,9 @@ public class NPCStateFactory
     public NPCBaseState Death()
     {
         return states[NPCStates.death];
+    }
+    public NPCBaseState Eaten()
+    {
+        return states[NPCStates.eaten];
     }
 }
