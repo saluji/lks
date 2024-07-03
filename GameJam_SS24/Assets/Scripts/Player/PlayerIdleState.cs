@@ -9,11 +9,9 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Player Idle: Enter");
+        Ctx.AppliedMovementX = Ctx.AppliedMovementZ = 0;
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
-        Ctx.AppliedMovementX = 0;
-        Ctx.AppliedMovementZ = 0;
     }
 
     public override void UpdateState()
@@ -23,7 +21,6 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void ExitState()
     {
-        Debug.Log("Player Idle: Exit");
         Ctx.IsSnatchable = false;
     }
 
@@ -38,37 +35,52 @@ public class PlayerIdleState : PlayerBaseState
         {
             SwitchState(Factory.Walk());
         }
-
         else if (Ctx.IsMovementPressed && Ctx.IsRunPressed)
         {
             SwitchState(Factory.Run());
         }
-        // else if (Ctx.IsSnatchPressed && Ctx.IsSnatchable && Ctx.ConsumeCounter < 8)
-        // {
-        //     SwitchState(Factory.Snatch());
-        // }
-        else if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter < 8)
+        else if (Ctx.IsAttackPressed)
         {
-            Ctx.ConsumeCounter++;
-            Ctx.IsSnatchable = true;
+            SwitchState(Factory.Attack());
         }
-        else if (Ctx.IsConsumePressed && Ctx.ConsumeCounter < 8)
+        else if (Ctx.IsSnatchPressed)
+        {
+            SwitchState(Factory.Snatch());
+        }
+        else if (Ctx.IsConsumePressed)
         {
             SwitchState(Factory.Consume());
         }
+        // else if (Ctx.IsSnatchPressed && Ctx.IsSnatchable && Ctx.ConsumeCounter < 8)
+        // else if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter > 0 && Ctx.ConsumeCounter <= 100)
+        // else if (Ctx.IsSnatchPressed)
+        // {
+        //     // Ctx.ConsumeCounter++;
+        //     // Ctx.IsSnatchable = true;
+        //     SwitchState(Factory.Snatch());
+        // }
+        // // else if (Ctx.IsConsumePressed && Ctx.ConsumeCounter < 0)
+        // else if (Ctx.IsConsumePressed)
+        // {
+        //     SwitchState(Factory.Consume());
+        // }
     }
 
-    public override void OnTriggerStay(Collider collider)
+    public override void OnTriggerEnter(Collider collider)
     {
-        // GameObject other = collider.gameObject;
-        // if (other.CompareTag("NPC"))
-        // {
-        //     Ctx.UIManager.ShowInteractPanel();
-        //     if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter < 8)
-        //     {
-        //         Ctx.ConsumeCounter++;
-        //         Ctx.IsSnatchable = true;
-        //     }
-        // }
+        // if (collider.gameObject.CompareTag("NPC"))
+        {
+            // Ctx.UIManager.ShowInteractPanel();
+            // // if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter < Ctx.MaxNPC)
+            // {
+            //     other.gameObject.transform.position = Ctx.Mouth.position;
+            //     // Ctx.ConsumeCounter++;
+            //     Ctx.IsSnatchable = true;
+            // }
+        }
+    }
+    public override void OnTriggerExit(Collider collider)
+    {
+        // Ctx.UIManager.HideInteractPanel();
     }
 }

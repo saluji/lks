@@ -8,15 +8,19 @@ public class KnightStateMachine : MonoBehaviour
     KnightStateFactory states;
 
     // reference variables
+    PlayerStateMachine player;
     NavMeshAgent agent;
     Animator animator;
     Eyes eyes;
     Sense sense;
+    WifeyStateMachine wifey;
 
     // knight stats
     [Header("NPC values")]
     [SerializeField] float movementSpeed;
     [SerializeField] float runMultiplier;
+    [SerializeField] int damage;
+    [SerializeField] int increaseHP;
 
     // idle variables
     [Header("Idle values")]
@@ -33,12 +37,16 @@ public class KnightStateMachine : MonoBehaviour
     // hash variables
     int isPatrolingHash;
     int isChasingHash;
+    int isAttackingHash;
+    int isDyingHash;
+    int isEatenHash;
 
-    // game over state
-    bool gameOverState = false;
+    float animationLength;
 
     // getter and setter
     public KnightBaseState CurrentState { get { return currentState; } set { currentState = value; } }
+    public PlayerStateMachine PlayerStateMachine { get { return player; } }
+    public WifeyStateMachine WifeyStateMachine { get { return wifey; } }
     public NavMeshAgent Agent { get { return agent; } }
     public Animator Animator { get { return animator; } }
     public Sense Sense { get { return sense; } }
@@ -48,13 +56,18 @@ public class KnightStateMachine : MonoBehaviour
     public int CurrentWaypointIndex { get { return currentWaypointIndex; } set { currentWaypointIndex = value; } }
     public int IsPatrolingHash { get { return isPatrolingHash; } }
     public int IsChasingHash { get { return isChasingHash; } }
+    public int IsAttackingHash { get { return isAttackingHash; } }
+    public int IsDyingHash { get { return isDyingHash; } }
+    // public int IsEatenHash { get { return isEatenHash; } }
+    public int Damage { get { return damage; } }
+    public int IncreaseHP { get { return increaseHP; } }
     public float LeaveTIme { get { return leaveTime; } }
     public float MovementSpeed { get { return movementSpeed; } }
     public float RunMultiplier { get { return runMultiplier; } }
     public float MinWaitTime { get { return minWaitTime; } }
     public float MaxWaitTime { get { return maxWaitTime; } }
     public float LeaveTime { get { return leaveTime; } set { leaveTime = value; } }
-    public bool GameOverState { get { return gameOverState; } set { gameOverState = value; } }
+    public float AnimationLength { get { return animationLength; } set { animationLength = value; } }
 
     void Awake()
     {
@@ -63,6 +76,8 @@ public class KnightStateMachine : MonoBehaviour
         animator = GetComponent<Animator>();
         sense = GetComponentInChildren<Sense>();
         eyes = GetComponentInChildren<Eyes>();
+        player = GameObject.Find("Player").GetComponent<PlayerStateMachine>();
+        wifey = GameObject.Find("Wifey").GetComponent<WifeyStateMachine>();
 
         // setup state
         states = new KnightStateFactory(this);
@@ -72,6 +87,9 @@ public class KnightStateMachine : MonoBehaviour
         // set has reference
         isPatrolingHash = Animator.StringToHash("isPatroling");
         isChasingHash = Animator.StringToHash("isChasing");
+        isAttackingHash = Animator.StringToHash("isAttacking");
+        isDyingHash = Animator.StringToHash("isDying");
+        // isEatenHash = Animator.StringToHash("isEaten");
     }
 
     void Start()
@@ -100,5 +118,9 @@ public class KnightStateMachine : MonoBehaviour
     void OnTriggerEnter(Collider collider)
     {
         currentState.OnTriggerEnter(collider);
+    }
+    void OnTriggerExit(Collider collider)
+    {
+        currentState.OnTriggerExit(collider);
     }
 }

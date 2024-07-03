@@ -9,24 +9,25 @@ public class PlayerConsumeState : PlayerBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Player Idle: Enter");
-        Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);
-        Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
+        Ctx.AppliedMovementX = Ctx.AppliedMovementZ = Ctx.TurnSpeed = 0;
         Ctx.Animator.SetBool(Ctx.IsConsumingHash, true);
-        Ctx.AppliedMovementX = 0;
-        Ctx.AppliedMovementZ = 0;
-        CheckSwitchStates();
+        Ctx.AnimationLength = Time.time + 2.33f;
+        Ctx.IncreaseHP(Ctx.HealAmount);
+        Ctx.IsJumpable = false;
     }
 
     public override void UpdateState()
     {
+        CheckSwitchStates();
     }
 
     public override void ExitState()
     {
-        Debug.Log("Player Idle: Exit");
+        Debug.Log("Consume Exit");
         Ctx.ConsumeCounter = 0;
+        Ctx.TurnSpeed = 15;
         Ctx.Animator.SetBool(Ctx.IsConsumingHash, false);
+        Ctx.IsJumpable = true;
     }
 
     public override void InitializeSubState()
@@ -36,10 +37,18 @@ public class PlayerConsumeState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        Ctx.StartCoroutine(Ctx.AnimationDuration(2.4f));
+        if (Time.time > Ctx.AnimationLength)
+        {
+            SwitchState(Factory.Idle());
+        }
     }
 
-    public override void OnTriggerStay(Collider collider)
+    public override void OnTriggerEnter(Collider collider)
+    {
+        // if (collider.gameObject.CompareTag("NPC"))
+        //     collider.gameObject.Consume();
+    }
+    public override void OnTriggerExit(Collider collider)
     {
 
     }

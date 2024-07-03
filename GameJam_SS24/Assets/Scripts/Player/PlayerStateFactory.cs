@@ -8,12 +8,11 @@ enum PlayerStates
     run,
     grounded,
     jump,
-    fall,
     death,
     snatch,
     consume,
-    attack
-    // stomp,
+    attack,
+    stomp
     // glide
 }
 
@@ -33,11 +32,11 @@ public class PlayerStateFactory
         states[PlayerStates.run] = new PlayerRunState(context, this);
         states[PlayerStates.jump] = new PlayerJumpState(context, this);
         states[PlayerStates.grounded] = new PlayerGroundedState(context, this);
-        states[PlayerStates.fall] = new PlayerFallState(context, this);
         states[PlayerStates.death] = new PlayerDeathState(context, this);
         states[PlayerStates.snatch] = new PlayerSnatchState(context, this);
         states[PlayerStates.consume] = new PlayerConsumeState(context, this);
         states[PlayerStates.attack] = new PlayerAttackState(context, this);
+        states[PlayerStates.stomp] = new PlayerStompState(context, this);
     }
 
     // store states
@@ -65,10 +64,6 @@ public class PlayerStateFactory
     {
         return states[PlayerStates.grounded];
     }
-    public PlayerBaseState Fall()
-    {
-        return states[PlayerStates.fall];
-    }
     public PlayerBaseState Death()
     {
         return states[PlayerStates.death];
@@ -84,5 +79,9 @@ public class PlayerStateFactory
     public PlayerBaseState Attack()
     {
         return states[PlayerStates.attack];
+    }
+    public PlayerBaseState Stomp()
+    {
+        return states[PlayerStates.stomp];
     }
 }

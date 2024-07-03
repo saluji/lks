@@ -10,6 +10,7 @@ public class PlayerJumpState : PlayerBaseState, IRootState
     public override void EnterState()
     {
         Debug.Log("Player Jump: Enter");
+        Ctx.Animator.SetBool(Ctx.IsJumpingHash, true);
         InitializeSubState();
         HandleJump();
     }
@@ -34,43 +35,43 @@ public class PlayerJumpState : PlayerBaseState, IRootState
 
     public override void InitializeSubState()
     {
-        if (!Ctx.IsMovementPressed && !Ctx.IsRunPressed)
+        if (Ctx.CharacterController.isGrounded)
         {
             SetSubState(Factory.Idle());
-        }
-        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)
-        {
-            SetSubState(Factory.Walk());
-        }
-        else if (Ctx.IsMovementPressed && Ctx.IsRunPressed)
-        {
-            SetSubState(Factory.Run());
         }
     }
 
     public override void CheckSwitchStates()
     {
-        if (Ctx.CharacterController.isGrounded)
+        if (Ctx.IsStompPressed)
+        {
+            SwitchState(Factory.Stomp());
+        }
+        else if (Ctx.CharacterController.isGrounded)
         {
             SwitchState(Factory.Grounded());
         }
     }
 
-    public override void OnTriggerStay(Collider collider)
+    public override void OnTriggerEnter(Collider collider)
     {
-        GameObject other = collider.gameObject;
-        if (other.CompareTag("NPC"))
-        {
-            SwitchState(Factory.Death());
-        }
+        
+    }
+
+    public override void OnTriggerExit(Collider collider)
+    {
+
     }
 
     void HandleJump()
     {
-        Ctx.Animator.SetBool(Ctx.IsJumpingHash, true);
-        Ctx.IsJumping = true;
-        Ctx.CurrentMovementY = Ctx.InitialJumpVelocity;
-        Ctx.AppliedMovementY = Ctx.InitialJumpVelocity;
+        // only jump if not doing any actions on the ground
+        if (Ctx.IsJumpable)
+        {
+            Ctx.Animator.SetBool(Ctx.IsJumpingHash, true);
+            Ctx.CurrentMovementY = Ctx.InitialJumpVelocity;
+            Ctx.AppliedMovementY = Ctx.InitialJumpVelocity;
+        }
     }
 
     public void HandleGravity()

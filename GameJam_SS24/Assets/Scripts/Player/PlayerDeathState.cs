@@ -10,11 +10,9 @@ public class PlayerDeathState : PlayerBaseState, IRootState
     public override void EnterState()
     {
         Debug.Log("Player Death: Enter");
+        Ctx.AppliedMovementX = Ctx.AppliedMovementZ = Ctx.TurnSpeed = 0;
         Ctx.Animator.SetTrigger(Ctx.IsDyingHash);
-        Ctx.AppliedMovementX = 0;
-        Ctx.AppliedMovementZ = 0;
-        Ctx.TurnSpeed = 0;
-        Ctx.StartCoroutine(Ctx.GameManager.GameOverCountdown());
+        // Ctx.StartCoroutine(Ctx.GameManager.GameOverCountdown());
     }
 
     public override void UpdateState()
@@ -37,13 +35,17 @@ public class PlayerDeathState : PlayerBaseState, IRootState
 
     }
 
-    public override void OnTriggerStay(Collider collider)
+    public override void OnTriggerEnter(Collider collider)
+    {
+
+    }
+    public override void OnTriggerExit(Collider collider)
     {
 
     }
 
     public void HandleGravity()
-    {   
+    {
         float previousYVelocity = Ctx.CurrentMovementY;
         Ctx.CurrentMovementY += Ctx.Gravity * Time.deltaTime;
         Ctx.AppliedMovementY = (previousYVelocity + Ctx.CurrentMovementY) * 0.5f;

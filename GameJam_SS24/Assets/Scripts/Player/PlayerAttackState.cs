@@ -1,4 +1,7 @@
+using UnityEditor;
+using UnityEditor.AnimatedValues;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class PlayerAttackState : PlayerBaseState
 {
@@ -9,21 +12,26 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Player Death: Enter");
+        Ctx.AppliedMovementX = Ctx.AppliedMovementZ = Ctx.TurnSpeed = 0;
         Ctx.Animator.SetBool(Ctx.IsAttackingHash, true);
-        Ctx.AppliedMovementX = 0;
-        Ctx.AppliedMovementZ = 0;
-        Ctx.StartCoroutine(Ctx.GameManager.GameOverCountdown());
+        Ctx.AnimationLength = Time.time + 1f;
+        Object.Instantiate(Ctx.Fireball, Ctx.Mouth.position, Ctx.Mouth.rotation);
+        Ctx.IsJumpable = false;
     }
 
     public override void UpdateState()
     {
-
+        // Ctx.Fireball.transform.position += Ctx.Fireball.transform.forward;
+        CheckSwitchStates();
     }
 
     public override void ExitState()
     {
+        Debug.Log("Player Attack: Exit");
+        Ctx.TurnSpeed = 15;
+        // Object.Destroy(Ctx.Fireball);
         Ctx.Animator.SetBool(Ctx.IsAttackingHash, false);
+        Ctx.IsJumpable = true;
     }
 
     public override void InitializeSubState()
@@ -33,10 +41,18 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-
+        Ctx.Fireball.transform.Translate(Vector3.forward * Time.deltaTime);
+        if (Time.time > Ctx.AnimationLength)
+        {
+            SwitchState(Factory.Idle());
+        }
     }
 
-    public override void OnTriggerStay(Collider collider)
+    public override void OnTriggerEnter(Collider collider)
+    {
+
+    }
+    public override void OnTriggerExit(Collider collider)
     {
 
     }

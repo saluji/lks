@@ -9,7 +9,6 @@ public class KnightChaseState : KnightBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Knight Chase: Enter");
         Ctx.Animator.SetBool(Ctx.IsPatrolingHash, false);
         Ctx.Animator.SetBool(Ctx.IsChasingHash, true);
         Ctx.SetAgentSpeed(Ctx.MovementSpeed, Ctx.RunMultiplier);
@@ -17,12 +16,13 @@ public class KnightChaseState : KnightBaseState
 
     public override void UpdateState()
     {
+        // chase player
         Ctx.SetDestination(Ctx.Eyes.player.position);
     }
 
     public override void ExitState()
     {
-        Debug.Log("Knight Chase: Exit");
+
     }
 
     public override void CheckSwitchStates()
@@ -32,10 +32,13 @@ public class KnightChaseState : KnightBaseState
 
     public override void OnTriggerEnter(Collider collider)
     {
-        GameObject other = collider.gameObject;
-        if (other.CompareTag("Player"))
+        if (collider.gameObject.CompareTag("Player"))
         {
             SwitchState(Factory.Attack());
         }
+    }
+    public override void OnTriggerExit(Collider collider)
+    {
+
     }
 }

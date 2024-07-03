@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class KnightAttackState : KnightBaseState
@@ -9,12 +10,11 @@ public class KnightAttackState : KnightBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Knight Patrol: Enter");
-        Ctx.Animator.SetBool(Ctx.IsPatrolingHash, true);
+        Ctx.Animator.SetBool(Ctx.IsPatrolingHash, false);
         Ctx.Animator.SetBool(Ctx.IsChasingHash, false);
-        Ctx.TargetPosition = GetNextWaypoint();
-        Ctx.SetDestination(Ctx.TargetPosition);
-        Ctx.SetAgentSpeed(Ctx.MovementSpeed, 1f);
+        Ctx.Animator.SetBool(Ctx.IsAttackingHash, true);
+        Ctx.SetAgentSpeed(0, 0);
+        Ctx.AnimationLength = Time.time + 0.6f;
     }
 
     public override void UpdateState()
@@ -24,33 +24,43 @@ public class KnightAttackState : KnightBaseState
 
     public override void ExitState()
     {
-        Debug.Log("Knight Patrol: Exit");
+
     }
 
     public override void CheckSwitchStates()
     {
-        // as long as game over is not active
-        if (Ctx.Eyes.isDetecting && !Ctx.GameOverState)
+        // continue attacking
+        if (Time.time > Ctx.AnimationLength)
         {
-            SwitchState(Factory.Chase());
-        }
-
-        // switch to idle if reaching waypoint
-        float sqrtDistance = (Ctx.transform.position - Ctx.TargetPosition).sqrMagnitude;
-        if (sqrtDistance < 0.1f)
-        {
-            SwitchState(Factory.Idle());
+            SwitchState(Factory.Attack());
         }
     }
 
     public override void OnTriggerEnter(Collider collider)
     {
+        if (collider.gameObject.CompareTag("Fireball"))
+        {
+            SwitchState(Factory.Death());
+        }
 
+        //decrease hp with every attack
+        if (collider.gameObject.CompareTag("Player"))
+        {
+            Ctx.PlayerStateMachine.DecreaseHP(Ctx.Damage);
+        }
+        if (collider.gameObject.CompareTag("Wifey"))
+        {
+            Ctx.WifeyStateMachine.DecreaseHP(Ctx.Damage);
+        }
     }
 
-    public Vector3 GetNextWaypoint()
+    public override void OnTriggerExit(Collider collider)
     {
-        Ctx.CurrentWaypointIndex = ++Ctx.CurrentWaypointIndex % Ctx.Waypoints.Length;
-        return Ctx.Waypoints[Ctx.CurrentWaypointIndex].position;
+        // chase if out of player range
+        if (collider.gameObject.CompareTag("Player"))
+        {
+            Ctx.Animator.SetBool(Ctx.IsAttackingHash, false);
+            SwitchState(Factory.Chase());
+        }
     }
 }

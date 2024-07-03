@@ -9,7 +9,6 @@ public class PlayerWalkState : PlayerBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Player Walk: Enter");
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, true);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
         // Ctx.StartCoroutine(Ctx.AudioManager.PlaySFX(Ctx.AudioManager.walk));
@@ -24,7 +23,6 @@ public class PlayerWalkState : PlayerBaseState
 
     public override void ExitState()
     {
-        Debug.Log("Player Walk: Exit");
         // Ctx.StopCoroutine(Ctx.AudioManager.PlaySFX(Ctx.AudioManager.walk));
         Ctx.IsSnatchable = false;
     }
@@ -44,23 +42,38 @@ public class PlayerWalkState : PlayerBaseState
         {
             SwitchState(Factory.Run());
         }
-        else if (Ctx.IsSnatchPressed && Ctx.IsSnatchable)
+        else if (Ctx.IsAttackPressed)
+        {
+            SwitchState(Factory.Attack());
+        }
+        else if (Ctx.IsSnatchPressed)
         {
             SwitchState(Factory.Snatch());
         }
+        else if (Ctx.IsConsumePressed)
+        {
+            SwitchState(Factory.Consume());
+        }
     }
 
-    public override void OnTriggerStay(Collider collider)
+    public override void OnTriggerEnter(Collider collider)
     {
-        GameObject other = collider.gameObject;
-        if (other.CompareTag("NPC"))
+        // snatch NPC to player's mouth
+        if (Ctx.IsSnatchPressed && collider.gameObject.CompareTag("NPC"))
         {
             Ctx.UIManager.ShowInteractPanel();
-            if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter < 8)
-            {
-                Ctx.ConsumeCounter++;
-                Ctx.IsSnatchable = true;
-            }
+            collider.gameObject.transform.position = Ctx.Mouth.position;
         }
+        //     SwitchState(Factory.Death());
+        // // if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter < Ctx.MaxNPC)
+        // if (Ctx.IsSnatchPressed)
+        // {
+        //     // Ctx.ConsumeCounter++;
+        //     Ctx.IsSnatchable = true;
+        // }
+    }
+    public override void OnTriggerExit(Collider collider)
+    {
+        Ctx.UIManager.HideInteractPanel();
     }
 }

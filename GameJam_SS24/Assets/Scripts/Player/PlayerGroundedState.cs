@@ -10,6 +10,7 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
     public void HandleGravity()
     {
         Debug.Log("Player Grounded: Enter");
+        // Ctx.AppliedMovementX = Ctx.AppliedMovementZ = Ctx.TurnSpeed = 0;
         InitializeSubState();
         Ctx.CurrentMovementY = Ctx.Gravity;
         Ctx.AppliedMovementY = Ctx.Gravity;
@@ -17,6 +18,7 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
 
     public override void EnterState()
     {
+
         HandleGravity();
     }
 
@@ -36,14 +38,6 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
         {
             SetSubState(Factory.Idle());
         }
-        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)
-        {
-            SetSubState(Factory.Walk());
-        }
-        else if (Ctx.IsMovementPressed && Ctx.IsRunPressed)
-        {
-            SetSubState(Factory.Run());
-        }
     }
 
     public override void CheckSwitchStates()
@@ -52,18 +46,14 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
         {
             SwitchState(Factory.Jump());
         }
-        else if (!Ctx.CharacterController.isGrounded)
-        {
-            SwitchState(Factory.Fall());
-        }
     }
 
-    public override void OnTriggerStay(Collider collider)
+    public override void OnTriggerEnter(Collider collider)
     {
-        GameObject other = collider.gameObject;
-        if (other.CompareTag("NPC"))
-        {
-            SwitchState(Factory.Death());
-        }
+        
+    }
+    public override void OnTriggerExit(Collider collider)
+    {
+
     }
 }

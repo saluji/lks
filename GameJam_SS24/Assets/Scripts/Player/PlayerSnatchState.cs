@@ -10,23 +10,23 @@ public class PlayerSnatchState : PlayerBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Player Idle: Enter");
-        Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);
-        Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
+        Ctx.AppliedMovementX = Ctx.AppliedMovementZ = Ctx.TurnSpeed = 0;
         Ctx.Animator.SetBool(Ctx.IsSnatchingHash, true);
-        Ctx.AppliedMovementX = 0;
-        Ctx.AppliedMovementZ = 0;
-        CheckSwitchStates();
+        Ctx.AnimationLength = Time.time + 1f;
+        Ctx.IsJumpable = false;
     }
 
     public override void UpdateState()
     {
+        CheckSwitchStates();
     }
 
     public override void ExitState()
     {
-        Debug.Log("Player Idle: Exit");
+        Debug.Log("Snatch Exit");
+        Ctx.TurnSpeed = 15;
         Ctx.Animator.SetBool(Ctx.IsSnatchingHash, false);
+        Ctx.IsJumpable = true;
     }
 
     public override void InitializeSubState()
@@ -36,11 +36,17 @@ public class PlayerSnatchState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
-        Ctx.StartCoroutine(Ctx.AnimationDuration(1f));
-        SwitchState(Factory.Idle());
+        if (Time.time > Ctx.AnimationLength)
+        {
+            SwitchState(Factory.Idle());
+        }
     }
 
-    public override void OnTriggerStay(Collider collider)
+    public override void OnTriggerEnter(Collider collider)
+    {
+
+    }
+    public override void OnTriggerExit(Collider collider)
     {
 
     }

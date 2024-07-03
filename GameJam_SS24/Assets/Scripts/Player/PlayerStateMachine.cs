@@ -13,10 +13,15 @@ public class PlayerStateMachine : MonoBehaviour
     // reference variables
     PlayerInput playerInput;
     CharacterController characterController;
+    WifeyStateMachine wifey;
+    KnightStateMachine knight;
+    NPCStateMachine npc;
     Animator animator;
     GameManager gameManager;
     AudioManager audioManager;
     UIManager uIManager;
+    Transform mouth;
+    [SerializeField] GameObject fireball;
 
     // store input values
     Vector2 currentMovementInput;
@@ -27,7 +32,7 @@ public class PlayerStateMachine : MonoBehaviour
     bool isMovementPressed;
     bool isRunPressed;
     bool isJumpPressed = false;
-    bool isJumping = false;
+    bool isJumpable = true;
     bool requireNewJumpPress = false;
     bool isFalling;
     bool isSnatchPressed;
@@ -35,12 +40,15 @@ public class PlayerStateMachine : MonoBehaviour
     bool isAttackPressed;
     bool isStompPressed;
     bool isSnatchable;
+    bool isActionable;
 
     // player stats
     [Header("Player values")]
     [SerializeField] float movementSpeed = 1f;
     [SerializeField] float runMultiplier = 1f;
     [SerializeField] float turnSpeed = 1.0f;
+    [SerializeField] int maxHP = 100;
+    [SerializeField] int healAmount = 10;
 
     // gravity stats
     [Header("Gravity values")]
@@ -55,12 +63,10 @@ public class PlayerStateMachine : MonoBehaviour
     float initialJumpVelocity;
     float timeToApex;
 
-
     // hash variables
     int isWalkingHash;
     int isRunningHash;
     int isJumpingHash;
-    int isFallingHash;
     int isDyingHash;
     int isSnatchingHash;
     int isConsumingHash;
@@ -68,37 +74,47 @@ public class PlayerStateMachine : MonoBehaviour
     int isStompingHash;
 
     // NPC consumption counter
-    int consumeCounter;
+    int consumeCounter = 0;
+    int maxNPC = 100;
+
+    // animation length
+    float animationLength = 0;
 
     #endregion
 
     #region Getter and Setter
     public GameManager GameManager { get { return gameManager; } }
+    public GameObject Fireball { get { return fireball; } }
     public AudioManager AudioManager { get { return audioManager; } }
     public UIManager UIManager { get { return uIManager; } }
     public PlayerBaseState CurrentState { get { return currentState; } set { currentState = value; } }
     public CharacterController CharacterController { get { return characterController; } }
     public Animator Animator { get { return animator; } }
+    public Transform Mouth { get { return mouth; } }
     public Vector2 CurrentMovementInput { get { return currentMovementInput; } }
     public int IsWalkingHash { get { return isWalkingHash; } }
     public int IsRunningHash { get { return isRunningHash; } }
     public int IsJumpingHash { get { return isJumpingHash; } }
-    public int IsFallingHash { get { return isFallingHash; } }
     public int IsSnatchingHash { get { return isSnatchingHash; } }
     public int IsConsumingHash { get { return isConsumingHash; } }
     public int IsDyingHash { get { return isDyingHash; } }
     public int IsAttackingHash { get { return isAttackingHash; } }
     public int IsStompingHash { get { return isStompingHash; } }
     public int ConsumeCounter { get { return consumeCounter; } set { consumeCounter = value; } }
-    public bool IsJumping { get { return isJumping; } set { isJumping = value; } }
+    public int MaxNPC { get { return maxNPC; } }
+    public int HealAmount { get { return healAmount; } }
+    public bool IsJumpable { get { return isJumpable; } set { isJumpable = value; } }
     public bool IsJumpPressed { get { return isJumpPressed; } }
     public bool IsFalling { get { return isFalling; } set { isFalling = value; } }
     public bool IsMovementPressed { get { return isMovementPressed; } }
     public bool IsRunPressed { get { return isRunPressed; } }
     public bool IsSnatchPressed { get { return isSnatchPressed; } }
     public bool IsConsumePressed { get { return isConsumePressed; } }
+    public bool IsAttackPressed { get { return isAttackPressed; } }
     public bool RequireNewJumpPress { get { return requireNewJumpPress; } set { requireNewJumpPress = value; } }
     public bool IsSnatchable { get { return isSnatchable; } set { isSnatchable = value; } }
+    public bool IsActionable { get { return isActionable; } set { isActionable = value; } }
+    public bool IsStompPressed { get { return isStompPressed; } }
     public float MovementSpeed { get { return movementSpeed; } }
     public float RunMultiplier { get { return runMultiplier; } }
     public float CurrentMovementY { get { return currentMovement.y; } set { currentMovement.y = value; } }
@@ -110,16 +126,27 @@ public class PlayerStateMachine : MonoBehaviour
     public float Gravity { get { return gravity; } }
     public float FallMultiplier { get { return fallMultiplier; } }
     public float TerminalVelocity { get { return terminalVelocity; } }
+    public float AnimationLength { get { return animationLength; } set { animationLength = value; } }
     #endregion
+
 
     void Awake()
     {
         // set initial reference variables
         playerInput = new PlayerInput();
         characterController = GetComponent<CharacterController>();
+        wifey = GameObject.Find("Wifey").GetComponent<WifeyStateMachine>();
+        knight = GameObject.Find("Knight").GetComponent<KnightStateMachine>();
+        npc = GameObject.Find("NPC").GetComponent<NPCStateMachine>();
         animator = GetComponent<Animator>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        uIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+        mouth = GameObject.Find("Mouth").transform;
+
+        // set max HP value
+        // uIManager.PlayerHP.maxValue = maxHP;
+        uIManager.PlayerHP.maxValue = uIManager.PlayerHP.value = maxHP;
 
         // setup state
         states = new PlayerStateFactory(this);
@@ -130,7 +157,6 @@ public class PlayerStateMachine : MonoBehaviour
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
         isJumpingHash = Animator.StringToHash("isJumping");
-        isFallingHash = Animator.StringToHash("isFalling");
         isDyingHash = Animator.StringToHash("isDying");
         isSnatchingHash = Animator.StringToHash("isSnatching");
         isConsumingHash = Animator.StringToHash("isConsuming");
@@ -144,6 +170,7 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.CharacterControls.Run.started += OnRun;
         playerInput.CharacterControls.Run.canceled += OnRun;
         playerInput.CharacterControls.Jump.started += OnJump;
+        playerInput.CharacterControls.Jump.performed += OnJump;
         playerInput.CharacterControls.Jump.canceled += OnJump;
         playerInput.CharacterControls.Snatch.started += OnSnatch;
         playerInput.CharacterControls.Snatch.canceled += OnSnatch;
@@ -283,12 +310,24 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.CharacterControls.Disable();
     }
 
-    void OnTriggerStay(Collider collider)
+    void OnTriggerEnter(Collider collider)
     {
-        currentState.OnTriggerStay(collider);
+        currentState.OnTriggerEnter(collider);
+        if (collider.gameObject.CompareTag("Wifey"))
+        {
+            wifey.IncreaseHP(healAmount);
+        }
     }
-    public IEnumerator AnimationDuration(float duration)
+    void OnTriggerExit(Collider collider)
     {
-        yield return new WaitForSeconds(duration);
+        currentState.OnTriggerExit(collider);
+    }
+    public void IncreaseHP(int amount)
+    {
+        uIManager.PlayerHP.value += amount;
+    }
+    public void DecreaseHP(int amount)
+    {
+        uIManager.PlayerHP.value -= amount;
     }
 }
