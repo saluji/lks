@@ -79,6 +79,7 @@ public class PlayerStateMachine : MonoBehaviour
     // NPC consumption counter
     int snatchCounter = 0;
     int maxNPC = 100;
+    [SerializeField] int healAmount = 100;
 
     // animation length
     float animationLength = 0;
@@ -331,7 +332,7 @@ public class PlayerStateMachine : MonoBehaviour
     // get and receive 1 HP for attack / consumption
     public void IncreaseHP()
     {
-        uIManager.PlayerHP.value++;
+        uIManager.PlayerHP.value += healAmount;
     }
     public void DecreaseHP()
     {

@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -45,7 +46,7 @@ public class KnightAttackState : KnightBaseState
         else if (collider.gameObject.CompareTag("Player"))
         {
             Ctx.PlayerStateMachine.DecreaseHP();
-            SwitchState(Factory.Attack());
+            Ctx.StartCoroutine(AttackCooldown());
         }
         else if (collider.gameObject.CompareTag("Player") && Ctx.PlayerStateMachine.IsSnatchPressed)
         {
@@ -57,5 +58,10 @@ public class KnightAttackState : KnightBaseState
             Ctx.WifeyStateMachine.DecreaseHP();
             SwitchState(Factory.Attack());
         }
+    }
+    IEnumerator AttackCooldown()
+    {
+        yield return new WaitForSeconds(10);
+        SwitchState(Factory.Attack());
     }
 }
