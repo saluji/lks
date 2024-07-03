@@ -1,50 +1,28 @@
 using UnityEngine;
 
-public class BreakOnMouseClick : MonoBehaviour
+public class BuildingDestruction : MonoBehaviour
 {
-    public GameObject[] pieces; // Array der Einzelteile
-    public float explosionForce = 5f; // Kraft der Explosion
-    public float explosionRadius = 5f; // Radius der Explosion
-
     private bool isBroken = false; // Um sicherzustellen, dass das Objekt nur einmal zerfällt
 
-    void Update()
+    void OnTriggerEnter(Collider other)
     {
-        
-    }
-
-    void BreakObject()
-    {
-        isBroken = true;
-
-        // Deaktiviere das ursprüngliche Objekt
-        gameObject.SetActive(false);
-
-        // Erstelle die Einzelteile
-        foreach (GameObject piece in pieces)
+        if (other.gameObject.CompareTag("Fireball") && !isBroken)
         {
-            GameObject instantiatedPiece = Instantiate(piece, transform.position, transform.rotation);
-            Rigidbody rb = instantiatedPiece.GetComponent<Rigidbody>();
-            if (rb != null)
+            isBroken = true;
+
+            // Füge einen Rigidbody hinzu und aktiviere ihn
+            Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+            if (rb == null)
             {
-                // Füge eine Explosion hinzu, um die Teile auseinander zu bewegen
-                rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+                rb = gameObject.AddComponent<Rigidbody>();
             }
-        }
-    }
+            rb.isKinematic = false;
 
-    void OnMouseDown()
-    {
-        if (!isBroken)
-        {
-            BreakObject();
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Fireball"))
-        {
-            BreakObject();
+            // Zerstöre das Objekt nach 5 Sekunden
+            Destroy(gameObject, 3f);
+
+            // Zerstöre den Fireball nach 2 Sekunden
+            Destroy(other.gameObject, 2f);
         }
     }
 }
