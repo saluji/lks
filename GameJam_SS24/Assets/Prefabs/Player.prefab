@@ -1218,6 +1218,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireball: {fileID: 1630162553560299865, guid: f97405b83c5d9784ab6f7243d6fbb20a,
     type: 3}
+  knight: {fileID: 1961527727698885232, guid: 2c565d659b706d6449b64ac0ff17cb5c, type: 3}
+  npc: {fileID: 112826018924913708, guid: 806f4904b75f4e8419b02bee7da271f4, type: 3}
   movementSpeed: 10
   runMultiplier: 3
   turnSpeed: 15
