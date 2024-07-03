@@ -22,7 +22,6 @@ public class PlayerAttackState : PlayerBaseState
     public override void UpdateState()
     {
         // Ctx.Fireball.transform.position += Ctx.Fireball.transform.forward;
-        Ctx.Fireball.transform.Translate(Vector3.forward * Time.deltaTime, Space.World);
         CheckSwitchStates();
     }
 
@@ -42,6 +41,7 @@ public class PlayerAttackState : PlayerBaseState
 
     public override void CheckSwitchStates()
     {
+        Ctx.Fireball.transform.Translate(Vector3.forward * Time.deltaTime);
         if (Time.time > Ctx.AnimationLength)
         {
             SwitchState(Factory.Idle());
