@@ -27,7 +27,7 @@ public class KnightIdleState : KnightBaseState
     public override void CheckSwitchStates()
     {
         // // switch to chase if player in range
-        if (Ctx.Sense.isDetecting)
+        if (Ctx.Eyes.isDetecting)
         {
             SwitchState(Factory.Chase());
         }

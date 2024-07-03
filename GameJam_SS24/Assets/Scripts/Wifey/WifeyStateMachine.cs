@@ -41,6 +41,11 @@ public class WifeyStateMachine : MonoBehaviour
         // set max HP value
         uIManager.WifeyHP.maxValue = maxHP;
         uIManager.WifeyHP.value = maxHP;
+
+        // set has reference
+        isEatingHash = Animator.StringToHash("isEating");
+        isDefendingHash = Animator.StringToHash("isDefending");
+        isDyingHash = Animator.StringToHash("isDying");
     }
 
     void Update()

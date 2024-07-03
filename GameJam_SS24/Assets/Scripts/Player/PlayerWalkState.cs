@@ -61,10 +61,10 @@ public class PlayerWalkState : PlayerBaseState
         // snatch NPC to player's mouth
         if (Ctx.IsSnatchPressed && collider.gameObject.CompareTag("NPC"))
         {
+            Ctx.UIManager.ShowInteractPanel();
             collider.gameObject.transform.position = Ctx.JawPosition.position;
         }
         //     SwitchState(Factory.Death());
-        // Ctx.UIManager.ShowInteractPanel();
         // // if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter < Ctx.MaxNPC)
         // if (Ctx.IsSnatchPressed)
         // {
@@ -74,6 +74,6 @@ public class PlayerWalkState : PlayerBaseState
     }
     public override void OnTriggerExit(Collider collider)
     {
-
+        Ctx.UIManager.HideInteractPanel();
     }
 }

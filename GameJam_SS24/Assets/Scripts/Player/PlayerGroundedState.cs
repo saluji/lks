@@ -44,10 +44,6 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
         {
             SwitchState(Factory.Jump());
         }
-        else if (!Ctx.CharacterController.isGrounded)
-        {
-            SwitchState(Factory.Fall());
-        }
     }
 
     public override void OnTriggerEnter(Collider collider)

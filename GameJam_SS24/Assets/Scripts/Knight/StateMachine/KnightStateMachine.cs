@@ -73,7 +73,7 @@ public class KnightStateMachine : MonoBehaviour
         sense = GetComponentInChildren<Sense>();
         eyes = GetComponentInChildren<Eyes>();
         player = GameObject.Find("Player").GetComponent<PlayerStateMachine>();
-        wifey = GameObject.Find("").GetComponent<WifeyStateMachine>();
+        wifey = GameObject.Find("Wifey").GetComponent<WifeyStateMachine>();
 
         // setup state
         states = new KnightStateFactory(this);
@@ -83,6 +83,8 @@ public class KnightStateMachine : MonoBehaviour
         // set has reference
         isPatrolingHash = Animator.StringToHash("isPatroling");
         isChasingHash = Animator.StringToHash("isChasing");
+        isAttackingHash = Animator.StringToHash("isAttacking");
+        isDyingHash = Animator.StringToHash("isDying");
     }
 
     void Start()

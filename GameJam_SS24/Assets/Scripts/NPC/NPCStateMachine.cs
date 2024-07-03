@@ -60,6 +60,11 @@ public class NPCStateMachine : MonoBehaviour
         states = new NPCStateFactory(this);
         currentState = states.Idle();
         currentState.EnterState();
+
+        // set has reference
+        isWalkingHash = Animator.StringToHash("isWalking");
+        isFleeingHash = Animator.StringToHash("isFleeing");
+        isDyingHash = Animator.StringToHash("isDying");
     }
     void Update()
     {

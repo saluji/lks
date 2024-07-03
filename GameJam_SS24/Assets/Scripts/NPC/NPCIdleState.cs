@@ -25,7 +25,7 @@ public class NPCIdleState : NPCBaseState
     public override void CheckSwitchStates()
     {
         // flee if player in range
-        if (Ctx.Sense.isDetecting)
+        if (Ctx.Eyes.isDetecting)
         {
             SwitchState(Factory.Flee());
         }

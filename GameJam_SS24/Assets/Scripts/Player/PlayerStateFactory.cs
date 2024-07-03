@@ -8,7 +8,6 @@ enum PlayerStates
     run,
     grounded,
     jump,
-    fall,
     death,
     snatch,
     consume,
@@ -33,7 +32,6 @@ public class PlayerStateFactory
         states[PlayerStates.run] = new PlayerRunState(context, this);
         states[PlayerStates.jump] = new PlayerJumpState(context, this);
         states[PlayerStates.grounded] = new PlayerGroundedState(context, this);
-        states[PlayerStates.fall] = new PlayerFallState(context, this);
         states[PlayerStates.death] = new PlayerDeathState(context, this);
         states[PlayerStates.snatch] = new PlayerSnatchState(context, this);
         states[PlayerStates.consume] = new PlayerConsumeState(context, this);
@@ -65,10 +63,6 @@ public class PlayerStateFactory
     public PlayerBaseState Grounded()
     {
         return states[PlayerStates.grounded];
-    }
-    public PlayerBaseState Fall()
-    {
-        return states[PlayerStates.fall];
     }
     public PlayerBaseState Death()
     {

@@ -65,7 +65,6 @@ public class PlayerStateMachine : MonoBehaviour
     int isWalkingHash;
     int isRunningHash;
     int isJumpingHash;
-    int isFallingHash;
     int isDyingHash;
     int isSnatchingHash;
     int isConsumingHash;
@@ -94,7 +93,6 @@ public class PlayerStateMachine : MonoBehaviour
     public int IsWalkingHash { get { return isWalkingHash; } }
     public int IsRunningHash { get { return isRunningHash; } }
     public int IsJumpingHash { get { return isJumpingHash; } }
-    public int IsFallingHash { get { return isFallingHash; } }
     public int IsSnatchingHash { get { return isSnatchingHash; } }
     public int IsConsumingHash { get { return isConsumingHash; } }
     public int IsDyingHash { get { return isDyingHash; } }
@@ -155,7 +153,6 @@ public class PlayerStateMachine : MonoBehaviour
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
         isJumpingHash = Animator.StringToHash("isJumpable");
-        isFallingHash = Animator.StringToHash("isFalling");
         isDyingHash = Animator.StringToHash("isDying");
         isSnatchingHash = Animator.StringToHash("isSnatching");
         isConsumingHash = Animator.StringToHash("isConsuming");
