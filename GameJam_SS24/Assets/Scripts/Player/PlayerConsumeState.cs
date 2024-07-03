@@ -23,8 +23,7 @@ public class PlayerConsumeState : PlayerBaseState
 
     public override void ExitState()
     {
-        Debug.Log("Consume Exit");
-        Ctx.ConsumeCounter = 0;
+        Ctx.SnatchCounter = 0;
         Ctx.TurnSpeed = 15;
         Ctx.Animator.SetBool(Ctx.IsConsumingHash, false);
         Ctx.IsJumpable = true;
@@ -45,7 +44,6 @@ public class PlayerConsumeState : PlayerBaseState
 
     public override void OnTriggerStay(Collider collider)
     {
-        // if (collider.gameObject.CompareTag("NPC"))
-        //     collider.gameObject.Consume();
+        
     }
 }

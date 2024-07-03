@@ -60,7 +60,7 @@ public class PlayerRunState : PlayerBaseState
 
     public override void OnTriggerStay(Collider collider)
     {
-        if (collider.gameObject.CompareTag("NPC") && Ctx.IsSnatchPressed && Ctx.ConsumeCounter < Ctx.MaxNPC)
+        if (collider.gameObject.CompareTag("NPC") && Ctx.IsSnatchPressed && Ctx.SnatchCounter < Ctx.MaxNPC)
         {
             collider.transform.position = Ctx.transform.position;
             collider.transform.SetParent(Ctx.Mouth);

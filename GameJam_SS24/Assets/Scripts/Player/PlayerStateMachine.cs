@@ -74,7 +74,7 @@ public class PlayerStateMachine : MonoBehaviour
     int isStompingHash;
 
     // NPC consumption counter
-    public int consumeCounter = 0;
+    int snatchCounter = 0;
     int maxNPC = 100;
 
     // animation length
@@ -101,7 +101,7 @@ public class PlayerStateMachine : MonoBehaviour
     public int IsDyingHash { get { return isDyingHash; } }
     public int IsAttackingHash { get { return isAttackingHash; } }
     public int IsStompingHash { get { return isStompingHash; } }
-    public int ConsumeCounter { get { return consumeCounter; } set { consumeCounter = value; } }
+    public int SnatchCounter { get { return snatchCounter; } set { snatchCounter = value; } }
     public int MaxNPC { get { return maxNPC; } }
     public int HealAmount { get { return healAmount; } }
     public bool IsJumpable { get { return isJumpable; } set { isJumpable = value; } }
@@ -146,10 +146,7 @@ public class PlayerStateMachine : MonoBehaviour
         mouth = GameObject.Find("Mouth").transform;
 
         // set max HP value
-        // uIManager.PlayerHP.maxValue = maxHP;
-        // uIManager.PlayerHP.maxValue = uIManager.PlayerHP.value = maxHP;
-        uIManager.PlayerHP.maxValue = maxHP; 
-        // uIManager.PlayerHP.value = maxHP;
+        uIManager.PlayerHP.maxValue = uIManager.PlayerHP.value = maxHP;
 
         // setup state
         states = new PlayerStateFactory(this);
@@ -251,8 +248,8 @@ public class PlayerStateMachine : MonoBehaviour
 
     void HandleMovement()
     {
-        // move player relative to camera position
-        cameraRelativeMovement = ConvertToCameraSpace(appliedMovement);
+        // move player relative to camera position and derease speed to 1% for every snatched npc the player has in the mouth if snatchCounter reaches zero, no movement
+        cameraRelativeMovement = ConvertToCameraSpace(appliedMovement * ((100 - snatchCounter) / 100));
 
         // move player and calculate speed if moving and / or running
         characterController.Move(cameraRelativeMovement * Time.deltaTime);
