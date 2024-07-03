@@ -68,7 +68,7 @@ public class PlayerRunState : PlayerBaseState
             // // if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter < Ctx.MaxNPC)
             // if (Ctx.IsSnatchPressed)
             // {
-            //     other.gameObject.transform.position = Ctx.JawPosition.position;
+            //     other.gameObject.transform.position = Ctx.Mouth.position;
             //     // Ctx.ConsumeCounter++;
             //     Ctx.IsSnatchable = true;
             // }

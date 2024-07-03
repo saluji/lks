@@ -9,7 +9,7 @@ public class KnightEatenState : KnightBaseState
 
     public override void EnterState()
     {
-        Ctx.Animator.SetBool(Ctx.IsEatenHash, false);
+        // Ctx.Animator.SetBool(Ctx.IsEatenHash, false);
         Ctx.SetAgentSpeed(0, 0);
     }
 

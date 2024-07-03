@@ -20,7 +20,7 @@ public class PlayerStateMachine : MonoBehaviour
     GameManager gameManager;
     AudioManager audioManager;
     UIManager uIManager;
-    Transform jawPosition;
+    Transform mouth;
     [SerializeField] GameObject fireball;
 
     // store input values
@@ -90,7 +90,7 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerBaseState CurrentState { get { return currentState; } set { currentState = value; } }
     public CharacterController CharacterController { get { return characterController; } }
     public Animator Animator { get { return animator; } }
-    public Transform JawPosition { get { return jawPosition; } }
+    public Transform Mouth { get { return mouth; } }
     public Vector2 CurrentMovementInput { get { return currentMovementInput; } }
     public int IsWalkingHash { get { return isWalkingHash; } }
     public int IsRunningHash { get { return isRunningHash; } }
@@ -142,7 +142,7 @@ public class PlayerStateMachine : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         uIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
-        jawPosition = GameObject.Find("JawTip").transform;
+        mouth = GameObject.Find("Mouth").transform;
 
         // set max HP value
         // uIManager.PlayerHP.maxValue = maxHP;

@@ -73,7 +73,7 @@ public class PlayerIdleState : PlayerBaseState
             // Ctx.UIManager.ShowInteractPanel();
             // // if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter < Ctx.MaxNPC)
             // {
-            //     other.gameObject.transform.position = Ctx.JawPosition.position;
+            //     other.gameObject.transform.position = Ctx.Mouth.position;
             //     // Ctx.ConsumeCounter++;
             //     Ctx.IsSnatchable = true;
             // }

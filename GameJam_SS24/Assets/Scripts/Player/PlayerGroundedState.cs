@@ -10,6 +10,7 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
     public void HandleGravity()
     {
         Debug.Log("Player Grounded: Enter");
+        // Ctx.AppliedMovementX = Ctx.AppliedMovementZ = Ctx.TurnSpeed = 0;
         InitializeSubState();
         Ctx.CurrentMovementY = Ctx.Gravity;
         Ctx.AppliedMovementY = Ctx.Gravity;
@@ -17,6 +18,7 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
 
     public override void EnterState()
     {
+
         HandleGravity();
     }
 
