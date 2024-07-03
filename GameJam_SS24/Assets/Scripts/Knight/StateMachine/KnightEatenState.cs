@@ -9,7 +9,7 @@ public class KnightEatenState : KnightBaseState
 
     public override void EnterState()
     {
-        // Ctx.Animator.SetBool(Ctx.IsEatenHash, false);
+        Ctx.Animator.SetBool(Ctx.IsEatenHash, true);
         Ctx.SetAgentSpeed(0, 0);
     }
 
@@ -26,16 +26,22 @@ public class KnightEatenState : KnightBaseState
     {
     }
 
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
-    }
-    public override void OnTriggerExit(Collider collider)
-    {
-
+        // snatching makes player slower and increases consumption counter
+        if (collider.gameObject.CompareTag("Player") && Ctx.PlayerStateMachine.IsSnatchPressed)
+        {
+            Ctx.PlayerStateMachine.SnatchCounter++;
+        }
+        // regenerate hp if consuming
+        if (collider.gameObject.CompareTag("Player") && Ctx.PlayerStateMachine.IsConsumePressed)
+        {
+            Ctx.PlayerStateMachine.IncreaseHP(Ctx.IncreaseHP);
+            // Object.Destroy(gameObject.this);
+        }
     }
     public void Consumed()
     {
-        // Ctx.PlayerStateMachine.IncreaseHP(Ctx.IncreaseHP);
         //destroy object
         // Object.Destroy(gameObject);
     }

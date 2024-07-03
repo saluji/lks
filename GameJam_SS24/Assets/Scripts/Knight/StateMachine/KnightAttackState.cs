@@ -36,7 +36,7 @@ public class KnightAttackState : KnightBaseState
         }
     }
 
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
         if (collider.gameObject.CompareTag("Fireball"))
         {
@@ -51,16 +51,6 @@ public class KnightAttackState : KnightBaseState
         if (collider.gameObject.CompareTag("Wifey"))
         {
             Ctx.WifeyStateMachine.DecreaseHP(Ctx.Damage);
-        }
-    }
-
-    public override void OnTriggerExit(Collider collider)
-    {
-        // chase if out of player range
-        if (collider.gameObject.CompareTag("Player"))
-        {
-            Ctx.Animator.SetBool(Ctx.IsAttackingHash, false);
-            SwitchState(Factory.Chase());
         }
     }
 }

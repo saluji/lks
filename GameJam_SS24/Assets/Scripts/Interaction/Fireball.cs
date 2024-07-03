@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 
 public class Fireball : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] float speed = 10;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        transform.Translate(Vector3.forward * Time.deltaTime * speed);
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.CompareTag("NPC"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

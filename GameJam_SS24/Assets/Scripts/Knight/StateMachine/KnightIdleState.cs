@@ -39,15 +39,11 @@ public class KnightIdleState : KnightBaseState
         }
     }
 
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
-        if (collider.gameObject.CompareTag("Fireball"))
+        if (collider.gameObject.CompareTag("Player") && Ctx.PlayerStateMachine.IsSnatchPressed || collider.gameObject.CompareTag("Fireball"))
         {
-            SwitchState(Factory.Death());
+            SwitchState(Factory.Eaten());
         }
-    }
-    public override void OnTriggerExit(Collider collider)
-    {
-
     }
 }

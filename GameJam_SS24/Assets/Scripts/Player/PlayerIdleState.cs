@@ -47,19 +47,19 @@ public class PlayerIdleState : PlayerBaseState
         // {
         //     SwitchState(Factory.Snatch());
         // }
-        else if (Ctx.IsConsumePressed && Ctx.ConsumeCounter > 0)
+        else if (Ctx.IsConsumePressed && Ctx.SnatchCounter > 0)
         {
             SwitchState(Factory.Consume());
         }
-        // else if (Ctx.IsSnatchPressed && Ctx.IsSnatchable && Ctx.ConsumeCounter < 8)
-        // else if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter > 0 && Ctx.ConsumeCounter <= 100)
+        // else if (Ctx.IsSnatchPressed && Ctx.IsSnatchable && Ctx.SnatchCounter < 8)
+        // else if (Ctx.IsSnatchPressed && Ctx.SnatchCounter > 0 && Ctx.SnatchCounter <= 100)
         // else if (Ctx.IsSnatchPressed)
         // {
-        //     // Ctx.ConsumeCounter++;
+        //     // Ctx.SnatchCounter++;
         //     // Ctx.IsSnatchable = true;
         //     SwitchState(Factory.Snatch());
         // }
-        // // else if (Ctx.IsConsumePressed && Ctx.ConsumeCounter < 0)
+        // // else if (Ctx.IsConsumePressed && Ctx.SnatchCounter < 0)
         // else if (Ctx.IsConsumePressed)
         // {
         //     SwitchState(Factory.Consume());
@@ -68,9 +68,10 @@ public class PlayerIdleState : PlayerBaseState
 
     public override void OnTriggerStay(Collider collider)
     {
-        if (collider.gameObject.CompareTag("NPC") && Ctx.IsSnatchPressed && Ctx.ConsumeCounter < Ctx.MaxNPC)
+        if (collider.gameObject.CompareTag("NPC") && Ctx.IsSnatchPressed && Ctx.SnatchCounter < Ctx.MaxNPC)
         {
-            collider.gameObject.transform.position = Ctx.Mouth.position;
+            collider.transform.position = Ctx.transform.position;
+            collider.transform.SetParent(Ctx.Mouth);
             SwitchState(Factory.Snatch());
         }
     }

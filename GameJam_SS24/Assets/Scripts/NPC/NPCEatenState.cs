@@ -21,6 +21,7 @@ public class NPCEatenState : NPCBaseState
     }
     public override void ExitState()
     {
+        Ctx.PlayerStateMachine.IncreaseHP(Ctx.IncreaseHP);
     }
     public override void CheckSwitchStates()
     {
@@ -32,7 +33,6 @@ public class NPCEatenState : NPCBaseState
     }
     public void Consumed()
     {
-        Ctx.PlayerStateMachine.IncreaseHP(Ctx.IncreaseHP);
         //destroy object
         // Object.Destroy(gameObject);
     }
