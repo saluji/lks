@@ -30,4 +30,8 @@ public class UIManager : MonoBehaviour
     {
         interactPanel.SetActive(true);
     }
+    public void HideInteractPanel()
+    {
+        interactPanel.SetActive(false);
+    }
 }

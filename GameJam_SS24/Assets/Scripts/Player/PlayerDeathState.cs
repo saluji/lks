@@ -37,13 +37,17 @@ public class PlayerDeathState : PlayerBaseState, IRootState
 
     }
 
-    public override void OnTriggerStay(Collider collider)
+    public override void OnTriggerEnter(Collider collider)
+    {
+
+    }
+    public override void OnTriggerExit(Collider collider)
     {
 
     }
 
     public void HandleGravity()
-    {   
+    {
         float previousYVelocity = Ctx.CurrentMovementY;
         Ctx.CurrentMovementY += Ctx.Gravity * Time.deltaTime;
         Ctx.AppliedMovementY = (previousYVelocity + Ctx.CurrentMovementY) * 0.5f;

@@ -51,13 +51,17 @@ public class PlayerFallState : PlayerBaseState, IRootState
         }
     }
 
-    public override void OnTriggerStay(Collider collider)
+    public override void OnTriggerEnter(Collider collider)
     {
         // GameObject other = collider.gameObject;
         // if (other.CompareTag("NPC"))
         // {
         //     SwitchState(Factory.Death());
         // }
+    }
+    public override void OnTriggerExit(Collider collider)
+    {
+
     }
 
     public void HandleGravity()

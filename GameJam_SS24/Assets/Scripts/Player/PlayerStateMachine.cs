@@ -300,8 +300,12 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.CharacterControls.Disable();
     }
 
-    void OnTriggerStay(Collider collider)
+    void OnTriggerEnter(Collider collider)
     {
-        currentState.OnTriggerStay(collider);
+        currentState.OnTriggerEnter(collider);
+    }
+    void OnTriggerExit(Collider collider)
+    {
+        currentState.OnTriggerExit(collider);
     }
 }

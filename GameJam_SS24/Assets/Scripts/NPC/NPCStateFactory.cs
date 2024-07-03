@@ -1,18 +1,48 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class NPCStateFactory : MonoBehaviour
+// store all states in this script
+enum NPCStates
 {
-    // Start is called before the first frame update
-    void Start()
+    idle,
+    walk,
+    flee,
+    death
+}
+
+// call states from the factory script
+public class NPCStateFactory
+{
+    NPCStateMachine context;
+
+    // store values in a dictionary instead of creating a new instance everytime this script is being called
+    Dictionary<NPCStates, NPCBaseState> states = new Dictionary<NPCStates, NPCBaseState>();
+
+    public NPCStateFactory(NPCStateMachine currentContext)
     {
-        
+        context = currentContext;
+        states[NPCStates.idle] = new NPCIdleState(context, this);
+        states[NPCStates.walk] = new NPCWalkState(context, this);
+        states[NPCStates.flee] = new NPCFleeState(context, this);
+        states[NPCStates.death] = new NPCDeathState(context, this);
     }
 
-    // Update is called once per frame
-    void Update()
+    // store states
+    public NPCBaseState Idle()
     {
-        
+        return states[NPCStates.idle];
+    }
+
+    public NPCBaseState Walk()
+    {
+        return states[NPCStates.walk];
+    }
+
+    public NPCBaseState Flee()
+    {
+        return states[NPCStates.flee];
+    }
+    public NPCBaseState Death()
+    {
+        return states[NPCStates.death];
     }
 }
