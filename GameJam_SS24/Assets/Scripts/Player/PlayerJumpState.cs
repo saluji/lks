@@ -53,14 +53,9 @@ public class PlayerJumpState : PlayerBaseState, IRootState
         }
     }
 
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
         
-    }
-
-    public override void OnTriggerExit(Collider collider)
-    {
-
     }
 
     void HandleJump()

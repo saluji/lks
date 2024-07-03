@@ -24,7 +24,6 @@ public class PlayerWalkState : PlayerBaseState
     public override void ExitState()
     {
         // Ctx.StopCoroutine(Ctx.AudioManager.PlaySFX(Ctx.AudioManager.walk));
-        Ctx.IsSnatchable = false;
     }
 
     public override void InitializeSubState()
@@ -56,24 +55,13 @@ public class PlayerWalkState : PlayerBaseState
         }
     }
 
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
-        // snatch NPC to player's mouth
-        if (Ctx.IsSnatchPressed && collider.gameObject.CompareTag("NPC"))
+        // if (collider.gameObject.CompareTag("NPC") && Ctx.IsSnatchPressed && Ctx.ConsumeCounter < Ctx.MaxNPC)
+        if (collider.gameObject.CompareTag("NPC") && Ctx.IsSnatchPressed && Ctx.ConsumeCounter < Ctx.MaxNPC)
         {
-            Ctx.UIManager.ShowInteractPanel();
             collider.gameObject.transform.position = Ctx.Mouth.position;
+            SwitchState(Factory.Snatch());
         }
-        //     SwitchState(Factory.Death());
-        // // if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter < Ctx.MaxNPC)
-        // if (Ctx.IsSnatchPressed)
-        // {
-        //     // Ctx.ConsumeCounter++;
-        //     Ctx.IsSnatchable = true;
-        // }
-    }
-    public override void OnTriggerExit(Collider collider)
-    {
-        Ctx.UIManager.HideInteractPanel();
     }
 }

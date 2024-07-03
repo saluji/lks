@@ -50,6 +50,7 @@ public class PlayerConsumeState : PlayerBaseState
     }
     public override void OnTriggerExit(Collider collider)
     {
-
+        // if (collider.gameObject.CompareTag("NPC"))
+        //     collider.gameObject.Consume();
     }
 }
