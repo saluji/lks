@@ -14,8 +14,8 @@ public class PlayerAttackState : PlayerBaseState
     {
         Ctx.AppliedMovementX = Ctx.AppliedMovementZ = Ctx.TurnSpeed = 0;
         Ctx.Animator.SetBool(Ctx.IsAttackingHash, true);
-        Ctx.AnimationLength = Time.time + 1f;
-        Object.Instantiate(Ctx.Fireball, Ctx.Mouth.position, Ctx.Mouth.rotation);
+        Ctx.AnimationLength = Time.time + 0.5f;
+        Object.Instantiate(Ctx.Fireball, Ctx.JawPosition.position, Ctx.JawPosition.rotation);
         Ctx.IsJumpable = false;
     }
 

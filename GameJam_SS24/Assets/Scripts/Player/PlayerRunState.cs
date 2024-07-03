@@ -1,3 +1,4 @@
+using System.Numerics;
 using UnityEngine;
 
 public class PlayerRunState : PlayerBaseState
@@ -47,10 +48,10 @@ public class PlayerRunState : PlayerBaseState
         {
             SwitchState(Factory.Attack());
         }
-        else if (Ctx.IsSnatchPressed)
-        {
-            SwitchState(Factory.Snatch());
-        }
+        // else if (Ctx.IsSnatchPressed)
+        // {
+        //     SwitchState(Factory.Snatch());
+        // }
         else if (Ctx.IsConsumePressed)
         {
             SwitchState(Factory.Consume());
@@ -61,7 +62,8 @@ public class PlayerRunState : PlayerBaseState
     {
         if (collider.gameObject.CompareTag("NPC") && Ctx.IsSnatchPressed && Ctx.ConsumeCounter < Ctx.MaxNPC)
         {
-            collider.gameObject.transform.position = Ctx.Mouth.position;
+            collider.transform.position = Ctx.transform.position;
+            collider.transform.SetParent(Ctx.Mouth);
             SwitchState(Factory.Snatch());
         }
     }

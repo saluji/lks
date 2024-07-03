@@ -9,7 +9,7 @@ public class KnightEatenState : KnightBaseState
 
     public override void EnterState()
     {
-        // Ctx.Animator.SetBool(Ctx.IsEatenHash, false);
+        Ctx.Animator.SetBool(Ctx.IsEatenHash, true);
         Ctx.SetAgentSpeed(0, 0);
     }
 
@@ -26,16 +26,17 @@ public class KnightEatenState : KnightBaseState
     {
     }
 
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
-    }
-    public override void OnTriggerExit(Collider collider)
-    {
-
+        if (collider.gameObject.CompareTag("Player") && Ctx.PlayerStateMachine.IsSnatchPressed)
+        {
+            Ctx.PlayerStateMachine.ConsumeCounter++;
+            Ctx.PlayerStateMachine.IncreaseHP(Ctx.IncreaseHP);
+            SwitchState(Factory.Death());
+        }
     }
     public void Consumed()
     {
-        // Ctx.PlayerStateMachine.IncreaseHP(Ctx.IncreaseHP);
         //destroy object
         // Object.Destroy(gameObject);
     }

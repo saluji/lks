@@ -58,7 +58,7 @@ public class KnightStateMachine : MonoBehaviour
     public int IsChasingHash { get { return isChasingHash; } }
     public int IsAttackingHash { get { return isAttackingHash; } }
     public int IsDyingHash { get { return isDyingHash; } }
-    // public int IsEatenHash { get { return isEatenHash; } }
+    public int IsEatenHash { get { return isEatenHash; } }
     public int Damage { get { return damage; } }
     public int IncreaseHP { get { return increaseHP; } }
     public float LeaveTIme { get { return leaveTime; } }
@@ -89,7 +89,7 @@ public class KnightStateMachine : MonoBehaviour
         isChasingHash = Animator.StringToHash("isChasing");
         isAttackingHash = Animator.StringToHash("isAttacking");
         isDyingHash = Animator.StringToHash("isDying");
-        // isEatenHash = Animator.StringToHash("isEaten");
+        isEatenHash = Animator.StringToHash("isEaten");
     }
 
     void Start()
@@ -115,12 +115,8 @@ public class KnightStateMachine : MonoBehaviour
         agent.SetDestination(destination);
     }
 
-    void OnTriggerEnter(Collider collider)
+    void OnTriggerStay(Collider collider)
     {
-        currentState.OnTriggerEnter(collider);
-    }
-    void OnTriggerExit(Collider collider)
-    {
-        currentState.OnTriggerExit(collider);
+        currentState.OnTriggerStay(collider);
     }
 }

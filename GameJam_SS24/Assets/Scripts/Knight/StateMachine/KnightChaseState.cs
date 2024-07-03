@@ -30,15 +30,11 @@ public class KnightChaseState : KnightBaseState
 
     }
 
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
-        if (collider.gameObject.CompareTag("Player"))
+        if (collider.gameObject.CompareTag("Player") && Ctx.PlayerStateMachine.IsSnatchPressed || collider.gameObject.CompareTag("Fireball"))
         {
-            SwitchState(Factory.Attack());
+            SwitchState(Factory.Eaten());
         }
-    }
-    public override void OnTriggerExit(Collider collider)
-    {
-
     }
 }

@@ -70,7 +70,8 @@ public class PlayerIdleState : PlayerBaseState
     {
         if (collider.gameObject.CompareTag("NPC") && Ctx.IsSnatchPressed && Ctx.ConsumeCounter < Ctx.MaxNPC)
         {
-            collider.gameObject.transform.position = Ctx.Mouth.position;
+            collider.transform.position = Ctx.transform.position;
+            collider.transform.SetParent(Ctx.Mouth);
             SwitchState(Factory.Snatch());
         }
     }
