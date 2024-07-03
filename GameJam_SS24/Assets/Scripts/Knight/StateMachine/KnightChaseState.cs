@@ -16,12 +16,13 @@ public class KnightChaseState : KnightBaseState
 
     public override void UpdateState()
     {
-        // run towards player
+        // chase player
         Ctx.SetDestination(Ctx.Eyes.player.position);
     }
 
     public override void ExitState()
     {
+
     }
 
     public override void CheckSwitchStates()
@@ -34,10 +35,6 @@ public class KnightChaseState : KnightBaseState
         if (collider.gameObject.CompareTag("Player"))
         {
             SwitchState(Factory.Attack());
-        }
-        if (collider.gameObject.CompareTag("Fireball"))
-        {
-            SwitchState(Factory.Death());
         }
     }
     public override void OnTriggerExit(Collider collider)
