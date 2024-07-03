@@ -9,7 +9,6 @@ public class KnightPatrolState : KnightBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Knight Patrol: Enter");
         Ctx.Animator.SetBool(Ctx.IsPatrolingHash, true);
         Ctx.Animator.SetBool(Ctx.IsChasingHash, false);
         Ctx.TargetPosition = GetNextWaypoint();
@@ -24,13 +23,12 @@ public class KnightPatrolState : KnightBaseState
 
     public override void ExitState()
     {
-        Debug.Log("Knight Patrol: Exit");
     }
 
     public override void CheckSwitchStates()
     {
         // as long as game over is not active
-        if (Ctx.Eyes.isDetecting && !Ctx.GameOverState)
+        if (Ctx.Eyes.isDetecting)
         {
             SwitchState(Factory.Chase());
         }
@@ -44,6 +42,13 @@ public class KnightPatrolState : KnightBaseState
     }
 
     public override void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.CompareTag("Fireball"))
+        {
+            SwitchState(Factory.Death());
+        }
+    }
+    public override void OnTriggerExit(Collider collider)
     {
 
     }

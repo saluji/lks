@@ -33,9 +33,10 @@ public class KnightStateMachine : MonoBehaviour
     // hash variables
     int isPatrolingHash;
     int isChasingHash;
+    int isAttackingHash;
+    int isDyingHash;
 
-    // game over state
-    bool gameOverState = false;
+    float animationLength;
 
     // getter and setter
     public KnightBaseState CurrentState { get { return currentState; } set { currentState = value; } }
@@ -48,13 +49,15 @@ public class KnightStateMachine : MonoBehaviour
     public int CurrentWaypointIndex { get { return currentWaypointIndex; } set { currentWaypointIndex = value; } }
     public int IsPatrolingHash { get { return isPatrolingHash; } }
     public int IsChasingHash { get { return isChasingHash; } }
+    public int IsAttackingHash { get { return isAttackingHash; } }
+    public int IsDyingHash { get { return isDyingHash; } }
     public float LeaveTIme { get { return leaveTime; } }
     public float MovementSpeed { get { return movementSpeed; } }
     public float RunMultiplier { get { return runMultiplier; } }
     public float MinWaitTime { get { return minWaitTime; } }
     public float MaxWaitTime { get { return maxWaitTime; } }
     public float LeaveTime { get { return leaveTime; } set { leaveTime = value; } }
-    public bool GameOverState { get { return gameOverState; } set { gameOverState = value; } }
+    public float AnimationLength { get { return animationLength; } set { animationLength = value; } }
 
     void Awake()
     {
@@ -100,5 +103,9 @@ public class KnightStateMachine : MonoBehaviour
     void OnTriggerEnter(Collider collider)
     {
         currentState.OnTriggerEnter(collider);
+    }
+    void OnTriggerExit(Collider collider)
+    {
+        currentState.OnTriggerExit(collider);
     }
 }

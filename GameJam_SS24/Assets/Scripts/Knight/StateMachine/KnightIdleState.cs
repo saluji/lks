@@ -9,7 +9,6 @@ public class KnightIdleState : KnightBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Knight Idle: Enter");
         Ctx.Animator.SetBool(Ctx.IsPatrolingHash, false);
         Ctx.Animator.SetBool(Ctx.IsChasingHash, false);
         Ctx.LeaveTime = Time.time + Random.Range(Ctx.MinWaitTime, Ctx.MaxWaitTime);
@@ -23,30 +22,32 @@ public class KnightIdleState : KnightBaseState
 
     public override void ExitState()
     {
-        Debug.Log("Knight Idle: Exit");
     }
 
     public override void CheckSwitchStates()
     {
         // // switch to chase if player in range
-        // if (Ctx.Sense.isDetecting && !Ctx.GameOverState)
-        // {
-        //     SwitchState(Factory.Chase());
-        // }
+        if (Ctx.Sense.isDetecting)
+        {
+            SwitchState(Factory.Chase());
+        }
 
-        // // switch to patrol after random amount of time
-        // if (Time.time > Ctx.LeaveTIme)
-        // {
-        //     SwitchState(Factory.Patrol());
-        // }
+        // switch to patrol after random amount of time
+        if (Time.time > Ctx.LeaveTIme)
+        {
+            SwitchState(Factory.Patrol());
+        }
     }
 
     public override void OnTriggerEnter(Collider collider)
     {
-        GameObject other = collider.gameObject;
-        if (other.CompareTag("Player"))
+        if (collider.gameObject.CompareTag("Fireball"))
         {
             SwitchState(Factory.Death());
         }
+    }
+    public override void OnTriggerExit(Collider collider)
+    {
+
     }
 }

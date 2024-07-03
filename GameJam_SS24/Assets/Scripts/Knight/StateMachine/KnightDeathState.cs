@@ -9,12 +9,8 @@ public class KnightDeathState : KnightBaseState
 
     public override void EnterState()
     {
-        Debug.Log("Knight Patrol: Enter");
-        Ctx.Animator.SetBool(Ctx.IsPatrolingHash, true);
-        Ctx.Animator.SetBool(Ctx.IsChasingHash, false);
-        Ctx.TargetPosition = GetNextWaypoint();
-        Ctx.SetDestination(Ctx.TargetPosition);
-        Ctx.SetAgentSpeed(Ctx.MovementSpeed, 1f);
+        Ctx.Animator.SetTrigger(Ctx.IsDyingHash);
+        Ctx.SetAgentSpeed(0, 0);
     }
 
     public override void UpdateState()
@@ -24,13 +20,12 @@ public class KnightDeathState : KnightBaseState
 
     public override void ExitState()
     {
-        Debug.Log("Knight Patrol: Exit");
     }
 
     public override void CheckSwitchStates()
     {
         // as long as game over is not active
-        if (Ctx.Eyes.isDetecting && !Ctx.GameOverState)
+        if (Ctx.Eyes.isDetecting)
         {
             SwitchState(Factory.Chase());
         }
@@ -47,10 +42,8 @@ public class KnightDeathState : KnightBaseState
     {
 
     }
-
-    public Vector3 GetNextWaypoint()
+    public override void OnTriggerExit(Collider collider)
     {
-        Ctx.CurrentWaypointIndex = ++Ctx.CurrentWaypointIndex % Ctx.Waypoints.Length;
-        return Ctx.Waypoints[Ctx.CurrentWaypointIndex].position;
+
     }
 }
