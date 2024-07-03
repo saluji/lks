@@ -10,6 +10,10 @@ public class WifeyStateMachine : MonoBehaviour
 
     // reference variables
     Animator animator;
+    UIManager uIManager;
+
+    // wifey stats
+    [SerializeField] int maxHP = 200;
 
     //hash variables
     int isEatingHash;
@@ -17,10 +21,11 @@ public class WifeyStateMachine : MonoBehaviour
     int isDyingHash;
 
     float animationLength;
-    
+
     //getter and setter
     public WifeyBaseState CurrentState { get { return currentState; } set { currentState = value; } }
     public Animator Animator { get { return animator; } }
+    // public UIManager UIManager { get { return uIManager; } }
     public int IsEatingHash { get { return isEatingHash; } }
     public int IsDefendingHash { get { return isDefendingHash; } }
     public int IsDyingHash { get { return isDyingHash; } }
@@ -28,9 +33,14 @@ public class WifeyStateMachine : MonoBehaviour
 
     void Awake()
     {
+        // initial state 
         states = new WifeyStateFactory(this);
         currentState = states.Idle();
         currentState.EnterState();
+
+        // set max HP value
+        uIManager.WifeyHP.maxValue = maxHP;
+        uIManager.WifeyHP.value = maxHP;
     }
 
     void Update()
@@ -40,5 +50,13 @@ public class WifeyStateMachine : MonoBehaviour
     void OnTriggerEnter(Collider collider)
     {
         currentState.OnTriggerEnter(collider);
+    }
+    public void IncreaseHP(int amount)
+    {
+        uIManager.WifeyHP.value += amount;
+    }
+    public void DecreaseHP(int amount)
+    {
+        uIManager.WifeyHP.value -= amount;
     }
 }

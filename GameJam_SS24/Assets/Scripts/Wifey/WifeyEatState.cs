@@ -13,6 +13,7 @@ public class WifeyEatState : WifeyBaseState
         Ctx.Animator.SetBool(Ctx.IsEatingHash, true);
         Ctx.Animator.SetBool(Ctx.IsDefendingHash, false);
         Ctx.AnimationLength = Time.time + 1.5f;
+        // regen hp with consumeCounter * 5
     }
     public override void UpdateState()
     {

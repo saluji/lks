@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -6,7 +7,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject hUDPanel;
     [SerializeField] GameObject gameOverPanel;
     [SerializeField] GameObject interactPanel;
+    [SerializeField] Slider playerHP;
+    [SerializeField] Slider wifeyHP;
 
+    public Slider PlayerHP { get { return playerHP; } }
+    public Slider WifeyHP { get { return wifeyHP; } }
     void Awake()
     {
         menuPanel.SetActive(false);

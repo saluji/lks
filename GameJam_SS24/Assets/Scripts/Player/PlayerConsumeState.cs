@@ -17,6 +17,7 @@ public class PlayerConsumeState : PlayerBaseState
         Ctx.AppliedMovementZ = 0;
         Ctx.TurnSpeed = 0;
         Ctx.AnimationLength = Time.time + 2.33f;
+        Ctx.IncreaseHP(Ctx.HealAmount);
     }
 
     public override void UpdateState()

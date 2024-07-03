@@ -12,11 +12,14 @@ public class KnightStateMachine : MonoBehaviour
     Animator animator;
     Eyes eyes;
     Sense sense;
+    PlayerStateMachine player;
+    WifeyStateMachine wifey;
 
     // knight stats
     [Header("NPC values")]
     [SerializeField] float movementSpeed;
     [SerializeField] float runMultiplier;
+    [SerializeField] int damage;
 
     // idle variables
     [Header("Idle values")]
@@ -40,6 +43,8 @@ public class KnightStateMachine : MonoBehaviour
 
     // getter and setter
     public KnightBaseState CurrentState { get { return currentState; } set { currentState = value; } }
+    public PlayerStateMachine PlayerStateMachine { get { return player; } }
+    public WifeyStateMachine WifeyStateMachine { get { return wifey; } }
     public NavMeshAgent Agent { get { return agent; } }
     public Animator Animator { get { return animator; } }
     public Sense Sense { get { return sense; } }
@@ -51,6 +56,7 @@ public class KnightStateMachine : MonoBehaviour
     public int IsChasingHash { get { return isChasingHash; } }
     public int IsAttackingHash { get { return isAttackingHash; } }
     public int IsDyingHash { get { return isDyingHash; } }
+    public int Damage { get { return damage; } }
     public float LeaveTIme { get { return leaveTime; } }
     public float MovementSpeed { get { return movementSpeed; } }
     public float RunMultiplier { get { return runMultiplier; } }
@@ -66,6 +72,8 @@ public class KnightStateMachine : MonoBehaviour
         animator = GetComponent<Animator>();
         sense = GetComponentInChildren<Sense>();
         eyes = GetComponentInChildren<Eyes>();
+        player = GameObject.Find("Player").GetComponent<PlayerStateMachine>();
+        wifey = GameObject.Find("").GetComponent<WifeyStateMachine>();
 
         // setup state
         states = new KnightStateFactory(this);

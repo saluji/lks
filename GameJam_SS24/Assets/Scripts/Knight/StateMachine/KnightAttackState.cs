@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class KnightAttackState : KnightBaseState
@@ -39,6 +40,16 @@ public class KnightAttackState : KnightBaseState
         if (collider.gameObject.CompareTag("Fireball"))
         {
             SwitchState(Factory.Death());
+        }
+
+        //decrease hp with every attack
+        if (collider.gameObject.CompareTag("Player"))
+        {
+            Ctx.PlayerStateMachine.DecreaseHP(Ctx.Damage);
+        }
+        if (collider.gameObject.CompareTag("Wifey"))
+        {
+            Ctx.WifeyStateMachine.DecreaseHP(Ctx.Damage);
         }
     }
 

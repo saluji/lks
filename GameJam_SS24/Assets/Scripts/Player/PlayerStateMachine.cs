@@ -15,6 +15,7 @@ public class PlayerStateMachine : MonoBehaviour
     CharacterController characterController;
     Animator animator;
     GameManager gameManager;
+    WifeyStateMachine wifey;
     AudioManager audioManager;
     UIManager uIManager;
     Transform jawPosition;
@@ -44,6 +45,8 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] float movementSpeed = 1f;
     [SerializeField] float runMultiplier = 1f;
     [SerializeField] float turnSpeed = 1.0f;
+    [SerializeField] int maxHP = 100;
+    [SerializeField] int healAmount = 10;
 
     // gravity stats
     [Header("Gravity values")]
@@ -99,6 +102,7 @@ public class PlayerStateMachine : MonoBehaviour
     public int IsStompingHash { get { return isStompingHash; } }
     public int ConsumeCounter { get { return consumeCounter; } set { consumeCounter = value; } }
     public int MaxNPC { get { return maxNPC; } }
+    public int HealAmount { get { return healAmount; } }
     // public bool IsJumping { get { return isJumping; } set { isJumping = value; } }
     public bool IsJumpPressed { get { return isJumpPressed; } }
     public bool IsFalling { get { return isFalling; } set { isFalling = value; } }
@@ -131,11 +135,16 @@ public class PlayerStateMachine : MonoBehaviour
         // set initial reference variables
         playerInput = new PlayerInput();
         characterController = GetComponent<CharacterController>();
+        wifey = GameObject.Find("Wifey").GetComponent<WifeyStateMachine>();
         animator = GetComponent<Animator>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         uIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
         jawPosition = GameObject.Find("JawTip").transform;
+
+        // set max HP value
+        // uIManager.PlayerHP.maxValue = maxHP;
+        uIManager.PlayerHP.maxValue = uIManager.PlayerHP.value = maxHP;
 
         // setup state
         states = new PlayerStateFactory(this);
@@ -303,9 +312,21 @@ public class PlayerStateMachine : MonoBehaviour
     void OnTriggerEnter(Collider collider)
     {
         currentState.OnTriggerEnter(collider);
+        if (collider.gameObject.CompareTag("Wifey"))
+        {
+            wifey.IncreaseHP(healAmount);
+        }
     }
     void OnTriggerExit(Collider collider)
     {
         currentState.OnTriggerExit(collider);
+    }
+    public void IncreaseHP(int amount)
+    {
+        uIManager.PlayerHP.value += amount;
+    }
+    public void DecreaseHP(int amount)
+    {
+        uIManager.PlayerHP.value -= amount;
     }
 }
