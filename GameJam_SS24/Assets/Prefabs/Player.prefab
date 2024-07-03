@@ -1220,15 +1220,16 @@ MonoBehaviour:
   fireball: {fileID: 1630162553560299865, guid: f97405b83c5d9784ab6f7243d6fbb20a,
     type: 3}
   knight: {fileID: 856420011093649411, guid: 2e57708853155ab4ab94f4b3c6844db2, type: 3}
-  npc: {fileID: 112826018924913708, guid: 806f4904b75f4e8419b02bee7da271f4, type: 3}
+  npc: {fileID: 0}
   movementSpeed: 10
   runMultiplier: 3
   turnSpeed: 15
-  maxHP: 100
+  maxHP: 10000
   fallMultiplier: 1
   terminalVelocity: -20
   maxJumpHeight: 5
   maxAirTime: 2
+  healAmount: 100
 --- !u!135 &7753448691946131103
 SphereCollider:
   m_ObjectHideFlags: 0

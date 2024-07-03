@@ -12,7 +12,7 @@ public class NPCWalkState : NPCBaseState
     {
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, true);
         Ctx.Animator.SetBool(Ctx.IsFleeingHash, false);
-        // Ctx.TargetPosition = GetNextWaypoint();
+        Ctx.TargetPosition = GetNextWaypoint();
         Ctx.SetDestination(Ctx.TargetPosition);
         Ctx.SetAgentSpeed(Ctx.MovementSpeed, 1f);
     }
@@ -43,9 +43,9 @@ public class NPCWalkState : NPCBaseState
             SwitchState(Factory.Death());
         }
     }
-    // public Vector3 GetNextWaypoint()
-    // {
-    //     Ctx.CurrentWaypointIndex = ++Ctx.CurrentWaypointIndex % Ctx.Waypoints.Length;
-    //     return Ctx.Waypoints[Ctx.CurrentWaypointIndex].position;
-    // }
+    public Vector3 GetNextWaypoint()
+    {
+        Ctx.CurrentWaypointIndex = ++Ctx.CurrentWaypointIndex % Ctx.Waypoints.Length;
+        return Ctx.Waypoints[Ctx.CurrentWaypointIndex].position;
+    }
 }
