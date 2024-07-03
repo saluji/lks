@@ -37,7 +37,7 @@ public class NPCIdleState : NPCBaseState
         }
 
     }
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
         if (collider.gameObject.CompareTag("Fireball"))
         {

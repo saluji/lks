@@ -16,5 +16,5 @@ public class NPCDeathState : NPCBaseState
     public override void UpdateState() { }
     public override void ExitState() { }
     public override void CheckSwitchStates() { }
-    public override void OnTriggerEnter(Collider collider) { }
+    public override void OnTriggerStay(Collider collider) { }
 }

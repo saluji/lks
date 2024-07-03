@@ -36,7 +36,7 @@ public class NPCWalkState : NPCBaseState
             SwitchState(Factory.Idle());
         }
     }
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
         if (collider.gameObject.CompareTag("Fireball"))
         {

@@ -27,7 +27,7 @@ public class NPCEatenState : NPCBaseState
     {
 
     }
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
 
     }

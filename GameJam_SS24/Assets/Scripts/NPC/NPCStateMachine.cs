@@ -27,7 +27,6 @@ public class NPCStateMachine : MonoBehaviour
 
     // patrol variables
     [Header("Patrol values")]
-    [SerializeField] Transform[] waypoints;
     Vector3 targetPosition;
     int currentWaypointIndex;
 
@@ -45,7 +44,6 @@ public class NPCStateMachine : MonoBehaviour
     public Sense Sense { get { return sense; } }
     public Eyes Eyes { get { return eyes; } }
     public Vector3 TargetPosition { get { return targetPosition; } set { targetPosition = value; } }
-    public Transform[] Waypoints { get { return waypoints; } }
     public int CurrentWaypointIndex { get { return currentWaypointIndex; } set { currentWaypointIndex = value; } }
     public int IsWalkingHash { get { return isWalkingHash; } }
     public int IsFleeingHash { get { return isFleeingHash; } }
@@ -90,8 +88,8 @@ public class NPCStateMachine : MonoBehaviour
         agent.SetDestination(destination);
     }
 
-    void OnTriggerEnter(Collider collider)
+    void OnTriggerStay(Collider collider)
     {
-        currentState.OnTriggerEnter(collider);
+        currentState.OnTriggerStay(collider);
     }
 }
