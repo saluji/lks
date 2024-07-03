@@ -310,7 +310,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     void OnTriggerStay(Collider collider)
     {
-        // currentState.OnTriggerEnter(collider);
+        currentState.OnTriggerStay(collider);
         // if (collider.gameObject.CompareTag("Wifey"))
         // {
         //     wifey.IncreaseHP(healAmount);
