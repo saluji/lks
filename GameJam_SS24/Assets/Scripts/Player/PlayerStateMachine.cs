@@ -14,8 +14,8 @@ public class PlayerStateMachine : MonoBehaviour
     PlayerInput playerInput;
     CharacterController characterController;
     WifeyStateMachine wifey;
-    KnightStateMachine knight;
-    NPCStateMachine npc;
+    // KnightStateMachine knight;
+    // NPCStateMachine npc;
     Animator animator;
     GameManager gameManager;
     AudioManager audioManager;
@@ -23,6 +23,8 @@ public class PlayerStateMachine : MonoBehaviour
     Transform jawPosition;
     Transform mouth;
     [SerializeField] GameObject fireball;
+    [SerializeField] GameObject knight;
+    [SerializeField] GameObject npc;
 
     // store input values
     Vector2 currentMovementInput;
@@ -48,7 +50,6 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] float runMultiplier = 1f;
     [SerializeField] float turnSpeed = 1.0f;
     [SerializeField] int maxHP = 100;
-    [SerializeField] int healAmount = 10;
 
     // gravity stats
     [Header("Gravity values")]
@@ -103,7 +104,6 @@ public class PlayerStateMachine : MonoBehaviour
     public int IsStompingHash { get { return isStompingHash; } }
     public int SnatchCounter { get { return snatchCounter; } set { snatchCounter = value; } }
     public int MaxNPC { get { return maxNPC; } }
-    public int HealAmount { get { return healAmount; } }
     public bool IsJumpable { get { return isJumpable; } set { isJumpable = value; } }
     public bool IsJumpPressed { get { return isJumpPressed; } }
     public bool IsFalling { get { return isFalling; } set { isFalling = value; } }
@@ -135,8 +135,8 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput = new PlayerInput();
         characterController = GetComponent<CharacterController>();
         wifey = GameObject.Find("Wifey").GetComponent<WifeyStateMachine>();
-        knight = GameObject.Find("Knight").GetComponent<KnightStateMachine>();
-        npc = GameObject.Find("NPC").GetComponent<NPCStateMachine>();
+        // knight = GameObject.Find("Knight").GetComponent<KnightStateMachine>();
+        // npc = GameObject.Find("NPC").GetComponent<NPCStateMachine>();
         animator = GetComponent<Animator>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
@@ -324,14 +324,6 @@ public class PlayerStateMachine : MonoBehaviour
     void OnTriggerStay(Collider collider)
     {
         currentState.OnTriggerStay(collider);
-        // if (collider.gameObject.CompareTag("Wifey"))
-        // {
-        //     wifey.IncreaseHP(healAmount);
-        // }
-        // if (collider.gameObject.CompareTag("NPC") && isSnatchPressed)
-        // {
-        //     Destroy(collider.gameObject);
-        // }
     }
 
     // get and receive 1 HP for attack / consumption

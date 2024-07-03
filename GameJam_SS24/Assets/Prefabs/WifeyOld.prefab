@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 976294004583952228}
   - component: {fileID: 1393908758170160011}
   m_Layer: 0
-  m_Name: Wifey
+  m_Name: WifeyOld
   m_TagString: Wifey
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

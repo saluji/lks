@@ -48,6 +48,11 @@ public class WifeyStateMachine : MonoBehaviour
         isDyingHash = Animator.StringToHash("isDying");
     }
 
+    void Start()
+    {
+        HandleHP();
+    }
+
     void Update()
     {
         HandleHP();
@@ -55,8 +60,16 @@ public class WifeyStateMachine : MonoBehaviour
     }
     void HandleHP()
     {
-        // uIManager.WifeyHP.value -= Time.time;
+        uIManager.WifeyHP.value -= 1;
+        StartCoroutine(TickHP());
     }
+
+    IEnumerator TickHP()
+    {
+        yield return new WaitForSeconds(1);
+        HandleHP();
+    }
+
     void OnTriggerEnter(Collider collider)
     {
         currentState.OnTriggerEnter(collider);
