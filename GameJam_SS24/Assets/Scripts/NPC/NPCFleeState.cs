@@ -22,7 +22,7 @@ public class NPCFleeState : NPCBaseState
     public override void CheckSwitchStates()
     {
         // flee towards player's opposite direction
-        Ctx.SetDestination(Ctx.transform.position - Ctx.Eyes.player.position);
+        Ctx.SetDestination(Ctx.transform.position - Ctx.PlayerStateMachine.transform.position);
         // if outside player range
         if (!Ctx.Eyes.IsInRange())
         {
