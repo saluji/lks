@@ -56,7 +56,7 @@ public class PlayerWalkState : PlayerBaseState
         }
     }
 
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
         // snatch NPC to player's mouth
         if (Ctx.IsSnatchPressed && collider.gameObject.CompareTag("NPC"))
@@ -71,9 +71,5 @@ public class PlayerWalkState : PlayerBaseState
         //     // Ctx.ConsumeCounter++;
         //     Ctx.IsSnatchable = true;
         // }
-    }
-    public override void OnTriggerExit(Collider collider)
-    {
-        Ctx.UIManager.HideInteractPanel();
     }
 }

@@ -66,21 +66,17 @@ public class PlayerIdleState : PlayerBaseState
         // }
     }
 
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
         // if (collider.gameObject.CompareTag("NPC"))
-        {
-            // Ctx.UIManager.ShowInteractPanel();
+        // {
+        //     Ctx.UIManager.ShowInteractPanel();
             // // if (Ctx.IsSnatchPressed && Ctx.ConsumeCounter < Ctx.MaxNPC)
             // {
             //     other.gameObject.transform.position = Ctx.Mouth.position;
             //     // Ctx.ConsumeCounter++;
             //     Ctx.IsSnatchable = true;
             // }
-        }
-    }
-    public override void OnTriggerExit(Collider collider)
-    {
-        // Ctx.UIManager.HideInteractPanel();
+        // }
     }
 }

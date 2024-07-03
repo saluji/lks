@@ -58,7 +58,7 @@ public class PlayerRunState : PlayerBaseState
         }
     }
 
-    public override void OnTriggerEnter(Collider collider)
+    public override void OnTriggerStay(Collider collider)
     {
         GameObject other = collider.gameObject;
         if (other.CompareTag("NPC"))
@@ -73,9 +73,5 @@ public class PlayerRunState : PlayerBaseState
             //     Ctx.IsSnatchable = true;
             // }
         }
-    }
-    public override void OnTriggerExit(Collider collider)
-    {
-
     }
 }

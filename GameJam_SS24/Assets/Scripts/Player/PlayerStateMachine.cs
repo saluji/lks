@@ -310,17 +310,17 @@ public class PlayerStateMachine : MonoBehaviour
         playerInput.CharacterControls.Disable();
     }
 
-    void OnTriggerEnter(Collider collider)
+    void OnTriggerStay(Collider collider)
     {
-        currentState.OnTriggerEnter(collider);
+        // currentState.OnTriggerEnter(collider);
         if (collider.gameObject.CompareTag("Wifey"))
         {
             wifey.IncreaseHP(healAmount);
         }
-    }
-    void OnTriggerExit(Collider collider)
-    {
-        currentState.OnTriggerExit(collider);
+        if (collider.gameObject.CompareTag("NPC") && isSnatchPressed)
+        {
+            Destroy(collider.gameObject);
+        }
     }
     public void IncreaseHP(int amount)
     {
