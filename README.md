@@ -14,10 +14,7 @@ This prototype was created at the Visualization and Interaction in Digital Media
 
 ## Third party credits
 
-### 3D character models and animations
-* <a href="https://assetstore.unity.com/packages/3d/characters/jammo-character-mix-and-jam-158456" target="_blank">Jammo</a> by <a href="https://www.youtube.com/@mixandjam/search?query=jammo" target="_blank">Mix and Jam</a>
-* <a href="https://www.mixamo.com/#/?page=1&type=Character" target="_blank">Doozy</a> from Mixamo
-* Animations from <a href="https://www.mixamo.com/#/" target="_blank">Mixamo</a>
+### Animations from <a href="https://www.mixamo.com/#/" target="_blank">Mixamo</a>
 
 ### Polygon asset packs by <a href="https://assetstore.unity.com/publishers/5217" target="_blank">Synty Studios</a> (for educational purposes)
 * <a href="https://assetstore.unity.com/packages/3d/environments/dungeons/polygon-dungeons-low-poly-3d-art-by-synty-102677" target="_blank">Dungeon</a>
