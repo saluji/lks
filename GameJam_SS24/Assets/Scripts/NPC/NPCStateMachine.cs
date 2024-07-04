@@ -9,6 +9,7 @@ public class NPCStateMachine : MonoBehaviour
 
     // reference variables
     PlayerStateMachine player;
+    SpawnManager spawnManager;
     NavMeshAgent agent;
     Animator animator;
     Eyes eyes;

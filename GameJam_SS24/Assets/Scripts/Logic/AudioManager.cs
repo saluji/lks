@@ -13,8 +13,11 @@ public class AudioManager : MonoBehaviour
     public AudioClip run;
     public AudioClip jump;
     public AudioClip death;
+    public AudioClip alert;
     public AudioClip fireball;
     public AudioClip explosion;
+    public AudioClip knightScream;
+    public AudioClip npcScream;
 
     void Awake()
     {
