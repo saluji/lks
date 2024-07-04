@@ -14,6 +14,7 @@ public class WifeyStateMachine : MonoBehaviour
 
     // wifey stats
     [SerializeField] int maxHP = 200;
+    [SerializeField] int healAmount = 200;
 
     //hash variables
     int isEatingHash;
@@ -78,7 +79,7 @@ public class WifeyStateMachine : MonoBehaviour
     // HP increases by 5 for every NPC, receive only 1 dmg per attack
     public void IncreaseHP()
     {
-        uIManager.WifeyHP.value += 5;
+        uIManager.WifeyHP.value += healAmount;
     }
     public void DecreaseHP()
     {

@@ -11,16 +11,20 @@ public class KnightDeathState : KnightBaseState
     {
         Ctx.Animator.SetTrigger(Ctx.IsDyingHash);
         Ctx.SetAgentSpeed(0, 0);
+        Ctx.AnimationLength = Time.time + 2f;
     }
 
     public override void UpdateState()
     {
-        
+        if (Time.time > Ctx.AnimationLength)
+        {
+            Object.Destroy(Ctx.gameObject);
+        }
     }
 
     public override void ExitState()
     {
-        
+
     }
 
     public override void CheckSwitchStates()

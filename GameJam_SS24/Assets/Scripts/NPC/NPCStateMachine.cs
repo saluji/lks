@@ -18,6 +18,7 @@ public class NPCStateMachine : MonoBehaviour
     [Header("NPC values")]
     [SerializeField] float movementSpeed;
     [SerializeField] float runMultiplier;
+    [SerializeField] Transform[] waypoints;
 
     // idle variables
     [Header("Idle values")]
@@ -41,6 +42,7 @@ public class NPCStateMachine : MonoBehaviour
     public PlayerStateMachine PlayerStateMachine { get { return player; } }
     public NavMeshAgent Agent { get { return agent; } }
     public Animator Animator { get { return animator; } }
+    public Transform[] Waypoints { get { return waypoints; } }
     public Sense Sense { get { return sense; } }
     public Eyes Eyes { get { return eyes; } }
     public Vector3 TargetPosition { get { return targetPosition; } set { targetPosition = value; } }

@@ -10,7 +10,6 @@ public class PlayerSnatchState : PlayerBaseState
 
     public override void EnterState()
     {
-        Ctx.AppliedMovementX = Ctx.AppliedMovementZ = Ctx.TurnSpeed = 0;
         Ctx.Animator.SetBool(Ctx.IsSnatchingHash, true);
         Ctx.AnimationLength = Time.time + 1f;
         Ctx.IsJumpable = false;
@@ -18,6 +17,8 @@ public class PlayerSnatchState : PlayerBaseState
 
     public override void UpdateState()
     {
+        Ctx.AppliedMovementX = Ctx.CurrentMovementInput.x * Ctx.MovementSpeed;
+        Ctx.AppliedMovementZ = Ctx.CurrentMovementInput.y * Ctx.MovementSpeed;
         CheckSwitchStates();
     }
 

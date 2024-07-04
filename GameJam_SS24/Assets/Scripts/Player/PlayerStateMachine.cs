@@ -44,6 +44,8 @@ public class PlayerStateMachine : MonoBehaviour
     bool isStompPressed;
     bool isActionable;
 
+    bool isAudible;
+
     // player stats
     [Header("Player values")]
     [SerializeField] float movementSpeed = 1f;
@@ -77,6 +79,7 @@ public class PlayerStateMachine : MonoBehaviour
     // NPC consumption counter
     int snatchCounter = 0;
     int maxNPC = 100;
+    [SerializeField] int healAmount = 100;
 
     // animation length
     float animationLength = 0;
@@ -101,7 +104,7 @@ public class PlayerStateMachine : MonoBehaviour
     public int IsConsumingHash { get { return isConsumingHash; } }
     public int IsDyingHash { get { return isDyingHash; } }
     public int IsAttackingHash { get { return isAttackingHash; } }
-    public int IsStompingHash { get { return isStompingHash; } }
+    public int IsStompingHash { get { return isStompingHash; } set { isStompingHash = value; } }
     public int SnatchCounter { get { return snatchCounter; } set { snatchCounter = value; } }
     public int MaxNPC { get { return maxNPC; } }
     public bool IsJumpable { get { return isJumpable; } set { isJumpable = value; } }
@@ -114,7 +117,7 @@ public class PlayerStateMachine : MonoBehaviour
     public bool IsAttackPressed { get { return isAttackPressed; } }
     public bool RequireNewJumpPress { get { return requireNewJumpPress; } set { requireNewJumpPress = value; } }
     public bool IsActionable { get { return isActionable; } set { isActionable = value; } }
-    public bool IsStompPressed { get { return isStompPressed; } }
+    public bool IsAudible { get { return isAudible; } }
     public float MovementSpeed { get { return movementSpeed; } }
     public float RunMultiplier { get { return runMultiplier; } }
     public float CurrentMovementY { get { return currentMovement.y; } set { currentMovement.y = value; } }
@@ -329,7 +332,7 @@ public class PlayerStateMachine : MonoBehaviour
     // get and receive 1 HP for attack / consumption
     public void IncreaseHP()
     {
-        uIManager.PlayerHP.value++;
+        uIManager.PlayerHP.value += healAmount;
     }
     public void DecreaseHP()
     {
