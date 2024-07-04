@@ -9,7 +9,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject menuPanel;
     [SerializeField] GameObject hUDPanel;
     [SerializeField] GameObject gameOverPanel;
-    [SerializeField] GameObject interactPanel;
     [SerializeField] Slider playerHP;
     [SerializeField] Slider wifeyHP;
     [SerializeField] TextMeshProUGUI scoreText;
@@ -23,8 +22,6 @@ public class UIManager : MonoBehaviour
         menuPanel.SetActive(false);
         hUDPanel.SetActive(true);
         gameOverPanel.SetActive(false);
-        interactPanel.SetActive(false);
-
         scoreText.text = "";
     }
 
@@ -39,17 +36,9 @@ public class UIManager : MonoBehaviour
         hUDPanel.SetActive(false);
         gameOverPanel.SetActive(true);
     }
-    public void ShowInteractPanel()
-    {
-        interactPanel.SetActive(true);
-    }
-    public void HideInteractPanel()
-    {
-        interactPanel.SetActive(false);
-    }
     public void UpdateScore()
     {
         scoreText.text = "";
-        scoreText.text = player.SnatchCounter.ToString() + " / 100 ";
+        scoreText.text = player.SnatchCounter.ToString();
     }
 }
