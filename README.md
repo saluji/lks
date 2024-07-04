@@ -29,3 +29,7 @@ This prototype was created at the Visualization and Interaction in Digital Media
 * https://assetstore.unity.com/packages/vfx/particles/fire-explosions/low-poly-fire-244190
 * https://assetstore.unity.com/packages/vfx/particles/fire-explosions/low-poly-fire-244190
 * https://assetstore.unity.com/packages/2d/gui/fantasy-wooden-gui-free-103811
+
+Sound & Music
+* Pixabay
+* Global Game Jam Sound Pack 2024
