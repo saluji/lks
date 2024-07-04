@@ -5,24 +5,23 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    PlayerStateMachine player;
     [SerializeField] GameObject menuPanel;
     [SerializeField] GameObject hUDPanel;
     [SerializeField] GameObject gameOverPanel;
     [SerializeField] Slider playerHP;
     [SerializeField] Slider wifeyHP;
-    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI scoreComponent;
 
     public Slider PlayerHP { get { return playerHP; } }
     public Slider WifeyHP { get { return wifeyHP; } }
 
     void Awake()
     {
-        player = GameObject.Find("Player").GetComponent<PlayerStateMachine>();
         menuPanel.SetActive(false);
         hUDPanel.SetActive(true);
         gameOverPanel.SetActive(false);
-        scoreText.text = "";
+        scoreComponent.text = string.Empty;
+        scoreComponent.text = "0";
     }
 
     public void TogglePause(bool isPaused)
@@ -36,9 +35,10 @@ public class UIManager : MonoBehaviour
         hUDPanel.SetActive(false);
         gameOverPanel.SetActive(true);
     }
-    public void UpdateScore()
+    
+    public void UpdateScore(int counter)
     {
-        scoreText.text = "";
-        scoreText.text = player.SnatchCounter.ToString();
+        scoreComponent.text = string.Empty;
+        scoreComponent.text = counter.ToString();
     }
 }

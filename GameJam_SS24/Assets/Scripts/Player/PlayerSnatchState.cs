@@ -10,9 +10,11 @@ public class PlayerSnatchState : PlayerBaseState
 
     public override void EnterState()
     {
+        Ctx.SnatchCounter++;
         Ctx.Animator.SetBool(Ctx.IsSnatchingHash, true);
         Ctx.AnimationLength = Time.time + 1f;
         Ctx.IsJumpable = false;
+        Ctx.UIManager.UpdateScore(Ctx.SnatchCounter);
     }
 
     public override void UpdateState()

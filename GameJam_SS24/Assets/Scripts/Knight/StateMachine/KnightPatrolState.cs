@@ -46,6 +46,7 @@ public class KnightPatrolState : KnightBaseState
         }
         else if (collider.gameObject.CompareTag("Wifey"))
         {
+            Ctx.WifeyStateMachine.DecreaseHP();
             SwitchState(Factory.Attack());
         }
     }

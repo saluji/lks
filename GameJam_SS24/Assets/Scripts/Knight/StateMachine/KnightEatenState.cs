@@ -31,12 +31,12 @@ public class KnightEatenState : KnightBaseState
         if (collider.gameObject.CompareTag("Player") && Ctx.PlayerStateMachine.IsConsumePressed)
         {
             Ctx.PlayerStateMachine.IncreaseHP();
-            // Object.Destroy(gameObject.this);
+            Object.Destroy(Ctx.gameObject);
         }
         else if (collider.gameObject.CompareTag("Wifey"))
         {
             Ctx.WifeyStateMachine.IncreaseHP();
-            // Object.Destroy(gameObject.this);
+            Object.Destroy(Ctx.gameObject);
         }
     }
 }

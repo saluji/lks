@@ -69,5 +69,4 @@ public class Eyes : Sense
             return false;
         }
     }
-
 }
