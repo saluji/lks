@@ -22,6 +22,8 @@ This prototype was created at the Visualization and Interaction in Digital Media
 * <a href="https://assetstore.unity.com/packages/3d/environments/fantasy/polygon-fantasy-kingdom-low-poly-3d-art-by-synty-164532" target="_blank">Fantasy Kingdom</a>
 * <a href="https://assetstore.unity.com/packages/3d/environments/fantasy/polygon-knights-low-poly-3d-art-by-synty-83694" target="_blank">Knights</a>
 * <a href="https://assetstore.unity.com/packages/3d/vegetation/trees/polygon-meadow-forest-nature-biomes-low-poly-3d-art-by-synty-234255" target="_blank">Meadow Forest</a>
+
+### Characters, Graphics & UI
 * https://assetstore.unity.com/packages/3d/characters/creatures/dragon-for-boss-monster-hp-79398
 * https://assetstore.unity.com/packages/vfx/particles/fire-explosions/low-poly-fire-244190
 * https://assetstore.unity.com/packages/vfx/particles/fire-explosions/low-poly-fire-244190
