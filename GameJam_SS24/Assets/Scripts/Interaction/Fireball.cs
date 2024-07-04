@@ -19,6 +19,7 @@ public class Fireball : MonoBehaviour
         if (collider.gameObject.CompareTag("NPC"))
         {
             Destroy(gameObject);
+            Destroy(collider.gameObject);
             // audioManager.PlaySFX(audioManager.explosion);
         }
     }

@@ -50,4 +50,8 @@ public class KnightPatrolState : KnightBaseState
             SwitchState(Factory.Attack());
         }
     }
+    public override void OnTriggerExit(Collider collider)
+    {
+        
+    }
 }

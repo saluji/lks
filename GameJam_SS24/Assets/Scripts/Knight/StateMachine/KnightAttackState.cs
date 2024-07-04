@@ -59,6 +59,12 @@ public class KnightAttackState : KnightBaseState
             SwitchState(Factory.Attack());
         }
     }
+
+    public override void OnTriggerExit(Collider collider)
+    {
+        
+    }
+    
     IEnumerator AttackCooldown()
     {
         yield return new WaitForSeconds(10);

@@ -39,4 +39,8 @@ public class KnightEatenState : KnightBaseState
             Object.Destroy(Ctx.gameObject);
         }
     }
+    public override void OnTriggerExit(Collider collider)
+    {
+        
+    }
 }

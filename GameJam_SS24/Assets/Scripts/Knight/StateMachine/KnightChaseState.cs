@@ -49,4 +49,11 @@ public class KnightChaseState : KnightBaseState
             SwitchState(Factory.Death());
         }
     }
+    public override void OnTriggerExit(Collider collider)
+    {
+        if (collider.gameObject.CompareTag("Player"))
+        {
+            SwitchState(Factory.Patrol());
+        }
+    }
 }

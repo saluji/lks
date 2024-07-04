@@ -36,4 +36,8 @@ public class KnightDeathState : KnightBaseState
     {
 
     }
+    public override void OnTriggerExit(Collider collider)
+    {
+
+    }
 }

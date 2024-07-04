@@ -19,17 +19,24 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnKnight()
     {
-        int randomIndex = Random.Range(0, knightSpawnPoints.Length);
-        Instantiate(knight, knightSpawnPoints[randomIndex].transform.position, knightSpawnPoints[randomIndex].transform.rotation);
-        knight.SetActive(true);
-        StartCoroutine(SpawnDelay());
+        for (int i = 0; i <= spawnAmount; i++)
+        {
+            int randomIndex = Random.Range(0, knightSpawnPoints.Length);
+            Instantiate(knight, knightSpawnPoints[randomIndex].transform.position, knightSpawnPoints[randomIndex].transform.rotation);
+            knight.SetActive(true);
+            StartCoroutine(SpawnDelay());
+        }
     }
     void SpawnNPC()
     {
-        int randomIndex = Random.Range(0, knightSpawnPoints.Length);
-        Instantiate(npc, npcSpawnPoints[randomIndex].transform.position, npcSpawnPoints[randomIndex].transform.rotation);
-        npc.SetActive(true);
-        StartCoroutine(SpawnDelay());
+        for (int i = 0; i <= spawnAmount; i++)
+        {
+            int randomIndex = Random.Range(0, npcSpawnPoints.Length);
+            Instantiate(npc, npcSpawnPoints[randomIndex].transform.position, npcSpawnPoints[randomIndex].transform.rotation);
+            npc.SetActive(true);
+            StartCoroutine(SpawnDelay());
+        }
+
     }
 
     IEnumerator SpawnDelay()
