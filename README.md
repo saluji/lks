@@ -2,7 +2,7 @@
 This repository contains all commits for our prototype.
 
 ## Authors
-* Saluji
+* Erwin Oudomvylay
 * Miles Bulut
 * Fabian Kemser
 
