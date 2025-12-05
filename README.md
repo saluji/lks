@@ -2,9 +2,9 @@
 This repository contains all commits for our prototype.
 
 ## Authors
-* Erwin Oudomvylay
-* Miles Bulut
-* Fabian Kemser
+* <a href="https://github.com/saluji/" target="_blank">saluji</a> (Programmer & Sound Designer)
+* <a href="https://selimbulut1818.myportfolio.com/" target="_blank">milessbm</a> (Artist & Designer)
+* <a href="https://www.instagram.com/fabik_art/" target="_blank">Fabian Kemser</a> (Level Designer & Effects)
 
 ## Credits
 This prototype was created at the Visualization and Interaction in Digital Media (VIS) program of HS Ansbach. Supervised by Prof. Sebastian Stamm & Prof. Florian Machill (Game Jam SS24).
